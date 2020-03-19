@@ -16,7 +16,7 @@
         <activity android:name=".RegisterDoctor" />
         <activity android:name=".RegisterPatient" />
         <activity android:name=".Module" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
