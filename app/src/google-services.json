@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "951259180878",
+    "firebase_url": "https://app-ointmentt-128ff.firebaseio.com",
+    "project_id": "app-ointmentt-128ff",
+    "storage_bucket": "app-ointmentt-128ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951259180878:android:f2d0f2fd17fdccd319381f",
+        "android_client_info": {
+          "package_name": "com.example.app_ointmentt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951259180878-vufd75frrvmrgcu8jfd3nhfbvumqfur7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.app_ointmentt",
+            "certificate_hash": "7438001b7fe9feae79d68a16b17d93c8e3d18760"
+          }
+        },
+        {
+          "client_id": "951259180878-fn9ogpod8gc63ad2763rjost59g2cnl9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1xvGEPKP0wfglSIz9S0A0csXH8lv3uyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951259180878-fn9ogpod8gc63ad2763rjost59g2cnl9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
