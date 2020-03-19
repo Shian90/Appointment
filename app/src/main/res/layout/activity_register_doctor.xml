@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/doctorRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55dp"
+                android:text="Register"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="50dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/usernameDoctorRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:hint="Username"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/emailDoctorRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:hint="E-mail Address"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/passwordDoctorRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword" />
+
+            <TextView
+                android:id="@+id/dobDoctorRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:hint="Select Date of Birth"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/contactDoctorRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:maxLength="11"
+                android:hint="Contact Number"
+                android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/certificateRegistrationNumberDoctorRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:maxLength="11"
+                android:hint="Certificate Number"
+                android:inputType="numberDecimal" />
+
+            <Spinner
+                android:id="@+id/doctorTypeDoctorRegister"
+                android:layout_width="210dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:visibility="visible" />
+
+            <EditText
+                android:id="@+id/specialityDoctorRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:hint="Field of Speciality"
+                android:inputType="textPersonName" />
+
+            <Spinner
+                android:id="@+id/chamberLocationDistrictDoctorRegister"
+                android:layout_width="210dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:visibility="visible" />
+
+            <Spinner
+                android:id="@+id/bloodGroupDoctorRegister"
+                android:layout_width="210dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:visibility="visible" />
+
+            <Spinner
+                android:id="@+id/genderDoctorRegister"
+                android:layout_width="210dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:visibility="visible" />
+
+            <Spinner
+                android:id="@+id/addressDistrictDoctorRegister"
+                android:layout_width="210dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:visibility="visible" />
+
+            <EditText
+                android:id="@+id/addressAreaDoctorRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:hint="Address(Area)"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/registerBtnDoctorRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:text="Register"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

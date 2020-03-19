@@ -1,4 +1,4 @@
-package com.example.appointment
+package com.example.app_ointmentt
 
 import org.junit.Test
 
