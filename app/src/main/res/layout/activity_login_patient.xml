@@ -87,6 +87,7 @@
         android:layout_marginTop="120dp"
         android:layout_marginBottom="232dp"
         android:text="Patient's Login"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="35sp"
         app:layout_constraintBottom_toTopOf="@+id/emailPatientLogin"
         app:layout_constraintEnd_toEndOf="parent"

@@ -13,8 +13,8 @@
         <activity android:name=".HomePageDoctor" />
         <activity android:name=".LoginDoctor" />
         <activity android:name=".LoginPatient" android:theme="@style/SplashTheme"/>
-        <activity android:name=".RegisterDoctor" />
-        <activity android:name=".RegisterPatient" />
+        <activity android:name=".RegisterDoctor" android:theme="@style/SplashTheme"/>
+        <activity android:name=".RegisterPatient" android:theme="@style/SplashTheme"/>
         <activity android:name=".Module" android:theme="@style/SplashTheme"/>
         <activity android:name=".MainActivity" android:theme="@style/SplashTheme">
             <intent-filter>
