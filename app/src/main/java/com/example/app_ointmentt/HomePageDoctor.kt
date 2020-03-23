@@ -13,9 +13,9 @@ class HomePageDoctor : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page_doctor)
 
-        logoutBtnDoctorHomePage.setOnClickListener {
-            logout()
-        }
+        //logoutBtnDoctorHomePage.setOnClickListener {
+            //logout()
+        //}
     }
 
     private fun logout(){

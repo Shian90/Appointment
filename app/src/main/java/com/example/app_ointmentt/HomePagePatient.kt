@@ -1,10 +1,9 @@
 package com.example.app_ointmentt
 
-import android.content.Intent
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home_page_patient.*
 
 class HomePagePatient : AppCompatActivity() {
@@ -13,20 +12,32 @@ class HomePagePatient : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page_patient)
 
-        logoutBtnPatientHomePage.setOnClickListener {
-            logout()
+        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        supportFragmentManager.beginTransaction().replace(R.id.main,PatientHomeFragment(),PatientHomeFragment().javaClass.simpleName)
+            .commit()
+    }
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
+        when (menuItem.itemId) {
+            R.id.home -> {
+                val fragment = PatientHomeFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.main, fragment, fragment.javaClass.simpleName)
+                    .commit()
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.history -> {
+                val fragment = PatientHistoryFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.main, fragment, fragment.javaClass.simpleName)
+                    .commit()
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.notification -> {
+                val fragment = PatientNotificationFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.main, fragment, fragment.javaClass.simpleName)
+                    .commit()
+                return@OnNavigationItemSelectedListener true
+            }
         }
+        false
     }
 
-    private fun logout(){
-
-        FirebaseAuth.getInstance().signOut()
-
-        val intent = Intent(this, Module::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        Toast.makeText(this, "User has been logged out", Toast.LENGTH_SHORT).show()
-        finish()
-
-    }
 }
