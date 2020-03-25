@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/doctorRegister"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="55dp"
-                android:text="Register"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="50dp"
-                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/usernameDoctorRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:layout_gravity="center"
                 android:ems="10"
                 android:hint="Username"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="63dp"
+                tools:layout_editor_absoluteY="399dp" />
 
             <EditText
                 android:id="@+id/emailDoctorRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:ems="10"
                 android:hint="E-mail Address"
                 android:inputType="textEmailAddress" />
@@ -48,8 +48,8 @@
                 android:id="@+id/passwordDoctorRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:ems="10"
                 android:hint="Password"
                 android:inputType="textPassword" />
@@ -58,34 +58,34 @@
                 android:id="@+id/dobDoctorRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:ems="10"
                 android:hint="Select Date of Birth"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textSize="18dp" />
 
             <EditText
                 android:id="@+id/contactDoctorRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:ems="10"
-                android:maxLength="11"
                 android:hint="Contact Number"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:maxLength="11" />
 
             <EditText
                 android:id="@+id/certificateRegistrationNumberDoctorRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:ems="10"
-                android:maxLength="11"
                 android:hint="Certificate Number"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal"
+                android:maxLength="11" />
 
             <Spinner
                 android:id="@+id/doctorTypeDoctorRegister"
@@ -99,8 +99,8 @@
                 android:id="@+id/specialityDoctorRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="24dp"
                 android:ems="10"
                 android:hint="Field of Speciality"
                 android:inputType="textPersonName" />
@@ -141,8 +141,8 @@
                 android:id="@+id/addressAreaDoctorRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:ems="10"
                 android:hint="Address(Area)"
                 android:inputType="text" />
@@ -151,15 +151,39 @@
                 android:id="@+id/registerBtnDoctorRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
                 android:background="@color/colorPrimaryDark"
                 android:text="Register"
                 android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp"/>
+                android:textStyle="bold" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/patientRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Doctor's Register"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="35sp"
+                android:textStyle="normal"
+                tools:layout_editor_absoluteX="-40dp"
+                tools:layout_editor_absoluteY="266dp" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4868dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/login_page_design" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

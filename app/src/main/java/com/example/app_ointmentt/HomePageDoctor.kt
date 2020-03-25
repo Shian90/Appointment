@@ -1,11 +1,10 @@
 package com.example.app_ointmentt
 
-import android.content.Intent
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_home_page_doctor.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_home_page_patient.*
 
 class HomePageDoctor : AppCompatActivity() {
 
@@ -13,21 +12,32 @@ class HomePageDoctor : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page_doctor)
 
-        logoutBtnDoctorHomePage.setOnClickListener {
-            logout()
-        }
+        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        supportFragmentManager.beginTransaction().replace(R.id.main,PatientHomeFragment(),PatientHomeFragment().javaClass.simpleName)
+            .commit()
     }
-
-    private fun logout(){
-
-        FirebaseAuth.getInstance().signOut()
-
-        val intent = Intent(this, Module::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        Toast.makeText(this, "User has been logged out", Toast.LENGTH_SHORT).show()
-        finish()
-
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
+        when (menuItem.itemId) {
+            R.id.home -> {
+                val fragment = DoctorHomeFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.main, fragment, fragment.javaClass.simpleName)
+                    .commit()
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.history -> {
+                val fragment = DoctorHistoryFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.main, fragment, fragment.javaClass.simpleName)
+                    .commit()
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.notification -> {
+                val fragment = DoctorNotificationFragment()
+                supportFragmentManager.beginTransaction().replace(R.id.main, fragment, fragment.javaClass.simpleName)
+                    .commit()
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
     }
 
 }
