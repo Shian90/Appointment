@@ -9,6 +9,7 @@ import android.widget.Toast.LENGTH_SHORT
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login_patient.*
+import kotlinx.android.synthetic.main.activity_module.*
 
 class LoginPatient : AppCompatActivity() {
 
@@ -17,11 +18,20 @@ class LoginPatient : AppCompatActivity() {
         setContentView(R.layout.activity_login_patient)
 
         loginBtnPatientLogin.setOnClickListener {
-            login()
+            //login() -- modify this function
+            val intent = Intent(this, HomePagePatient::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
+
         }
 
         signUpBtnPatientLogin.setOnClickListener {
             startActivity(Intent(this, RegisterPatient::class.java))
+        }
+
+        doctorModuleBtn.setOnClickListener {
+            startActivity(Intent(this, LoginDoctor::class.java))
         }
     }
 

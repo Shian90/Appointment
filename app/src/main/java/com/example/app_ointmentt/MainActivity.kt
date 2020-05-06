@@ -4,13 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
-import android.widget.Toast
-import android.widget.Toast.LENGTH_LONG
-import android.widget.Toast.LENGTH_SHORT
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.core.Tag
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,9 +17,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val userID = FirebaseAuth.getInstance().uid
+        val animLogo = AnimationUtils.loadAnimation(this,R.anim.dropanimation)
+        val logo = logoImageView
+        logo.startAnimation(animLogo)
 
         Handler().postDelayed(
             {
+
                 if(userID != null){
 
                     val refPat = FirebaseFirestore.getInstance().collection("Patients")
@@ -43,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }else {
-                    startActivity(Intent(this, Module::class.java))
+                    startActivity(Intent(this, LoginPatient::class.java))
                     finish()
                 }
             }, 1000)

@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".HomePagePatient"></activity>
         <activity android:name=".HomePageDoctor" />
-        <activity android:name=".LoginDoctor" />
+        <activity android:name=".LoginDoctor" android:theme="@style/SplashTheme"/>
         <activity android:name=".LoginPatient" android:theme="@style/SplashTheme"/>
         <activity android:name=".RegisterDoctor" android:theme="@style/SplashTheme"/>
         <activity android:name=".RegisterPatient" android:theme="@style/SplashTheme"/>

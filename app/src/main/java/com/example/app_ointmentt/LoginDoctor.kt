@@ -18,11 +18,21 @@ class LoginDoctor : AppCompatActivity() {
         setContentView(R.layout.activity_login_doctor)
 
         loginBtnDoctorLogin.setOnClickListener {
-            login()
+            //login() -- modify this function
+            val intent = Intent(this, HomePageDoctor::class.java)
+            intent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
         }
 
         signUpBtnDoctorLogin.setOnClickListener {
             startActivity(Intent(this, RegisterDoctor::class.java))
+        }
+
+
+        patientModuleBtn.setOnClickListener {
+            startActivity(Intent(this, LoginPatient::class.java))
         }
 
     }
