@@ -13,7 +13,7 @@ class HomePageDoctor : AppCompatActivity() {
         setContentView(R.layout.activity_home_page_doctor)
 
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        supportFragmentManager.beginTransaction().replace(R.id.main,PatientHomeFragment(),PatientHomeFragment().javaClass.simpleName)
+        supportFragmentManager.beginTransaction().replace(R.id.main,DoctorHomeFragment(),DoctorHomeFragment().javaClass.simpleName)
             .commit()
     }
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->

@@ -18,10 +18,15 @@ class PatientHomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater!!.inflate(R.layout.fragment_type_of_doctor, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_type_of_doctor, container, false)
 
         view.logoutBtnPatientHomePage.setOnClickListener { view ->
-            logout()
+            //logout() -- add logic here
+            val intent = Intent(activity, LoginPatient::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            Toast.makeText(activity, "User has been logged out", Toast.LENGTH_SHORT).show()
+            activity?.finish()
         }
         // Return the fragment view/layout
         return view
