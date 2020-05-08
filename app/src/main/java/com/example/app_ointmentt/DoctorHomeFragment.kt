@@ -22,7 +22,7 @@ class DoctorHomeFragment : Fragment() {
         val view: View = inflater!!.inflate(R.layout.fragment_doctor_homepage, container, false)
 
         view.logoutBtnDoctorHomePage.setOnClickListener { view ->
-            logout()
+            //logout()
         }
         // Return the fragment view/layout
         return view

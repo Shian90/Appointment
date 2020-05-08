@@ -18,16 +18,20 @@ class DoctorNotificationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_doctor_notification,container,false)
+        initRecyclerView(rootView)
+        bindData()
+        return rootView
+    }
 
-        rootView.recyclerView.apply {
+    private fun bindData(){
+        notificationAdapter.submitList(Rawdata.members)
+    }
+
+    private fun initRecyclerView(rootView: View){
+            rootView.recyclerView.apply {
             notificationAdapter = NotificationAdapter()
             adapter = notificationAdapter
             layoutManager = LinearLayoutManager(context)
-
         }
-
-        notificationAdapter.submitList(Rawdata.members)
-
-        return rootView
     }
 }
