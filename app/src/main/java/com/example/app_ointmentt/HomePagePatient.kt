@@ -3,8 +3,11 @@ package com.example.app_ointmentt
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_home_page_doctor.*
 import kotlinx.android.synthetic.main.activity_home_page_patient.*
+import kotlinx.android.synthetic.main.activity_home_page_patient.bottomNavigationView
 
 class HomePagePatient : AppCompatActivity() {
 
@@ -12,6 +15,7 @@ class HomePagePatient : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page_patient)
 
+        setSupportActionBar(toolbar as Toolbar?)
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         supportFragmentManager.beginTransaction().replace(R.id.main,PatientHomeFragment(),PatientHomeFragment().javaClass.simpleName)
             .commit()
