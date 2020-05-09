@@ -3,19 +3,20 @@ package com.example.app_ointmentt
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home_page_doctor.*
 import kotlinx.android.synthetic.main.activity_home_page_patient.*
 import kotlinx.android.synthetic.main.activity_home_page_patient.bottomNavigationView
+import kotlinx.android.synthetic.main.toolbar.view.*
 
 class HomePagePatient : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page_patient)
-
-        setSupportActionBar(toolbar as Toolbar?)
+        changeToolbarTitle(toolbar = toolbar,txt = "Appointment")
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         supportFragmentManager.beginTransaction().replace(R.id.main,PatientHomeFragment(),PatientHomeFragment().javaClass.simpleName)
             .commit()
@@ -23,18 +24,21 @@ class HomePagePatient : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
         when (menuItem.itemId) {
             R.id.home -> {
+                changeToolbarTitle(toolbar = toolbar,txt = "Appointment")
                 val fragment = PatientHomeFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.main, fragment, fragment.javaClass.simpleName)
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.history -> {
+                changeToolbarTitle(toolbar = toolbar,txt = "History")
                 val fragment = PatientHistoryFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.main, fragment, fragment.javaClass.simpleName)
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.notification -> {
+                changeToolbarTitle(toolbar = toolbar,txt = "Notification")
                 val fragment = PatientNotificationFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.main, fragment, fragment.javaClass.simpleName)
                     .commit()
@@ -42,6 +46,10 @@ class HomePagePatient : AppCompatActivity() {
             }
         }
         false
+    }
+
+    private fun changeToolbarTitle(toolbar: View?, txt: String){
+        toolbar!!.toolbarTitle.setText(txt)
     }
 
 }
