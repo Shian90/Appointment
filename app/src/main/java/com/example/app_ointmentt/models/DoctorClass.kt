@@ -1,4 +1,4 @@
-package com.example.app_ointmentt
+package com.example.app_ointmentt.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

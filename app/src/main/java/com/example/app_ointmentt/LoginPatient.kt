@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import com.example.app_ointmentt.models.PatientClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login_patient.*
-import kotlinx.android.synthetic.main.activity_module.*
 
 class LoginPatient : AppCompatActivity() {
 

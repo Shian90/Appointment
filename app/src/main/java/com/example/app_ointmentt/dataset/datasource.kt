@@ -60,3 +60,36 @@ object HistoryRawData {
         History("This is another new History")
     ))
 }
+
+object PatientHistoryRawData {
+    val members = (listOf<History>(
+        History("This is a patient History"),
+        History("This is another new History"),
+        History("This is a patient History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History"),History("This is a new History"),
+        History("This is another new History")
+    ))
+}
