@@ -9,7 +9,6 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="3dp"
@@ -40,7 +39,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/ic_bluenotification"
+                android:src="@drawable/ic_bluehistory"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.043"

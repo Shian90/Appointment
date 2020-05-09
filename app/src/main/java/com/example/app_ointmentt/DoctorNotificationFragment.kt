@@ -1,12 +1,12 @@
 package com.example.app_ointmentt
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.app_ointmentt.adapter.NotificationAdapter
 import com.example.app_ointmentt.dataset.Rawdata
 import kotlinx.android.synthetic.main.fragment_doctor_notification.view.*
 
@@ -28,8 +28,9 @@ class DoctorNotificationFragment : Fragment() {
     }
 
     private fun initRecyclerView(rootView: View){
-            rootView.recyclerView.apply {
-            notificationAdapter = NotificationAdapter()
+            rootView.notificationRecyclerView.apply {
+            notificationAdapter =
+                NotificationAdapter()
             adapter = notificationAdapter
             layoutManager = LinearLayoutManager(context)
         }
