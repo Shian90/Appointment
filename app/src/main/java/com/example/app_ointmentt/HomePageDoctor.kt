@@ -9,17 +9,21 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home_page_doctor.*
 import kotlinx.android.synthetic.main.activity_home_page_patient.*
 import kotlinx.android.synthetic.main.activity_home_page_patient.bottomNavigationView
+import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.toolbar.view.*
+import kotlinx.android.synthetic.main.toolbar.view.profile_image
 
 class HomePageDoctor : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page_doctor)
-
         changeToolbarTitle(toolbar = toolbar2, txt = "Appointment")
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        supportFragmentManager.beginTransaction().replace(R.id.main,DoctorHomeFragment(),DoctorHomeFragment().javaClass.simpleName)
+        loadHomeFragment()
+    }
+    private fun loadHomeFragment(){
+        supportFragmentManager.beginTransaction().replace(R.id.main,PatientHomeFragment(),PatientHomeFragment().javaClass.simpleName)
             .commit()
     }
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
