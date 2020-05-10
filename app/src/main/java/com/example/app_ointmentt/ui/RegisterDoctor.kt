@@ -1,23 +1,11 @@
-package com.example.app_ointmentt
+package com.example.app_ointmentt.ui
 
-import android.app.DatePickerDialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
-import androidx.annotation.RequiresApi
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.app_ointmentt.R
 import kotlinx.android.synthetic.main.activity_register_doctor.*
-import kotlinx.android.synthetic.main.activity_register_patient.*
-import java.util.*
 
 class RegisterDoctor : AppCompatActivity() {
 

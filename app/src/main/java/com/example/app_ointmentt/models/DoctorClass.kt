@@ -1,7 +1,12 @@
 package com.example.app_ointmentt.models
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import java.io.IOException
+import java.nio.channels.Selector.open
+
 
 
 @Parcelize

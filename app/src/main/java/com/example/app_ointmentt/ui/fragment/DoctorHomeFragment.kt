@@ -1,4 +1,4 @@
-package com.example.app_ointmentt
+package com.example.app_ointmentt.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,12 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
+import com.example.app_ointmentt.Module
+import com.example.app_ointmentt.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_doctor_homepage.view.*
-import kotlinx.android.synthetic.main.fragment_type_of_doctor.*
-import kotlinx.android.synthetic.main.fragment_type_of_doctor.view.*
 
 class DoctorHomeFragment : Fragment() {
     override fun onCreateView(

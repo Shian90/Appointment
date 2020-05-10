@@ -1,11 +1,11 @@
-package com.example.app_ointmentt
+package com.example.app_ointmentt.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
+import com.example.app_ointmentt.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,7 +17,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val userID = FirebaseAuth.getInstance().uid
-        val animLogo = AnimationUtils.loadAnimation(this,R.anim.dropanimation)
+        val animLogo = AnimationUtils.loadAnimation(this,
+            R.anim.dropanimation
+        )
         val logo = logoImageView
         logo.startAnimation(animLogo)
 
