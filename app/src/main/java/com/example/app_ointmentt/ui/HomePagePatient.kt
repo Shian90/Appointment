@@ -8,6 +8,7 @@ import com.example.app_ointmentt.*
 import com.example.app_ointmentt.ui.fragment.PatientHistoryFragment
 import com.example.app_ointmentt.ui.fragment.PatientHomeFragment
 import com.example.app_ointmentt.ui.fragment.PatientNotificationFragment
+import com.example.app_ointmentt.ui.fragment.PatientProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home_page_patient.*
 import kotlinx.android.synthetic.main.activity_home_page_patient.bottomNavigationView
@@ -19,9 +20,17 @@ class HomePagePatient : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page_patient)
+        clickProfileImage()
         changeToolbarTitle(toolbar = toolbar,txt = "Appointment")
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         loadHomeFragment()
+    }
+    private fun clickProfileImage(){
+        profile_image.setOnClickListener{
+            var fragment = PatientProfileFragment()
+            supportFragmentManager.beginTransaction().replace(R.id.main, fragment, fragment.javaClass.simpleName)
+                .commit()
+        }
     }
     private fun loadHomeFragment(){
         supportFragmentManager.beginTransaction().replace(
