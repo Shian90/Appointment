@@ -19,12 +19,6 @@ class HomePagePatient : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page_patient)
-        profile_image.setOnClickListener{
-            changeToolbarTitle(toolbar = toolbar,txt ="Profile")
-            val fragment = PatientProfileFragment()
-            supportFragmentManager.beginTransaction().replace(R.id.main,fragment,fragment.javaClass.simpleName)
-                .commit()
-        }
         changeToolbarTitle(toolbar = toolbar,txt = "Appointment")
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         loadHomeFragment()
