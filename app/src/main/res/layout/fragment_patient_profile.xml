@@ -22,6 +22,7 @@
                 android:layout_marginBottom="20dp">
 
                 <ImageButton
+                    android:id="@+id/patientLogoutBtn"
                     android:background="@color/colorPrimary"
                     android:layout_margin="5dp"
                     android:layout_width="40dp"
@@ -42,6 +43,13 @@
                         android:src="@drawable/profile"
 
                         />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="40dp"
+                        android:gravity="center">
+
                     <TextView
                         android:id="@+id/ProfileUsername"
                         android:layout_width="wrap_content"
@@ -52,6 +60,12 @@
                         android:layout_margin="5dp"
                         android:textColor="#000"
                         />
+                        <ImageButton
+                            android:id="@+id/patientUserNameEditBtn"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@android:drawable/ic_input_add" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -76,6 +90,7 @@
                     android:textSize="18sp"/>
 
                 <ImageButton
+                    android:id="@+id/patientEmailEditBtn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="190dp"
@@ -94,6 +109,7 @@
                     android:textSize="18sp"/>
 
                 <ImageButton
+                    android:id="@+id/patientDOBEditBtn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="190dp"
@@ -111,6 +127,7 @@
                     android:textSize="18sp"/>
 
                 <ImageButton
+                    android:id="@+id/patientGenderEditBtn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="190dp"
@@ -128,6 +145,7 @@
                     android:textSize="18sp"/>
 
                 <ImageButton
+                    android:id="@+id/patientBloodGroupEditBtn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="190dp"
@@ -145,6 +163,7 @@
                     android:textSize="18sp"/>
 
                 <ImageButton
+                    android:id="@+id/patientDiseasesEditBtn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="190dp"
@@ -162,6 +181,7 @@
                     android:textSize="18sp"/>
 
                 <ImageButton
+                    android:id="@+id/patientPhoneNumberEditBtn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="190dp"
@@ -179,6 +199,7 @@
                     android:textSize="18sp"/>
 
                 <ImageButton
+                    android:id="@+id/patientAddressEditBtn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="190dp"
@@ -190,6 +211,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp">
+
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
@@ -197,6 +219,7 @@
                     android:textSize="18sp"/>
 
                 <ImageButton
+                    android:id="@+id/patientPasswordEditBtn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="190dp"

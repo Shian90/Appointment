@@ -11,7 +11,7 @@ import com.example.app_ointmentt.Module
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.ui.LoginPatient
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.fragment_type_of_doctor.view.*
+import kotlinx.android.synthetic.main.fragment_patient_homepage.view.*
 
 class PatientHomeFragment : Fragment() {
     override fun onCreateView(
@@ -19,7 +19,7 @@ class PatientHomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_type_of_doctor, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_patient_homepage, container, false)
 
         view.logoutBtnPatientHomePage.setOnClickListener { view ->
             //logout() -- add logic here
