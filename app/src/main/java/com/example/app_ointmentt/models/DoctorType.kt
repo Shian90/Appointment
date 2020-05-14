@@ -1,4 +1,5 @@
 package com.example.app_ointmentt.models
 
-class DoctorType {
+data class DoctorType(var title: String?){
+    var expanded = false
 }

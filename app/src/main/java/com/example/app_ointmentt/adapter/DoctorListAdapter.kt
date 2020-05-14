@@ -7,19 +7,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.models.DoctorType
-import com.example.app_ointmentt.models.History
 import kotlinx.android.synthetic.main.cardview_notification.view.*
 
 class DoctorListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items: List<DoctorType> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
         return DoctorTypeViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.cardview_patient_homepage,
-                parent,
-                false
-            )
+            LayoutInflater.from(parent.context).inflate(R.layout.cardview_patient_homepage, parent, false)
         )
     }
 
@@ -28,21 +22,21 @@ class DoctorListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         when(holder){
-            is DoctorTypeView -> {
+            is DoctorTypeViewHolder -> {
                 holder.bind(items[position])
             }
         }
     }
 
-    fun submitList(titleList: List<History>){
+    fun submitList(titleList: List<DoctorType>){
         items = titleList
 
     }
 
     class DoctorTypeViewHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView){
-        val historyTitle: TextView = itemView.txt
-        fun bind(historyText: History){
-            historyTitle.setText(historyText.title)
+        val doctorTypeTitle: TextView = itemView.txt
+        fun bind(doctorType: DoctorType){
+            doctorTypeTitle.setText(doctorType.title)
         }
     }
 }

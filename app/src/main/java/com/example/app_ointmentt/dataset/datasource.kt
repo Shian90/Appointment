@@ -2,6 +2,7 @@ package com.example.app_ointmentt.dataset
 
 import com.example.app_ointmentt.models.History
 import com.example.app_ointmentt.models.Notification
+import com.example.app_ointmentt.models.DoctorType
 
 object Rawdata {
     val members = (listOf<Notification>(
@@ -91,5 +92,20 @@ object PatientHistoryRawData {
         History("This is another new History"),History("This is a new History"),
         History("This is another new History"),History("This is a new History"),
         History("This is another new History")
+    ))
+}
+
+object DoctorType{
+    val members = (listOf<DoctorType>(
+        DoctorType("Mental Doctor"),
+        DoctorType("Lung Doctor"),
+        DoctorType("Heart Doctor"),
+        DoctorType("Kidney Doctor"),
+        DoctorType("Brain Doctor"),
+        DoctorType("Mental Doctor"),
+        DoctorType("Lung Doctor"),
+        DoctorType("Heart Doctor"),
+        DoctorType("Kidney Doctor"),
+        DoctorType("Brain Doctor")
     ))
 }
