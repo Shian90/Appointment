@@ -81,12 +81,14 @@
                         app:layout_constraintVertical_bias="1.0">
 
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/doctorListImage1"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_margin="10dp"
                             android:src="@drawable/profile" />
 
                         <Button
+                            android:id="@+id/doctorListName1"
                             style="@style/Widget.AppCompat.Button.Borderless.Colored"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -107,12 +109,14 @@
                         app:layout_constraintVertical_bias="1.0">
 
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/doctorListImage2"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_margin="10dp"
                             android:src="@drawable/profile" />
 
                         <Button
+                            android:id="@+id/doctorListName2"
                             style="@style/Widget.AppCompat.Button.Borderless.Colored"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -133,12 +137,14 @@
                         app:layout_constraintVertical_bias="1.0">
 
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/doctorListImage3"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_margin="10dp"
                             android:src="@drawable/profile" />
 
                         <Button
+                            android:id="@+id/doctorListName3"
                             style="@style/Widget.AppCompat.Button.Borderless.Colored"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -159,12 +165,14 @@
                         app:layout_constraintVertical_bias="1.0">
 
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/doctorListImage4"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_margin="10dp"
                             android:src="@drawable/profile" />
 
                         <Button
+                            android:id="@+id/doctorListName4"
                             style="@style/Widget.AppCompat.Button.Borderless.Colored"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -185,12 +193,14 @@
                         app:layout_constraintVertical_bias="1.0">
 
                         <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/doctorListImage5"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_margin="10dp"
                             android:src="@drawable/profile" />
 
                         <Button
+                            android:id="@+id/doctorListName5"
                             style="@style/Widget.AppCompat.Button.Borderless.Colored"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -199,6 +209,7 @@
                     </LinearLayout>
 
                     <Button
+                        android:id="@+id/seeAllDoctors"
                         style="@style/Widget.AppCompat.Button.Borderless.Colored"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -8,10 +8,8 @@ import com.example.app_ointmentt.R
 import com.example.app_ointmentt.ui.fragment.DoctorHistoryFragment
 import com.example.app_ointmentt.ui.fragment.DoctorHomeFragment
 import com.example.app_ointmentt.ui.fragment.DoctorNotificationFragment
-import com.example.app_ointmentt.ui.fragment.PatientHomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home_page_doctor.*
-import kotlinx.android.synthetic.main.activity_home_page_patient.bottomNavigationView
 import kotlinx.android.synthetic.main.toolbar.view.*
 
 class HomePageDoctor : AppCompatActivity() {
@@ -26,8 +24,8 @@ class HomePageDoctor : AppCompatActivity() {
     private fun loadHomeFragment(){
         supportFragmentManager.beginTransaction().replace(
             R.id.mainDoctor,
-            PatientHomeFragment(),
-            PatientHomeFragment().javaClass.simpleName)
+            DoctorHomeFragment(),
+            DoctorHomeFragment().javaClass.simpleName)
             .commit()
     }
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->

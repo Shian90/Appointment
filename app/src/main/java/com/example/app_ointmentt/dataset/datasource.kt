@@ -1,5 +1,6 @@
 package com.example.app_ointmentt.dataset
 
+import com.example.app_ointmentt.models.Doctor
 import com.example.app_ointmentt.models.DoctorType
 import com.example.app_ointmentt.models.History
 import com.example.app_ointmentt.models.Notification
@@ -107,5 +108,18 @@ object doctorTypeData{
         DoctorType("Heart Doctor"),
         DoctorType("Kidney Doctor"),
         DoctorType("Brain Doctor")
+    ))
+}
+
+
+object doctor{
+    val members = (listOf<Doctor>(
+        Doctor("Naafiz","Brain Doctor"),
+        Doctor("Fayad","Lung Doctor"),
+        Doctor("Rabib","Brain Doctor"),
+        Doctor("Shian","Brain Doctor"),
+        Doctor("Akib","Brain Doctor"),
+        Doctor("Imran","Kidney Doctor"),
+        Doctor("Ehsan","Mental Doctor")
     ))
 }

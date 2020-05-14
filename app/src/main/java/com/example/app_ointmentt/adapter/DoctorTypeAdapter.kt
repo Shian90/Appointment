@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.dataset.doctorTypeData
+import com.example.app_ointmentt.dataset.doctor
 import com.example.app_ointmentt.models.DoctorType
 import kotlinx.android.synthetic.main.cardview_notification.view.txt
 import kotlinx.android.synthetic.main.cardview_patient_homepage.view.*
@@ -47,18 +47,21 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class DoctorTypeViewHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView){
         private val doctorTypeTitle: TextView = itemView.txt
         private val isExpanded = itemView.expandableLayout
-
+        private val doctor1 = itemView.doctorList1
+        private val doctor2 = itemView.doctorList2
+        private val doctor3 = itemView.doctorList3
+        private val doctor4 = itemView.doctorList4
+        private val doctor5 = itemView.doctorList5
         fun bind(doctorType: DoctorType){
             doctorTypeTitle.setText(doctorType.title)
             isExpanded.visibility = if (doctorType.expanded) View.VISIBLE else View.GONE
-
-
+            var doctors = doctor.members.filter {
+                it.doctorType == doctorType.title
+            }
+            var numberOfDoctors = doctors.size
+            doctor1.visibility = View.GONE
         }
 
-        fun onClickRecyclerView(){
-            val doctorType = doctorTypeData.members.get(adapterPosition)
-            doctorType.expanded = !doctorType.expanded
-        }
 
 
     }
