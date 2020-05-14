@@ -9,7 +9,7 @@ import com.example.app_ointmentt.R
 import com.example.app_ointmentt.models.DoctorType
 import kotlinx.android.synthetic.main.cardview_notification.view.*
 
-class DoctorListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items: List<DoctorType> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return DoctorTypeViewHolder(
@@ -34,7 +34,7 @@ class DoctorListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class DoctorTypeViewHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView){
-        val doctorTypeTitle: TextView = itemView.txt
+        private val doctorTypeTitle: TextView = itemView.txt
         fun bind(doctorType: DoctorType){
             doctorTypeTitle.setText(doctorType.title)
         }

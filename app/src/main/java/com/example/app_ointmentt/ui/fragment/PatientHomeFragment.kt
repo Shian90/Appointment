@@ -1,45 +1,38 @@
 package com.example.app_ointmentt.ui.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.app_ointmentt.Module
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.ui.LoginPatient
-import com.google.firebase.auth.FirebaseAuth
+import com.example.app_ointmentt.adapter.DoctorTypeAdapter
+import com.example.app_ointmentt.dataset.doctorTypeData
 import kotlinx.android.synthetic.main.fragment_patient_homepage.view.*
 
 class PatientHomeFragment : Fragment() {
+    private lateinit var doctorTypeAdapter: DoctorTypeAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_patient_homepage, container, false)
-
-        view.logoutBtnPatientHomePage.setOnClickListener { view ->
-            //logout() -- add logic here
-            val intent = Intent(activity, LoginPatient::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            Toast.makeText(activity, "User has been logged out", Toast.LENGTH_SHORT).show()
-            activity?.finish()
-        }
-        // Return the fragment view/layout
+        initRecyclerView(view)
+        bindData()
         return view
     }
-    private fun logout(){
+    private fun bindData(){
+        doctorTypeAdapter.submitList(doctorTypeData.members)
+    }
 
-        FirebaseAuth.getInstance().signOut()
-        val intent = Intent(activity, Module::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        Toast.makeText(activity, "User has been logged out", Toast.LENGTH_SHORT).show()
-        activity?.finish()
+    private fun initRecyclerView(rootView: View){
+        rootView.doctorTyperRecyclerView.apply {
+            doctorTypeAdapter =  DoctorTypeAdapter()
+            adapter = doctorTypeAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
     }
 }
 

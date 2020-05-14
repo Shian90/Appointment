@@ -1,10 +1,10 @@
 package com.example.app_ointmentt.ui
 
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.example.app_ointmentt.*
+import androidx.appcompat.app.AppCompatActivity
+import com.example.app_ointmentt.R
 import com.example.app_ointmentt.ui.fragment.DoctorHistoryFragment
 import com.example.app_ointmentt.ui.fragment.DoctorHomeFragment
 import com.example.app_ointmentt.ui.fragment.DoctorNotificationFragment

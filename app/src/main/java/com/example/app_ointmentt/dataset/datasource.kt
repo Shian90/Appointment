@@ -1,8 +1,8 @@
 package com.example.app_ointmentt.dataset
 
+import com.example.app_ointmentt.models.DoctorType
 import com.example.app_ointmentt.models.History
 import com.example.app_ointmentt.models.Notification
-import com.example.app_ointmentt.models.DoctorType
 
 object Rawdata {
     val members = (listOf<Notification>(
@@ -95,7 +95,7 @@ object PatientHistoryRawData {
     ))
 }
 
-object DoctorType{
+object doctorTypeData{
     val members = (listOf<DoctorType>(
         DoctorType("Mental Doctor"),
         DoctorType("Lung Doctor"),
