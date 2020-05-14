@@ -52,6 +52,11 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val doctor3 = itemView.doctorList3
         private val doctor4 = itemView.doctorList4
         private val doctor5 = itemView.doctorList5
+        private val doctorName1 = itemView.doctorListName1
+        private val doctorName2 = itemView.doctorListName2
+        private val doctorName3 = itemView.doctorListName3
+        private val doctorName4 = itemView.doctorListName4
+        private val doctorName5 = itemView.doctorListName5
         fun bind(doctorType: DoctorType){
             doctorTypeTitle.setText(doctorType.title)
             isExpanded.visibility = if (doctorType.expanded) View.VISIBLE else View.GONE
@@ -60,6 +65,30 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
             var numberOfDoctors = doctors.size
             doctor1.visibility = View.GONE
+            doctor2.visibility = View.GONE
+            doctor3.visibility = View.GONE
+            doctor4.visibility = View.GONE
+            doctor5.visibility = View.GONE
+            if(numberOfDoctors >= 1){
+                doctor1.visibility = View.VISIBLE
+                doctorName1.text = doctors[0].name
+            }
+            if(numberOfDoctors >= 2){
+                doctor2.visibility = View.VISIBLE
+                doctorName2.text = doctors[1].name
+            }
+            if(numberOfDoctors >= 3){
+                doctor3.visibility = View.VISIBLE
+                doctorName3.text = doctors[2].name
+            }
+            if(numberOfDoctors >= 4){
+                doctor4.visibility = View.VISIBLE
+                doctorName4.text = doctors[3].name
+            }
+            if(numberOfDoctors >= 5){
+                doctor5.visibility = View.VISIBLE
+                doctorName5.text = doctors[4].name
+            }
         }
 
 
