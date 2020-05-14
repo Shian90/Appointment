@@ -25,7 +25,7 @@ class HomePageDoctor : AppCompatActivity() {
     }
     private fun loadHomeFragment(){
         supportFragmentManager.beginTransaction().replace(
-            R.id.main,
+            R.id.mainDoctor,
             PatientHomeFragment(),
             PatientHomeFragment().javaClass.simpleName)
             .commit()
@@ -36,7 +36,7 @@ class HomePageDoctor : AppCompatActivity() {
                 changeToolbarTitle(toolbar = toolbar2, txt = "Appointment")
                 val fragment =
                     DoctorHomeFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.main, fragment, fragment.javaClass.simpleName)
+                supportFragmentManager.beginTransaction().replace(R.id.mainDoctor, fragment, fragment.javaClass.simpleName)
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
@@ -44,7 +44,7 @@ class HomePageDoctor : AppCompatActivity() {
                 changeToolbarTitle(toolbar = toolbar2, txt = "History")
                 val fragment =
                     DoctorHistoryFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.main, fragment, fragment.javaClass.simpleName)
+                supportFragmentManager.beginTransaction().replace(R.id.mainDoctor, fragment, fragment.javaClass.simpleName)
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
@@ -52,7 +52,7 @@ class HomePageDoctor : AppCompatActivity() {
                 changeToolbarTitle(toolbar = toolbar2, txt = "Notification")
                 val fragment =
                     DoctorNotificationFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.main, fragment, fragment.javaClass.simpleName)
+                supportFragmentManager.beginTransaction().replace(R.id.mainDoctor, fragment, fragment.javaClass.simpleName)
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
