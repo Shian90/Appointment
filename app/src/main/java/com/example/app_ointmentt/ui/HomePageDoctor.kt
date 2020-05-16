@@ -8,8 +8,10 @@ import com.example.app_ointmentt.R
 import com.example.app_ointmentt.ui.fragment.DoctorHistoryFragment
 import com.example.app_ointmentt.ui.fragment.DoctorHomeFragment
 import com.example.app_ointmentt.ui.fragment.DoctorNotificationFragment
+import com.example.app_ointmentt.ui.fragment.DoctorProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home_page_doctor.*
+import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.toolbar.view.*
 
 class HomePageDoctor : AppCompatActivity() {
@@ -17,9 +19,18 @@ class HomePageDoctor : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page_doctor)
+        clickProfileImage()
         changeToolbarTitle(toolbar = toolbar2, txt = "Appointment")
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         loadHomeFragment()
+    }
+    private fun clickProfileImage() {
+        profile_image.setOnClickListener {
+            var fragment = DoctorProfileFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.mainDoctor, fragment, fragment.javaClass.simpleName)
+                .commit()
+        }
     }
     private fun loadHomeFragment(){
         supportFragmentManager.beginTransaction().replace(
