@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.dataset.doctor
 import com.example.app_ointmentt.models.DoctorType
+import com.example.app_ointmentt.ui.fragment.PatientRequestAppointment
 import kotlinx.android.synthetic.main.cardview_notification.view.txt
-import kotlinx.android.synthetic.main.cardview_patient_homepage.view.*
+import kotlinx.android.synthetic.main.cardview_recycler_expanded_doctor_list.view.*
 
 class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun <T : RecyclerView.ViewHolder> T.listen(event: (position: Int, type: Int) -> Unit): T {
@@ -20,7 +22,7 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
     private var items: List<DoctorType> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view  = LayoutInflater.from(parent.context).inflate(R.layout.cardview_patient_homepage, parent, false)
+        val view  = LayoutInflater.from(parent.context).inflate(R.layout.cardview_recycler_expanded_doctor_list, parent, false)
         return DoctorTypeViewHolder(view).listen{ pos, type ->
             val item = items.get(pos)
             item.expanded = !item.expanded
@@ -72,22 +74,67 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             if(numberOfDoctors >= 1){
                 doctor1.visibility = View.VISIBLE
                 doctorName1.text = doctors[0].name
+                doctor1.setOnClickListener{
+                    val fragment = PatientRequestAppointment()
+                    val activity  = it.context as AppCompatActivity
+                    activity.supportFragmentManager.beginTransaction().replace(
+                        R.id.mainPatient,
+                        fragment,
+                        fragment.javaClass.simpleName)
+                        .commit()
+                }
             }
             if(numberOfDoctors >= 2){
                 doctor2.visibility = View.VISIBLE
                 doctorName2.text = doctors[1].name
+                doctor2.setOnClickListener{
+                    val fragment = PatientRequestAppointment()
+                    val activity  = it.context as AppCompatActivity
+                    activity.supportFragmentManager.beginTransaction().replace(
+                        R.id.mainPatient,
+                        fragment,
+                        fragment.javaClass.simpleName)
+                        .commit()
+                }
             }
             if(numberOfDoctors >= 3){
                 doctor3.visibility = View.VISIBLE
                 doctorName3.text = doctors[2].name
+                doctor3.setOnClickListener{
+                    val fragment = PatientRequestAppointment()
+                    val activity  = it.context as AppCompatActivity
+                    activity.supportFragmentManager.beginTransaction().replace(
+                        R.id.mainPatient,
+                        fragment,
+                        fragment.javaClass.simpleName)
+                        .commit()
+                }
             }
             if(numberOfDoctors >= 4){
                 doctor4.visibility = View.VISIBLE
                 doctorName4.text = doctors[3].name
+                doctor4.setOnClickListener{
+                    val fragment = PatientRequestAppointment()
+                    val activity  = it.context as AppCompatActivity
+                    activity.supportFragmentManager.beginTransaction().replace(
+                        R.id.mainPatient,
+                        fragment,
+                        fragment.javaClass.simpleName)
+                        .commit()
+                }
             }
             if(numberOfDoctors >= 5){
                 doctor5.visibility = View.VISIBLE
                 doctorName5.text = doctors[4].name
+                doctor5.setOnClickListener{
+                    val fragment = PatientRequestAppointment()
+                    val activity  = it.context as AppCompatActivity
+                    activity.supportFragmentManager.beginTransaction().replace(
+                        R.id.mainPatient,
+                        fragment,
+                        fragment.javaClass.simpleName)
+                        .commit()
+                }
             }
         }
 
