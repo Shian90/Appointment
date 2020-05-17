@@ -7,19 +7,17 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.app_ointmentt.R
-import kotlinx.android.synthetic.main.fragment_request_appointment.view.*
+import kotlinx.android.synthetic.main.fragment_appointment_confirmation.view.*
 
-
-class PatientRequestAppointment : Fragment() {
+class AppointmentConfirmationFragment: Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_request_appointment,container,false)
-        view.requestAppointmentbtn.setOnClickListener{
-            //Code for requesting Appointment
-            val fragment = AppointmentConfirmationFragment()
+        val view =  inflater.inflate(R.layout.fragment_appointment_confirmation,container,false)
+        view.goBackHomeBtn.setOnClickListener{
+            val fragment = PatientHomeFragment()
             val activity = view.context as AppCompatActivity
             activity.supportFragmentManager.beginTransaction().replace(R.id.mainPatient,
                 fragment,
@@ -28,5 +26,4 @@ class PatientRequestAppointment : Fragment() {
         }
         return view
     }
-
 }

@@ -13,6 +13,8 @@ class PatientProfileFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View?{
-        return inflater.inflate(R.layout.fragment_patient_profile,container,false)
+        val view = inflater.inflate(R.layout.fragment_patient_profile,container,false)
+
+        return view
     }
 }
