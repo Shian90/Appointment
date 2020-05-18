@@ -10,6 +10,7 @@ import com.example.app_ointmentt.R
 import com.example.app_ointmentt.dataset.doctor
 import com.example.app_ointmentt.models.DoctorType
 import com.example.app_ointmentt.ui.fragment.PatientRequestAppointment
+import com.example.app_ointmentt.ui.fragment.SeeAllDoctorsFragment
 import kotlinx.android.synthetic.main.cardview_notification.view.txt
 import kotlinx.android.synthetic.main.cardview_recycler_expanded_doctor_list.view.*
 
@@ -59,6 +60,7 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val doctorName3 = itemView.doctorListName3
         private val doctorName4 = itemView.doctorListName4
         private val doctorName5 = itemView.doctorListName5
+        private val seeAllBtn = itemView.seeAllDoctors
         fun bind(doctorType: DoctorType){
             doctorTypeTitle.setText(doctorType.title)
             isExpanded.visibility = if (doctorType.expanded) View.VISIBLE else View.GONE
@@ -71,6 +73,7 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             doctor3.visibility = View.GONE
             doctor4.visibility = View.GONE
             doctor5.visibility = View.GONE
+
             if(numberOfDoctors >= 1){
                 doctor1.visibility = View.VISIBLE
                 doctorName1.text = doctors[0].name
@@ -84,6 +87,7 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         .commit()
                 }
             }
+
             if(numberOfDoctors >= 2){
                 doctor2.visibility = View.VISIBLE
                 doctorName2.text = doctors[1].name
@@ -97,6 +101,7 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         .commit()
                 }
             }
+
             if(numberOfDoctors >= 3){
                 doctor3.visibility = View.VISIBLE
                 doctorName3.text = doctors[2].name
@@ -110,6 +115,7 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         .commit()
                 }
             }
+
             if(numberOfDoctors >= 4){
                 doctor4.visibility = View.VISIBLE
                 doctorName4.text = doctors[3].name
@@ -123,6 +129,7 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         .commit()
                 }
             }
+
             if(numberOfDoctors >= 5){
                 doctor5.visibility = View.VISIBLE
                 doctorName5.text = doctors[4].name
@@ -136,6 +143,16 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         .commit()
                 }
             }
+            seeAllBtn.setOnClickListener{
+                val fragment = SeeAllDoctorsFragment()
+                val activity = it.context as AppCompatActivity
+                activity.supportFragmentManager.beginTransaction().replace(
+                    R.id.mainPatient,
+                    fragment,
+                    fragment.javaClass.simpleName)
+                    .commit()
+            }
+
         }
 
 
