@@ -1,7 +1,6 @@
 package com.example.app_ointmentt.ui
 
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -10,68 +9,62 @@ import com.example.app_ointmentt.ui.fragment.DoctorHistoryFragment
 import com.example.app_ointmentt.ui.fragment.DoctorHomeFragment
 import com.example.app_ointmentt.ui.fragment.DoctorNotificationFragment
 import com.example.app_ointmentt.ui.fragment.DoctorProfileFragment
+import com.example.app_ointmentt.utils.changeFragmentFromActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home_page_doctor.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.toolbar.view.*
 
+
+/*This is the Entry Point to a Patient Account*/
 class HomePageDoctor : AppCompatActivity() {
+    //root is the meat part of the view where we inflate everything
+    private val root = R.id.mainDoctor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page_doctor)
-        clickProfileImage()
-        changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar2, txt = "Appointment")
+
+        changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar, txt = "Appointment")
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        loadHomeFragment(applicationContext)
-    }
-    private fun clickProfileImage() {
+        loadHomeFragment(this)
+
+        //On Clicking the profile image on right top we go to the profile fragment
         profile_image.setOnClickListener {
-            var fragment = DoctorProfileFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.mainDoctor, fragment, fragment.javaClass.simpleName)
-                .commit()
+            changeFragmentFromActivity(fragment = DoctorProfileFragment(), root = root,activity = this)
         }
     }
-    private fun loadHomeFragment(context: Context){
-        supportFragmentManager.beginTransaction().replace(
-            R.id.mainDoctor,
-            DoctorHomeFragment(),
-            DoctorHomeFragment().javaClass.simpleName)
-            .commit()
+
+    private fun loadHomeFragment(activity: AppCompatActivity){
+        changeFragmentFromActivity(fragment = DoctorHomeFragment(),root = root,activity = activity)
     }
+
+    //Listener to the bottom Navigation View
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
         when (menuItem.itemId) {
             R.id.home -> {
-                changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar2, txt = "Appointment")
-                val fragment =
-                    DoctorHomeFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.mainDoctor, fragment, fragment.javaClass.simpleName)
-                    .commit()
+                changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar, txt = "Appointment")
+                changeFragmentFromActivity(fragment = DoctorHomeFragment(),root = root,activity = this)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.history -> {
-                changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar2, txt = "History")
-                val fragment =
-                    DoctorHistoryFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.mainDoctor, fragment, fragment.javaClass.simpleName)
-                    .commit()
+                changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar, txt = "History")
+                changeFragmentFromActivity(fragment = DoctorHistoryFragment(),root = root,activity = this)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.notification -> {
-                changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar2, txt = "Notification")
-                val fragment =
-                    DoctorNotificationFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.mainDoctor, fragment, fragment.javaClass.simpleName)
-                    .commit()
+                changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar, txt = "Notification")
+                changeFragmentFromActivity(fragment = DoctorNotificationFragment(),root = root,activity = this)
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
     }
+
+
     private fun changeToolbarTitleAndInvisibleSearchView(toolbar: View?, txt: String){
-        toolbar!!.toolbarTitle.setText(txt)
-        toolbar!!.searchView.visibility = View.GONE
+        toolbar!!.toolbarTitle.text = txt
+        toolbar.searchView.visibility = View.GONE
     }
 
 }

@@ -7,9 +7,9 @@
     tools:context=".ui.HomePageDoctor">
 
     <include
-        android:id="@+id/toolbar2"
+        android:id="@+id/toolbar"
         layout="@layout/toolbar"
-        app:layout_constraintBottom_toTopOf="@+id/main"
+        app:layout_constraintBottom_toTopOf="@+id/mainDoctor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
