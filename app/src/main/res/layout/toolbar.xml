@@ -43,6 +43,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="219dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            app:layout_constraintEnd_toStartOf="@+id/profile_image"
+            app:layout_constraintStart_toEndOf="@+id/toolbarTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.appcompat.widget.Toolbar>

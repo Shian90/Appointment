@@ -9,6 +9,7 @@ import com.example.app_ointmentt.ui.fragment.PatientHistoryFragment
 import com.example.app_ointmentt.ui.fragment.PatientHomeFragment
 import com.example.app_ointmentt.ui.fragment.PatientNotificationFragment
 import com.example.app_ointmentt.ui.fragment.PatientProfileFragment
+import com.example.app_ointmentt.utils.changeFragmentFromActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home_page_patient.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -22,7 +23,7 @@ class HomePagePatient : AppCompatActivity() {
         clickProfileImage()
         changeToolbarTitle(toolbar = toolbar,txt = "Appointment")
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        loadHomeFragment()
+        loadHomeFragment(this)
     }
     private fun clickProfileImage(){
         profile_image.setOnClickListener{
@@ -31,12 +32,8 @@ class HomePagePatient : AppCompatActivity() {
                 .commit()
         }
     }
-    private fun loadHomeFragment(){
-        supportFragmentManager.beginTransaction().replace(
-            R.id.mainPatient,
-            PatientHomeFragment(),
-            PatientHomeFragment().javaClass.simpleName)
-            .commit()
+    private fun loadHomeFragment(activity: AppCompatActivity){
+        changeFragmentFromActivity(fragment = PatientHomeFragment(),root = R.id.mainPatient,activity = activity)
     }
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
         when (menuItem.itemId) {

@@ -11,6 +11,7 @@ import com.example.app_ointmentt.dataset.doctor
 import com.example.app_ointmentt.models.DoctorType
 import com.example.app_ointmentt.ui.fragment.PatientRequestAppointment
 import com.example.app_ointmentt.ui.fragment.SeeAllDoctorsFragment
+import com.example.app_ointmentt.utils.changeFragmentFromFragment
 import kotlinx.android.synthetic.main.cardview_notification.view.txt
 import kotlinx.android.synthetic.main.cardview_recycler_expanded_doctor_list.view.*
 
@@ -144,13 +145,7 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 }
             }
             seeAllBtn.setOnClickListener{
-                val fragment = SeeAllDoctorsFragment()
-                val activity = it.context as AppCompatActivity
-                activity.supportFragmentManager.beginTransaction().replace(
-                    R.id.mainPatient,
-                    fragment,
-                    fragment.javaClass.simpleName)
-                    .commit()
+                changeFragmentFromFragment(fragment = SeeAllDoctorsFragment(),context = it.context,root = R.id.mainPatient)
             }
 
         }

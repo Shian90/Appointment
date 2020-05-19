@@ -4,10 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.models.Doctor
-import kotlinx.android.synthetic.main.cardview_notification.view.*
+import com.example.app_ointmentt.ui.fragment.PatientRequestAppointment
+import com.example.app_ointmentt.utils.changeFragmentFromFragment
+import kotlinx.android.synthetic.main.cardview_doctor_list.view.*
+import kotlinx.android.synthetic.main.cardview_notification.view.txt
 
 class AllDoctorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items: List<Doctor> = ArrayList()
@@ -40,8 +44,12 @@ class AllDoctorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class DoctorViewHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView){
         val doctorName: TextView = itemView.txt
+        val cardView: CardView  = itemView.doctorListCardView
         fun bind(doctor: Doctor){
             doctorName.setText(doctor.name)
+            cardView.setOnClickListener{
+                changeFragmentFromFragment(fragment = PatientRequestAppointment(),context = it.context,root = R.id.mainPatient)
+            }
         }
     }
 }

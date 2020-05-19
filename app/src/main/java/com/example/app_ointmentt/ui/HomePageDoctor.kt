@@ -1,6 +1,7 @@
 package com.example.app_ointmentt.ui
 
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -20,9 +21,9 @@ class HomePageDoctor : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page_doctor)
         clickProfileImage()
-        changeToolbarTitle(toolbar = toolbar2, txt = "Appointment")
+        changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar2, txt = "Appointment")
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        loadHomeFragment()
+        loadHomeFragment(applicationContext)
     }
     private fun clickProfileImage() {
         profile_image.setOnClickListener {
@@ -32,7 +33,7 @@ class HomePageDoctor : AppCompatActivity() {
                 .commit()
         }
     }
-    private fun loadHomeFragment(){
+    private fun loadHomeFragment(context: Context){
         supportFragmentManager.beginTransaction().replace(
             R.id.mainDoctor,
             DoctorHomeFragment(),
@@ -42,7 +43,7 @@ class HomePageDoctor : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
         when (menuItem.itemId) {
             R.id.home -> {
-                changeToolbarTitle(toolbar = toolbar2, txt = "Appointment")
+                changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar2, txt = "Appointment")
                 val fragment =
                     DoctorHomeFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.mainDoctor, fragment, fragment.javaClass.simpleName)
@@ -50,7 +51,7 @@ class HomePageDoctor : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.history -> {
-                changeToolbarTitle(toolbar = toolbar2, txt = "History")
+                changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar2, txt = "History")
                 val fragment =
                     DoctorHistoryFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.mainDoctor, fragment, fragment.javaClass.simpleName)
@@ -58,7 +59,7 @@ class HomePageDoctor : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.notification -> {
-                changeToolbarTitle(toolbar = toolbar2, txt = "Notification")
+                changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar2, txt = "Notification")
                 val fragment =
                     DoctorNotificationFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.mainDoctor, fragment, fragment.javaClass.simpleName)
@@ -68,8 +69,9 @@ class HomePageDoctor : AppCompatActivity() {
         }
         false
     }
-    private fun changeToolbarTitle(toolbar: View?, txt: String){
+    private fun changeToolbarTitleAndInvisibleSearchView(toolbar: View?, txt: String){
         toolbar!!.toolbarTitle.setText(txt)
+        toolbar!!.searchView.visibility = View.GONE
     }
 
 }
