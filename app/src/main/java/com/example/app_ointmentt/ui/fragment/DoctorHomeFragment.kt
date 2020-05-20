@@ -21,11 +21,21 @@ class DoctorHomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_doctor_homepage, container, false)
+
         view.startTimeDefaultDoctorBtn.setOnClickListener {
             showCalenderAndGetTime(it,startTimeDefaultDoctor)
         }
         view.endTimeDefaultBtn.setOnClickListener{
             showCalenderAndGetTime(it,endTimeDefault)
+        }
+        view.switchSetTime.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                    dayDefaultDoctor.visibility =View.VISIBLE
+                    dayDefaultDoctorBtn.visibility = View.VISIBLE
+            } else {
+                dayDefaultDoctor.visibility =View.GONE
+                dayDefaultDoctorBtn.visibility = View.GONE
+            }
         }
         return view
     }
