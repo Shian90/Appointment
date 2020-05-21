@@ -11,16 +11,14 @@
         android:layout_width="319dp"
         android:layout_height="53dp"
         android:layout_gravity="center"
-        android:layout_marginTop="118dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginTop="124dp"
         android:ems="10"
         android:hint="E-mail Address"
         android:inputType="textEmailAddress"
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/passwordPatientLogin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.358"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -29,32 +27,27 @@
         android:layout_width="319dp"
         android:layout_height="51dp"
         android:layout_gravity="center"
-        android:layout_marginTop="22dp"
-        android:layout_marginBottom="31dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/loginBtnPatientLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.358"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/emailPatientLogin"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/emailPatientLogin"
         app:layout_constraintTop_toBottomOf="@+id/emailPatientLogin" />
 
     <Button
         android:id="@+id/loginBtnPatientLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="104dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/ic_rounded_button"
         android:text="Login"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/passwordPatientLogin"
+        app:layout_constraintStart_toStartOf="@+id/passwordPatientLogin"
         app:layout_constraintTop_toBottomOf="@+id/passwordPatientLogin" />
 
     <Button
@@ -62,15 +55,13 @@
         style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:elevation="2dp"
         android:text="Create Account"
         android:textColor="@android:color/holo_blue_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.477"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.134" />
+        app:layout_constraintEnd_toEndOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <Button
         android:id="@+id/doctorModuleBtn"
@@ -83,22 +74,23 @@
         android:text="Login As A Doctor"
         android:textColor="@android:color/holo_blue_dark"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/signUpBtnPatientLogin"
+        app:layout_constraintHorizontal_bias="0.26"
+        app:layout_constraintStart_toStartOf="@+id/signUpBtnPatientLogin"
         app:layout_constraintTop_toBottomOf="@+id/signUpBtnPatientLogin"
-        app:layout_constraintVertical_bias="0.203" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="48dp"
         android:text="Patient's Login"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="35sp"
+        android:textSize="36sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.183"
+        app:layout_constraintHorizontal_bias="0.267"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,12 +98,11 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="90dp"
         android:text="Don't have an account?"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/loginBtnPatientLogin"
+        app:layout_constraintStart_toStartOf="@+id/loginBtnPatientLogin"
         app:layout_constraintTop_toBottomOf="@+id/loginBtnPatientLogin" />
 </androidx.constraintlayout.widget.ConstraintLayout>

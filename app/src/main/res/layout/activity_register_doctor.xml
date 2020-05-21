@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView3"
@@ -14,33 +14,33 @@
         android:text="Doctor Signup"
         android:textAlignment="textStart"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="35sp"
-        android:textStyle="normal"
+        android:textSize="36sp"
+        android:textStyle="normal|bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintHorizontal_bias="0.254"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:id="@+id/usernameDoctorRegister"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_width="319dp"
+        android:layout_height="53dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginRight="10dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
 
         android:id="@+id/emailDoctorRegister"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="319dp"
+        android:layout_height="53dp"
         android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="Email Address"
@@ -53,8 +53,8 @@
     <EditText
 
         android:id="@+id/passwordDoctorRegister"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="319dp"
+        android:layout_height="53dp"
         android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="Password"
@@ -65,8 +65,8 @@
 
     <EditText
         android:id="@+id/certificateRegistrationNumberDoctorRegister"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="319dp"
+        android:layout_height="53dp"
         android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="BMDC number"
@@ -80,13 +80,13 @@
         android:id="@+id/registerBtnDoctorRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/ic_rounded_button"
         android:text="Signup"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/passwordDoctorRegister"
+        app:layout_constraintStart_toStartOf="@+id/passwordDoctorRegister"
         app:layout_constraintTop_toBottomOf="@+id/passwordDoctorRegister"
         app:layout_constraintVertical_bias="0.0" />
 
