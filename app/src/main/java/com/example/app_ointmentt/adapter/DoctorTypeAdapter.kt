@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.dataset.doctor
@@ -15,8 +14,9 @@ import com.example.app_ointmentt.utils.changeFragmentFromFragment
 import kotlinx.android.synthetic.main.cardview_notification.view.txt
 import kotlinx.android.synthetic.main.cardview_recycler_expanded_doctor_list.view.*
 
+
 class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    fun <T : RecyclerView.ViewHolder> T.listen(event: (position: Int, type: Int) -> Unit): T {
+    private fun <T : RecyclerView.ViewHolder> T.listen(event: (position: Int, type: Int) -> Unit): T {
         itemView.setOnClickListener {
             event.invoke(adapterPosition, itemViewType)
         }
@@ -26,7 +26,7 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view  = LayoutInflater.from(parent.context).inflate(R.layout.cardview_recycler_expanded_doctor_list, parent, false)
         return DoctorTypeViewHolder(view).listen{ pos, type ->
-            val item = items.get(pos)
+            val item = items[pos]
             item.expanded = !item.expanded
             notifyDataSetChanged()
         }
@@ -62,95 +62,34 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val doctorName4 = itemView.doctorListName4
         private val doctorName5 = itemView.doctorListName5
         private val seeAllBtn = itemView.seeAllDoctors
+        private val arrowButton = itemView.arrowButton
         fun bind(doctorType: DoctorType){
-            doctorTypeTitle.setText(doctorType.title)
+            doctorTypeTitle.text = doctorType.title
             isExpanded.visibility = if (doctorType.expanded) View.VISIBLE else View.GONE
-            var doctors = doctor.members.filter {
+            val doctors = doctor.members.filter {
                 it.doctorType == doctorType.title
             }
-            var numberOfDoctors = doctors.size
-            doctor1.visibility = View.GONE
-            doctor2.visibility = View.GONE
-            doctor3.visibility = View.GONE
-            doctor4.visibility = View.GONE
-            doctor5.visibility = View.GONE
-
-            if(numberOfDoctors >= 1){
-                doctor1.visibility = View.VISIBLE
-                doctorName1.text = doctors[0].name
-                doctor1.setOnClickListener{
-                    val fragment = PatientRequestAppointment()
-                    val activity  = it.context as AppCompatActivity
-                    activity.supportFragmentManager.beginTransaction().replace(
-                        R.id.mainPatient,
-                        fragment,
-                        fragment.javaClass.simpleName)
-                        .commit()
+            val numberOfDoctors = doctors.size
+            val doctorsArray = arrayOf(doctor1,doctor2,doctor3,doctor4,doctor5)
+            val doctorNames  = arrayOf(doctorName1,doctorName2,doctorName3,doctorName4,doctorName5)
+            for(index:Int in doctorsArray.indices){
+                if(index > numberOfDoctors -1 ){
+                    doctorsArray[index].visibility = View.GONE
+                }
+                else{
+                    doctorsArray[index].visibility = View.VISIBLE
+                    doctorNames[index].text = doctors[index].name
+                    doctorsArray[index].setOnClickListener{
+                        changeFragmentFromFragment(fragment = PatientRequestAppointment(),context = it.context,root = R.id.mainPatient)
+                    }
                 }
             }
 
-            if(numberOfDoctors >= 2){
-                doctor2.visibility = View.VISIBLE
-                doctorName2.text = doctors[1].name
-                doctor2.setOnClickListener{
-                    val fragment = PatientRequestAppointment()
-                    val activity  = it.context as AppCompatActivity
-                    activity.supportFragmentManager.beginTransaction().replace(
-                        R.id.mainPatient,
-                        fragment,
-                        fragment.javaClass.simpleName)
-                        .commit()
-                }
-            }
-
-            if(numberOfDoctors >= 3){
-                doctor3.visibility = View.VISIBLE
-                doctorName3.text = doctors[2].name
-                doctor3.setOnClickListener{
-                    val fragment = PatientRequestAppointment()
-                    val activity  = it.context as AppCompatActivity
-                    activity.supportFragmentManager.beginTransaction().replace(
-                        R.id.mainPatient,
-                        fragment,
-                        fragment.javaClass.simpleName)
-                        .commit()
-                }
-            }
-
-            if(numberOfDoctors >= 4){
-                doctor4.visibility = View.VISIBLE
-                doctorName4.text = doctors[3].name
-                doctor4.setOnClickListener{
-                    val fragment = PatientRequestAppointment()
-                    val activity  = it.context as AppCompatActivity
-                    activity.supportFragmentManager.beginTransaction().replace(
-                        R.id.mainPatient,
-                        fragment,
-                        fragment.javaClass.simpleName)
-                        .commit()
-                }
-            }
-
-            if(numberOfDoctors >= 5){
-                doctor5.visibility = View.VISIBLE
-                doctorName5.text = doctors[4].name
-                doctor5.setOnClickListener{
-                    val fragment = PatientRequestAppointment()
-                    val activity  = it.context as AppCompatActivity
-                    activity.supportFragmentManager.beginTransaction().replace(
-                        R.id.mainPatient,
-                        fragment,
-                        fragment.javaClass.simpleName)
-                        .commit()
-                }
-            }
             seeAllBtn.setOnClickListener{
                 changeFragmentFromFragment(fragment = SeeAllDoctorsFragment(),context = it.context,root = R.id.mainPatient)
             }
 
         }
-
-
 
     }
 }
