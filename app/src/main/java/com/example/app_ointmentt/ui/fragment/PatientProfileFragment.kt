@@ -1,18 +1,25 @@
 package com.example.app_ointmentt.ui.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.ui.LoginPatient
-import com.example.app_ointmentt.ui.bottomsheet.BottomSheetFragment
+import com.example.app_ointmentt.utils.invokeBottomModalSheet
 import kotlinx.android.synthetic.main.fragment_patient_profile.view.*
 
 class PatientProfileFragment:Fragment() {
+    private lateinit var iHomeFragment: IHomepage
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        iHomeFragment.setToolbarTitle("Profile")
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -21,46 +28,30 @@ class PatientProfileFragment:Fragment() {
         val view = inflater.inflate(R.layout.fragment_patient_profile,container,false)
 
         view.patientUserNameEditBtn.setOnClickListener {
-            val bottomSheetFragment = BottomSheetFragment()
-            val activity = it.context as AppCompatActivity
-            bottomSheetFragment.show(activity.supportFragmentManager, bottomSheetFragment.tag)
+            invokeBottomModalSheet(it)
         }
 
         view.patientAddressEditBtn.setOnClickListener {
-            val bottomSheetFragment = BottomSheetFragment()
-            val activity = it.context as AppCompatActivity
-            bottomSheetFragment.show(activity.supportFragmentManager, bottomSheetFragment.tag)
+            invokeBottomModalSheet(it)
         }
         view.patientBloodGroupEditBtn.setOnClickListener {
-            val bottomSheetFragment = BottomSheetFragment()
-            val activity = it.context as AppCompatActivity
-            bottomSheetFragment.show(activity.supportFragmentManager, bottomSheetFragment.tag)
+            invokeBottomModalSheet(it)
         }
 
         view.patientDOBEditBtn.setOnClickListener {
-            val bottomSheetFragment = BottomSheetFragment()
-            val activity = it.context as AppCompatActivity
-            bottomSheetFragment.show(activity.supportFragmentManager, bottomSheetFragment.tag)
+            invokeBottomModalSheet(it)
         }
         view.patientDiseasesEditBtn.setOnClickListener {
-            val bottomSheetFragment = BottomSheetFragment()
-            val activity = it.context as AppCompatActivity
-            bottomSheetFragment.show(activity.supportFragmentManager, bottomSheetFragment.tag)
+            invokeBottomModalSheet(it)
         }
         view.patientEmailEditBtn.setOnClickListener {
-            val bottomSheetFragment = BottomSheetFragment()
-            val activity = it.context as AppCompatActivity
-            bottomSheetFragment.show(activity.supportFragmentManager, bottomSheetFragment.tag)
+            invokeBottomModalSheet(it)
         }
         view.patientGenderEditBtn.setOnClickListener {
-            val bottomSheetFragment = BottomSheetFragment()
-            val activity = it.context as AppCompatActivity
-            bottomSheetFragment.show(activity.supportFragmentManager, bottomSheetFragment.tag)
+            invokeBottomModalSheet(it)
         }
         view.patientPasswordEditBtn.setOnClickListener {
-            val bottomSheetFragment = BottomSheetFragment()
-            val activity = it.context as AppCompatActivity
-            bottomSheetFragment.show(activity.supportFragmentManager, bottomSheetFragment.tag)
+            invokeBottomModalSheet(it)
         }
         view.patientLogoutBtn.setOnClickListener{
             val intent = Intent(activity, LoginPatient::class.java)
@@ -69,10 +60,13 @@ class PatientProfileFragment:Fragment() {
             activity!!.finish()
         }
         view.patientPhoneNumberEditBtn.setOnClickListener {
-            val bottomSheetFragment = BottomSheetFragment()
-            val activity = it.context as AppCompatActivity
-            bottomSheetFragment.show(activity.supportFragmentManager, bottomSheetFragment.tag)
+            invokeBottomModalSheet(it)
         }
         return view
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        iHomeFragment = activity as IHomepage
     }
 }

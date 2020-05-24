@@ -4,6 +4,7 @@ package com.example.app_ointmentt.ui
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.ui.fragment.DoctorHistoryFragment
 import com.example.app_ointmentt.ui.fragment.DoctorHomeFragment
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.toolbar.view.*
 
 
 /*This is the Entry Point to a Patient Account*/
-class HomePageDoctor : AppCompatActivity() {
+class HomePageDoctor : AppCompatActivity(),IHomepage {
     //root is the meat part of the view where we inflate everything
     private val root = R.id.mainDoctor
 
@@ -25,7 +26,7 @@ class HomePageDoctor : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page_doctor)
 
-        changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar, txt = "Appointment")
+
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         loadHomeFragment(this)
 
@@ -43,17 +44,17 @@ class HomePageDoctor : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
         when (menuItem.itemId) {
             R.id.home -> {
-                changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar, txt = "Appointment")
+
                 changeFragmentFromActivity(fragment = DoctorHomeFragment(),root = root,activity = this)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.history -> {
-                changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar, txt = "History")
+
                 changeFragmentFromActivity(fragment = DoctorHistoryFragment(),root = root,activity = this)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.notification -> {
-                changeToolbarTitleAndInvisibleSearchView(toolbar = toolbar, txt = "Notification")
+
                 changeFragmentFromActivity(fragment = DoctorNotificationFragment(),root = root,activity = this)
                 return@OnNavigationItemSelectedListener true
             }
@@ -62,8 +63,10 @@ class HomePageDoctor : AppCompatActivity() {
     }
 
 
-    private fun changeToolbarTitleAndInvisibleSearchView(toolbar: View?, txt: String){
-        toolbar!!.toolbarTitle.text = txt
+
+
+    override fun setToolbarTitle(fragmentTag: String?) {
+        toolbar!!.toolbarTitle.text = fragmentTag
         toolbar.searchView.visibility = View.GONE
     }
 

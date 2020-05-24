@@ -1,6 +1,7 @@
 package com.example.app_ointmentt.ui.fragment
 
 import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
 import kotlinx.android.synthetic.main.fragment_doctor_homepage.*
 import kotlinx.android.synthetic.main.fragment_doctor_homepage.view.*
@@ -15,6 +17,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class DoctorHomeFragment : Fragment() {
+    private lateinit var iHomeFragment: IHomepage
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        iHomeFragment.setToolbarTitle("Appointment")
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,6 +46,11 @@ class DoctorHomeFragment : Fragment() {
             }
         }
         return view
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        iHomeFragment = activity as IHomepage
     }
 
     private fun showCalenderAndGetTime(view: View?,textView: TextView) {

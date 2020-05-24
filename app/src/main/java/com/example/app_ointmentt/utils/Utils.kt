@@ -4,16 +4,22 @@ import android.content.Context
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.app_ointmentt.ui.bottomsheet.BottomSheetFragment
 import kotlinx.android.synthetic.main.toolbar.view.*
 
-fun changeFragmentFromFragment(fragment: Fragment,context: Context,root: Int) {
+fun changeFragmentFromFragment(fragment: Fragment,context: Context,root: Int,addToBackStack: Boolean = false) {
     val activity = context as AppCompatActivity
-    activity.supportFragmentManager.beginTransaction().replace(
+    val transition  = activity.supportFragmentManager.beginTransaction()
+
+    transition.replace(
         root,
         fragment,
         fragment.javaClass.simpleName
     )
-        .commit()
+    if(addToBackStack){
+        transition.addToBackStack(fragment.javaClass.simpleName)
+    }
+    transition.commit()
 }
 
 fun changeFragmentFromActivity(fragment: Fragment,root: Int,activity: AppCompatActivity){
@@ -28,3 +34,12 @@ fun changeToolbarTitle(toolbar: View?, txt: String){
     toolbar!!.toolbarTitle.text = txt
 }
 
+fun invokeBottomModalSheet(view: View?){
+    val bottomSheetFragment = BottomSheetFragment()
+    val activity = view!!.context as AppCompatActivity
+    bottomSheetFragment.show(activity.supportFragmentManager, bottomSheetFragment.tag)
+}
+
+fun changeActivity(){
+    //write important piece of code here...
+}
