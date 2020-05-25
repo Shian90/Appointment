@@ -80,13 +80,21 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     doctorsArray[index].visibility = View.VISIBLE
                     doctorNames[index].text = doctors[index].name
                     doctorsArray[index].setOnClickListener{
-                        changeFragmentFromFragment(fragment = PatientRequestAppointment(),context = it.context,root = R.id.mainPatient,addToBackStack = true)
+                        changeFragmentFromFragment(
+                            fragment = PatientRequestAppointment.newInstance(doctorName = doctors[index].name),
+                            context = it.context,
+                            root = R.id.mainPatient,
+                            addToBackStack = true)
                     }
                 }
             }
 
             seeAllBtn.setOnClickListener{
-                changeFragmentFromFragment(fragment = SeeAllDoctorsFragment(),context = it.context,root = R.id.mainPatient,addToBackStack = true)
+                changeFragmentFromFragment(
+                    fragment = SeeAllDoctorsFragment(),
+                    context = it.context,
+                    root = R.id.mainPatient,
+                    addToBackStack = true)
             }
 
         }

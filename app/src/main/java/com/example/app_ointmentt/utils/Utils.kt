@@ -1,14 +1,23 @@
 package com.example.app_ointmentt.utils
 
 import android.content.Context
+import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.app_ointmentt.ui.bottomsheet.BottomSheetFragment
 import kotlinx.android.synthetic.main.toolbar.view.*
 
-fun changeFragmentFromFragment(fragment: Fragment,context: Context,root: Int,addToBackStack: Boolean = false) {
+fun changeFragmentFromFragment(
+    fragment: Fragment,
+    context: Context,
+    root: Int,
+    addToBackStack: Boolean = false, bundle: Bundle? = null) {
+
     val activity = context as AppCompatActivity
+    if(bundle != null){
+        fragment.arguments = bundle
+    }
     val transition  = activity.supportFragmentManager.beginTransaction()
 
     transition.replace(

@@ -48,7 +48,10 @@ class AllDoctorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(doctor: Doctor){
             doctorName.setText(doctor.name)
             cardView.setOnClickListener{
-                changeFragmentFromFragment(fragment = PatientRequestAppointment(),context = it.context,root = R.id.mainPatient)
+                changeFragmentFromFragment(
+                    fragment = PatientRequestAppointment(),
+                    context = it.context,
+                    root = R.id.mainPatient)
             }
         }
     }
