@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.ui.LoginPatient
@@ -26,6 +27,10 @@ class PatientProfileFragment:Fragment() {
         savedInstanceState: Bundle?
     ): View?{
         val view = inflater.inflate(R.layout.fragment_patient_profile,container,false)
+        Glide.with(this)
+            .load("https://i.pinimg.com/originals/d0/f4/fc/d0f4fc818a35285642ba057436fc8720.jpg")
+            .placeholder(R.drawable.profile)
+            .into(view.profile_image);
 
         view.patientUserNameEditBtn.setOnClickListener {
             invokeBottomModalSheet(it)

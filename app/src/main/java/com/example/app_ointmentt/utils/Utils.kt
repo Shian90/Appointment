@@ -6,7 +6,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.app_ointmentt.ui.bottomsheet.BottomSheetFragment
-import kotlinx.android.synthetic.main.toolbar.view.*
 
 fun changeFragmentFromFragment(
     fragment: Fragment,
@@ -39,9 +38,6 @@ fun changeFragmentFromActivity(fragment: Fragment,root: Int,activity: AppCompatA
         .commit()
 }
 
-fun changeToolbarTitle(toolbar: View?, txt: String){
-    toolbar!!.toolbarTitle.text = txt
-}
 
 fun invokeBottomModalSheet(view: View?){
     val bottomSheetFragment = BottomSheetFragment()
