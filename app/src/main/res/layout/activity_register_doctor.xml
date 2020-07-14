@@ -2,188 +2,92 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="48dp"
+        android:text="Doctor Signup"
+        android:textAlignment="textStart"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="36sp"
+        android:textStyle="normal|bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.254"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <EditText
+        android:id="@+id/usernameDoctorRegister"
+        android:layout_width="319dp"
+        android:layout_height="53dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-            <EditText
-                android:id="@+id/usernameDoctorRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:ems="10"
-                android:hint="Username"
-                android:inputType="textPersonName"
-                tools:layout_editor_absoluteX="63dp"
-                tools:layout_editor_absoluteY="399dp" />
+    <EditText
 
-            <EditText
-                android:id="@+id/emailDoctorRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="E-mail Address"
-                android:inputType="textEmailAddress" />
+        android:id="@+id/emailDoctorRegister"
+        android:layout_width="319dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/usernameDoctorRegister"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/usernameDoctorRegister"
+        app:layout_constraintTop_toBottomOf="@+id/usernameDoctorRegister" />
 
-            <EditText
-                android:id="@+id/passwordDoctorRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Password"
-                android:inputType="textPassword" />
+    <EditText
 
-            <TextView
-                android:id="@+id/dobDoctorRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Select Date of Birth"
-                android:inputType="text"
-                android:textSize="18dp" />
+        android:id="@+id/passwordDoctorRegister"
+        android:layout_width="319dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/certificateRegistrationNumberDoctorRegister"
+        app:layout_constraintStart_toStartOf="@+id/certificateRegistrationNumberDoctorRegister"
+        app:layout_constraintTop_toBottomOf="@+id/certificateRegistrationNumberDoctorRegister" />
 
-            <EditText
-                android:id="@+id/contactDoctorRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Contact Number"
-                android:inputType="phone"
-                android:maxLength="11" />
+    <EditText
+        android:id="@+id/certificateRegistrationNumberDoctorRegister"
+        android:layout_width="319dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:hint="BMDC number"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/emailDoctorRegister"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/emailDoctorRegister"
+        app:layout_constraintTop_toBottomOf="@+id/emailDoctorRegister" />
 
-            <EditText
-                android:id="@+id/certificateRegistrationNumberDoctorRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Certificate Number"
-                android:inputType="numberDecimal"
-                android:maxLength="11" />
-
-            <Spinner
-                android:id="@+id/doctorTypeDoctorRegister"
-                android:layout_width="210dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:visibility="visible" />
-
-            <EditText
-                android:id="@+id/specialityDoctorRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="24dp"
-                android:ems="10"
-                android:hint="Field of Speciality"
-                android:inputType="textPersonName" />
-
-            <Spinner
-                android:id="@+id/chamberLocationDistrictDoctorRegister"
-                android:layout_width="210dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:visibility="visible" />
-
-            <Spinner
-                android:id="@+id/bloodGroupDoctorRegister"
-                android:layout_width="210dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:visibility="visible" />
-
-            <Spinner
-                android:id="@+id/genderDoctorRegister"
-                android:layout_width="210dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:visibility="visible" />
-
-            <Spinner
-                android:id="@+id/addressDistrictDoctorRegister"
-                android:layout_width="210dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:visibility="visible" />
-
-            <EditText
-                android:id="@+id/addressAreaDoctorRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Address(Area)"
-                android:inputType="text" />
-
-            <Button
-                android:id="@+id/registerBtnDoctorRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
-                android:background="@color/colorPrimaryDark"
-                android:text="Register"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/patientRegister"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Doctor's Register"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="35sp"
-                android:textStyle="normal"
-                tools:layout_editor_absoluteX="-40dp"
-                tools:layout_editor_absoluteY="266dp" />
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4868dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/login_page_design" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
+    <Button
+        android:id="@+id/registerBtnDoctorRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/ic_rounded_button"
+        android:text="Signup"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/passwordDoctorRegister"
+        app:layout_constraintStart_toStartOf="@+id/passwordDoctorRegister"
+        app:layout_constraintTop_toBottomOf="@+id/passwordDoctorRegister"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
