@@ -1,14 +1,14 @@
-package com.example.app_ointmentt.ui
+package com.example.app_ointmentt.ui.patient
 
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.ui.fragment.PatientHistoryFragment
-import com.example.app_ointmentt.ui.fragment.PatientHomeFragment
-import com.example.app_ointmentt.ui.fragment.PatientNotificationFragment
-import com.example.app_ointmentt.ui.fragment.PatientProfileFragment
+import com.example.app_ointmentt.ui.patient.fragment.PatientHistoryFragment
+import com.example.app_ointmentt.ui.patient.fragment.PatientHomeFragment
+import com.example.app_ointmentt.ui.patient.fragment.PatientNotificationFragment
+import com.example.app_ointmentt.ui.patient.fragment.PatientProfileFragment
 import com.example.app_ointmentt.utils.changeFragmentFromActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home_page_patient.*

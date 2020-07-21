@@ -1,4 +1,4 @@
-package com.example.app_ointmentt.ui.fragment
+package com.example.app_ointmentt.ui.patient.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,7 +17,8 @@ class PatientRequestAppointment : Fragment() {
     companion object {
         private const val ARGS_DOCTOR_NAME = "doctorName"
         fun newInstance(doctorName: String): PatientRequestAppointment {
-            val fragment = PatientRequestAppointment()
+            val fragment =
+                PatientRequestAppointment()
             val args  = Bundle()
             args.putString(ARGS_DOCTOR_NAME,doctorName)
             fragment.arguments = args
@@ -36,7 +37,8 @@ class PatientRequestAppointment : Fragment() {
         view.doctorNameRequestAppointment.text = doctorName
         view.requestAppointmentbtn.setOnClickListener{
             //Code for requesting Appointment
-            val fragment = AppointmentConfirmationFragment()
+            val fragment =
+                AppointmentConfirmationFragment()
             val activity = view.context as AppCompatActivity
             activity.supportFragmentManager.beginTransaction().replace(R.id.mainPatient,
                 fragment,

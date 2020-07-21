@@ -1,4 +1,4 @@
-package com.example.app_ointmentt.ui.fragment
+package com.example.app_ointmentt.ui.patient.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,7 +17,8 @@ class AppointmentConfirmationFragment: Fragment() {
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_appointment_confirmation,container,false)
         view.goBackHomeBtn.setOnClickListener{
-            val fragment = PatientHomeFragment()
+            val fragment =
+                PatientHomeFragment()
             val activity = view.context as AppCompatActivity
             activity.supportFragmentManager.beginTransaction().replace(R.id.mainPatient,
                 fragment,

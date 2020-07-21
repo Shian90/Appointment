@@ -1,4 +1,4 @@
-package com.example.app_ointmentt.ui.fragment
+package com.example.app_ointmentt.ui.patient.fragment
 
 import android.content.Context
 import android.content.Intent
@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.ui.LoginPatient
+import com.example.app_ointmentt.ui.patient.LoginPatient
 import com.example.app_ointmentt.utils.invokeBottomModalSheet
 import kotlinx.android.synthetic.main.fragment_patient_profile.view.*
 

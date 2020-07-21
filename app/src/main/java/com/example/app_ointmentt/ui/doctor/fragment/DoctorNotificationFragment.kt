@@ -1,4 +1,4 @@
-package com.example.app_ointmentt.ui.fragment
+package com.example.app_ointmentt.ui.doctor.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -9,25 +9,24 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.adapter.HistoryAdapter
-import com.example.app_ointmentt.dataset.PatientHistoryRawData
-import kotlinx.android.synthetic.main.fragment_doctor_history.view.*
+import com.example.app_ointmentt.adapter.NotificationAdapter
+import com.example.app_ointmentt.dataset.Rawdata
+import kotlinx.android.synthetic.main.fragment_doctor_notification.view.*
 
-class PatientHistoryFragment : Fragment() {
-    private lateinit var historyAdapter: HistoryAdapter
-    private lateinit var iHomepage: IHomepage
+class DoctorNotificationFragment : Fragment() {
+    private lateinit var notificationAdapter: NotificationAdapter
+    private lateinit var iHomeFragment: IHomepage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        iHomepage.setToolbarTitle("History")
+        iHomeFragment.setToolbarTitle("Notification")
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_patient_history,container,false)
+        val rootView = inflater.inflate(R.layout.fragment_doctor_notification,container,false)
         initRecyclerView(rootView)
         bindData()
         return rootView
@@ -35,17 +34,19 @@ class PatientHistoryFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        iHomepage = activity as IHomepage
+        iHomeFragment = activity as IHomepage
     }
 
+
     private fun bindData(){
-        historyAdapter.submitList(PatientHistoryRawData.members)
+        notificationAdapter.submitList(Rawdata.members)
     }
 
     private fun initRecyclerView(rootView: View){
-        rootView.historyRecyclerView.apply {
-            historyAdapter = HistoryAdapter()
-            adapter = historyAdapter
+            rootView.notificationRecyclerView.apply {
+            notificationAdapter =
+                NotificationAdapter()
+            adapter = notificationAdapter
             layoutManager = LinearLayoutManager(context)
         }
     }

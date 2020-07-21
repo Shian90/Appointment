@@ -1,4 +1,4 @@
-package com.example.app_ointmentt.ui.fragment
+package com.example.app_ointmentt.ui.patient.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

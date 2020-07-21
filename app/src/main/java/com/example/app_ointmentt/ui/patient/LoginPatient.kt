@@ -1,4 +1,4 @@
-package com.example.app_ointmentt.ui
+package com.example.app_ointmentt.ui.patient
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.models.PatientClass
+import com.example.app_ointmentt.ui.doctor.LoginDoctor
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login_patient.*

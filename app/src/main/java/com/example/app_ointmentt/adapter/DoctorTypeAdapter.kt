@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.dataset.doctor
 import com.example.app_ointmentt.models.DoctorType
-import com.example.app_ointmentt.ui.fragment.PatientRequestAppointment
-import com.example.app_ointmentt.ui.fragment.SeeAllDoctorsFragment
+import com.example.app_ointmentt.ui.patient.fragment.PatientRequestAppointment
+import com.example.app_ointmentt.ui.patient.fragment.SeeAllDoctorsFragment
 import com.example.app_ointmentt.utils.changeFragmentFromFragment
 import kotlinx.android.synthetic.main.cardview_notification.view.txt
 import kotlinx.android.synthetic.main.cardview_recycler_expanded_doctor_list.view.*

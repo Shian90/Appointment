@@ -1,4 +1,4 @@
-package com.example.app_ointmentt.ui
+package com.example.app_ointmentt.ui.doctor
 
 
 import android.os.Bundle
@@ -6,10 +6,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.ui.fragment.DoctorHistoryFragment
-import com.example.app_ointmentt.ui.fragment.DoctorHomeFragment
-import com.example.app_ointmentt.ui.fragment.DoctorNotificationFragment
-import com.example.app_ointmentt.ui.fragment.DoctorProfileFragment
+import com.example.app_ointmentt.ui.doctor.fragment.DoctorHistoryFragment
+import com.example.app_ointmentt.ui.doctor.fragment.DoctorHomeFragment
+import com.example.app_ointmentt.ui.doctor.fragment.DoctorNotificationFragment
+import com.example.app_ointmentt.ui.doctor.fragment.DoctorProfileFragment
 import com.example.app_ointmentt.utils.changeFragmentFromActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home_page_doctor.*

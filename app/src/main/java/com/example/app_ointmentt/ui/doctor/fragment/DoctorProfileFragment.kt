@@ -1,4 +1,4 @@
-package com.example.app_ointmentt.ui.fragment
+package com.example.app_ointmentt.ui.doctor.fragment
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.ui.LoginDoctor
+import com.example.app_ointmentt.ui.doctor.LoginDoctor
 import com.example.app_ointmentt.utils.invokeBottomModalSheet
 import kotlinx.android.synthetic.main.fragment_doctor_profile.view.*
 
