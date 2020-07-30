@@ -1,0 +1,53 @@
+appointment:
+id - String or UUIDV4
+patientId - String or UUIDV4
+slotId - String or UUIDV4
+prescription: String
+status: String
+
+
+
+doctor:
+id - String or UUIDV4
+name - String
+email - String
+pass - String
+phone - String
+dob - Date
+gender - String
+blood - String
+address - String
+specialty - String
+bmdc - String
+
+
+
+patient:
+id - String or UUIDV4
+name - String
+email - String
+pass - String
+phone - String
+dob - Date
+gender - String
+blood - String
+address - String
+past - String
+
+
+
+rating:
+doctorId - String or UUIDV4
+numRatings - Int
+sumRatings - Int
+average - Int
+
+
+
+slot:
+id - String or UUIDV4
+doctorId - String or UUIDV4
+dateOfSlot - Date
+startTime - Date or Time
+endTime - Date or Time
+status - Int
