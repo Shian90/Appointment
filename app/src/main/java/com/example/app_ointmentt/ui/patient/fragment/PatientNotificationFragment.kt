@@ -1,4 +1,4 @@
-package com.example.app_ointmentt.ui.fragment
+package com.example.app_ointmentt.ui.patient.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -13,13 +13,13 @@ import com.example.app_ointmentt.adapter.NotificationAdapter
 import com.example.app_ointmentt.dataset.Rawdata
 import kotlinx.android.synthetic.main.fragment_doctor_notification.view.*
 
-class DoctorNotificationFragment : Fragment() {
+class PatientNotificationFragment : Fragment() {
     private lateinit var notificationAdapter: NotificationAdapter
-    private lateinit var iHomeFragment: IHomepage
+    private lateinit var iHomepage: IHomepage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        iHomeFragment.setToolbarTitle("Notification")
+        iHomepage.setToolbarTitle("Notification")
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,16 +34,15 @@ class DoctorNotificationFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        iHomeFragment = activity as IHomepage
+        iHomepage = activity as IHomepage
     }
-
 
     private fun bindData(){
         notificationAdapter.submitList(Rawdata.members)
     }
 
     private fun initRecyclerView(rootView: View){
-            rootView.notificationRecyclerView.apply {
+        rootView.notificationRecyclerView.apply {
             notificationAdapter =
                 NotificationAdapter()
             adapter = notificationAdapter

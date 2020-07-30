@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="10dp">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="5dp">
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,16 +55,16 @@
                         android:layout_marginBottom="40dp"
                         android:gravity="center">
 
-                    <TextView
-                        android:id="@+id/ProfileUsername"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Username"
-                        android:textSize="30sp"
-                        android:textStyle="bold"
-                        android:layout_margin="5dp"
-                        android:textColor="#000"
-                        />
+                        <TextView
+                            android:id="@+id/ProfileUsername"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Username"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:layout_margin="5dp"
+                            android:textColor="#000"
+                            />
                         <ImageButton
                             android:id="@+id/patientUserNameEditBtn"
                             android:layout_width="30dp"
@@ -74,160 +78,163 @@
 
             </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="5dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-                <TextView
-                    android:layout_width="150dp"
+                android:orientation="vertical"
+                android:padding="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Email Address"
-                    android:textSize="18sp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Email Address"
+                        android:textSize="18sp"/>
 
-                <ImageButton
-                    android:id="@+id/patientEmailEditBtn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="190dp"
-                    android:src="@android:drawable/ic_input_add" />
-            </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/patientEmailEditBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="190dp"
+                        android:src="@android:drawable/ic_input_add" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-                <TextView
-                    android:layout_width="150dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="DOB"
-                    android:textSize="18sp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="DOB"
+                        android:textSize="18sp"/>
 
-                <ImageButton
-                    android:id="@+id/patientDOBEditBtn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="190dp"
-                    android:src="@android:drawable/ic_input_add" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-                <TextView
-                    android:layout_width="150dp"
+                    <ImageButton
+                        android:id="@+id/patientDOBEditBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="190dp"
+                        android:src="@android:drawable/ic_input_add" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Gender"
-                    android:textSize="18sp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Gender"
+                        android:textSize="18sp"/>
 
-                <ImageButton
-                    android:id="@+id/patientGenderEditBtn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="190dp"
-                    android:src="@android:drawable/ic_input_add" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-                <TextView
-                    android:layout_width="150dp"
+                    <ImageButton
+                        android:id="@+id/patientGenderEditBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="190dp"
+                        android:src="@android:drawable/ic_input_add" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Blood Group"
-                    android:textSize="18sp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Blood Group"
+                        android:textSize="18sp"/>
 
-                <ImageButton
-                    android:id="@+id/patientBloodGroupEditBtn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="190dp"
-                    android:src="@android:drawable/ic_input_add" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-                <TextView
-                    android:layout_width="150dp"
+                    <ImageButton
+                        android:id="@+id/patientBloodGroupEditBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="190dp"
+                        android:src="@android:drawable/ic_input_add" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Diseases"
-                    android:textSize="18sp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Diseases"
+                        android:textSize="18sp"/>
 
-                <ImageButton
-                    android:id="@+id/patientDiseasesEditBtn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="190dp"
-                    android:src="@android:drawable/ic_input_add" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-                <TextView
-                    android:layout_width="150dp"
+                    <ImageButton
+                        android:id="@+id/patientDiseasesEditBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="190dp"
+                        android:src="@android:drawable/ic_input_add" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Phone Number"
-                    android:textSize="18sp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Phone Number"
+                        android:textSize="18sp"/>
 
-                <ImageButton
-                    android:id="@+id/patientPhoneNumberEditBtn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="190dp"
-                    android:src="@android:drawable/ic_input_add" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-                <TextView
-                    android:layout_width="150dp"
+                    <ImageButton
+                        android:id="@+id/patientPhoneNumberEditBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="190dp"
+                        android:src="@android:drawable/ic_input_add" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Address"
-                    android:textSize="18sp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Address"
+                        android:textSize="18sp"/>
 
-                <ImageButton
-                    android:id="@+id/patientAddressEditBtn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="190dp"
-                    android:src="@android:drawable/ic_input_add" />
-            </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/patientAddressEditBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="190dp"
+                        android:src="@android:drawable/ic_input_add" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-
-                <TextView
-                    android:layout_width="150dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Password"
-                    android:textSize="18sp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
 
-                <ImageButton
-                    android:id="@+id/patientPasswordEditBtn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="190dp"
-                    android:src="@android:drawable/ic_input_add" />
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Password"
+                        android:textSize="18sp"/>
+
+                    <ImageButton
+                        android:id="@+id/patientPasswordEditBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="190dp"
+                        android:src="@android:drawable/ic_input_add" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
 
         </LinearLayout>
     </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

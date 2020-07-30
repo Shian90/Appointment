@@ -1,9 +1,10 @@
-package com.example.app_ointmentt.ui
+package com.example.app_ointmentt.ui.doctor
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.app_ointmentt.R
+import com.example.app_ointmentt.ui.patient.LoginPatient
 import kotlinx.android.synthetic.main.activity_login_doctor.*
 
 class LoginDoctor : AppCompatActivity() {

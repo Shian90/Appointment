@@ -1,4 +1,4 @@
-package com.example.app_ointmentt.ui
+package com.example.app_ointmentt.ui.doctor
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

@@ -1,4 +1,4 @@
-package com.example.app_ointmentt.ui
+package com.example.app_ointmentt.ui.patient
 
 import android.annotation.SuppressLint
 import android.content.Intent

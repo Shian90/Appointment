@@ -1,4 +1,4 @@
-package com.example.app_ointmentt.ui.fragment
+package com.example.app_ointmentt.ui.doctor.fragment
 
 import android.content.Context
 import android.content.Intent
@@ -9,11 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.ui.LoginPatient
+import com.example.app_ointmentt.ui.doctor.LoginDoctor
 import com.example.app_ointmentt.utils.invokeBottomModalSheet
-import kotlinx.android.synthetic.main.fragment_patient_profile.view.*
+import kotlinx.android.synthetic.main.fragment_doctor_profile.view.*
 
-class PatientProfileFragment:Fragment() {
+class DoctorProfileFragment: Fragment() {
     private lateinit var iHomeFragment: IHomepage
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,42 +25,46 @@ class PatientProfileFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View?{
-        val view = inflater.inflate(R.layout.fragment_patient_profile,container,false)
+        val view =  inflater.inflate(R.layout.fragment_doctor_profile,container,false)
 
-        view.patientUserNameEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
-        }
-
-        view.patientAddressEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
-        }
-        view.patientBloodGroupEditBtn.setOnClickListener {
+        view.doctorUserNameEditBtn.setOnClickListener {
             invokeBottomModalSheet(it)
         }
 
-        view.patientDOBEditBtn.setOnClickListener {
+        view.doctorLocationEditBtn.setOnClickListener {
             invokeBottomModalSheet(it)
         }
-        view.patientDiseasesEditBtn.setOnClickListener {
+        view.doctorBloodGroupEditBtn.setOnClickListener {
             invokeBottomModalSheet(it)
         }
-        view.patientEmailEditBtn.setOnClickListener {
+
+        view.doctorDOBEditBtn.setOnClickListener {
             invokeBottomModalSheet(it)
         }
-        view.patientGenderEditBtn.setOnClickListener {
+
+        view.doctorEmailEditBtn.setOnClickListener {
             invokeBottomModalSheet(it)
         }
-        view.patientPasswordEditBtn.setOnClickListener {
+        view.doctorGenderEditBtn.setOnClickListener {
             invokeBottomModalSheet(it)
         }
-        view.patientLogoutBtn.setOnClickListener{
-            val intent = Intent(activity, LoginPatient::class.java)
+        view.doctorTypeEditBtn.setOnClickListener {
+            invokeBottomModalSheet(it)
+        }
+        view.doctorBMDCEditBtn.setOnClickListener {
+            invokeBottomModalSheet(it)
+        }
+        view.doctorPhoneNumberEditBtn.setOnClickListener {
+            invokeBottomModalSheet(it)
+        }
+        view.doctorPasswordEditBtn.setOnClickListener {
+            invokeBottomModalSheet(it)
+        }
+        view.doctorLogoutBtn.setOnClickListener {
+            val intent = Intent(activity, LoginDoctor::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             activity!!.startActivity(intent)
             activity!!.finish()
-        }
-        view.patientPhoneNumberEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
         }
         return view
     }
