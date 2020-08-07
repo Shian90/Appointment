@@ -20,16 +20,6 @@ class LoginPatient : AppCompatActivity(),AuthDB.LoginPatientSuccessListener,Auth
 
         loginBtnPatientLogin.setOnClickListener {
             login()
-//            val authDB = AuthDB(this)
-//            authDB.setLoginPatientSuccessListener(this)
-//            authDB.setLoginPatientFailureListener(this)
-//            Log.d("loginpatient", emailPatientLogin.text.toString()+passwordPatientLogin.text.toString())
-//            authDB.loginPatient(emailPatientLogin.text.toString(),passwordPatientLogin.text.toString())
-//            val intent = Intent(this, HomePagePatient::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            startActivity(intent)
-//            finish()
-
         }
 
         signUpBtnPatientLogin.setOnClickListener {
@@ -53,7 +43,7 @@ class LoginPatient : AppCompatActivity(),AuthDB.LoginPatientSuccessListener,Auth
             authDB.setLoginPatientSuccessListener(this)
             authDB.setLoginPatientFailureListener(this)
             Log.d("loginpatient", emailPatientLogin.text.toString()+passwordPatientLogin.text.toString())
-            authDB.loginPatient(emailPatientLogin.text.toString(),passwordPatientLogin.text.toString())
+            authDB.loginPatient(email,password)
         }
 
     }
@@ -61,7 +51,11 @@ class LoginPatient : AppCompatActivity(),AuthDB.LoginPatientSuccessListener,Auth
     override fun loginPatientSuccess(patient: Patient) {
         Log.d("success","success")
         Toast.makeText(this, "Logged in Successfully", LENGTH_SHORT).show()
-        startActivity(Intent(this, HomePagePatient::class.java))
+
+        val intent = Intent(this, HomePagePatient::class.java)
+        intent.flags =
+            Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
         finish()
     }
 

@@ -15,7 +15,7 @@
         <activity android:name=".ui.patient.LoginPatient" android:theme="@style/SplashTheme"/>
         <activity android:name=".ui.doctor.RegisterDoctor" android:theme="@style/SplashTheme"/>
         <activity android:name=".ui.patient.RegisterPatient" android:theme="@style/SplashTheme"/>
-        <activity android:name="app_ointmentt.ui.MainActivity" android:theme="@style/SplashTheme">
+        <activity android:name=".ui.MainActivity" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
