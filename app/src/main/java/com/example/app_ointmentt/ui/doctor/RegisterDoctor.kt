@@ -35,8 +35,6 @@ class RegisterDoctor : AppCompatActivity(),AuthDB.RegisterDoctorBasicSuccessList
         if(username.isEmpty() || email.isEmpty() || password.isEmpty()|| bmdcNumber.isEmpty()){
             Toast.makeText(this, "Please fill everything up", Toast.LENGTH_SHORT).show()
       }else{
-//
-//           //Add Signup here
             val authDB = AuthDB(this)
             authDB.setRegisterDoctorBasicSuccessListener(this)
             authDB.setRegisterDoctorBasicFailureListener(this)
