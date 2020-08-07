@@ -1,4 +1,4 @@
-package com.example.app_ointmentt.models
+package com.example.app_ointmentt.models.old
 
 data class Notification(var title: String?)
 

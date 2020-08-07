@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.dataset.doctor
-import com.example.app_ointmentt.models.DoctorType
+import com.example.app_ointmentt.models.old.DoctorType
 import com.example.app_ointmentt.ui.patient.fragment.PatientRequestAppointment
 import com.example.app_ointmentt.ui.patient.fragment.SeeAllDoctorsFragment
 import com.example.app_ointmentt.utils.changeFragmentFromFragment

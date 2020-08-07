@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.models.Doctor
+import com.example.app_ointmentt.models.old.Doctor
 import com.example.app_ointmentt.ui.patient.fragment.PatientRequestAppointment
 import com.example.app_ointmentt.utils.changeFragmentFromFragment
 import kotlinx.android.synthetic.main.cardview_doctor_list.view.*
