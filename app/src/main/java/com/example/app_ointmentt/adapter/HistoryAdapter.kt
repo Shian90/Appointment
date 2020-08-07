@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.models.History
-import com.example.app_ointmentt.models.Notification
+import com.example.app_ointmentt.models.old.History
 import kotlinx.android.synthetic.main.cardview_notification.view.*
 
 class HistoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

@@ -2,6 +2,7 @@ package com.example.app_ointmentt.ui.patient.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,8 @@ import kotlinx.android.synthetic.main.fragment_patient_profile.view.*
 
 class PatientProfileFragment:Fragment() {
     private lateinit var iHomeFragment: IHomepage
-
+    //sharedPreference File Name
+    private val sharedPrefFile = "appointmentSharedPref"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         iHomeFragment.setToolbarTitle("Profile")
@@ -59,6 +61,12 @@ class PatientProfileFragment:Fragment() {
             invokeBottomModalSheet(it)
         }
         view.patientLogoutBtn.setOnClickListener{
+            val sharedPreferences: SharedPreferences = context!!.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("jwt", null)
+            editor.putString("uid", null)
+            editor.putString("type", null)
+            editor.apply()
             val intent = Intent(activity, LoginPatient::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             activity!!.startActivity(intent)
