@@ -2,165 +2,24 @@ package com.example.app_ointmentt.ui.patient
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.appcompat.app.AppCompatActivity
 import com.example.app_ointmentt.R
+import com.example.app_ointmentt.databasing.AuthDB
+import com.example.app_ointmentt.models.Patient
 import kotlinx.android.synthetic.main.activity_register_patient.*
 
-class RegisterPatient : AppCompatActivity() {
+class RegisterPatient : AppCompatActivity(), AuthDB.RegisterPatientBasicSuccessListener,AuthDB.RegisterPatientBasicFailureListener,AuthDB.LoginPatientSuccessListener,AuthDB.LoginPatientFailureListener {
 
+
+    lateinit var password: String
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_patient)
-
-//        dobPatientRegister.setOnClickListener {
-//            val cal = Calendar.getInstance()
-//            val year = cal.get(Calendar.YEAR)
-//            val month = cal.get(Calendar.MONTH)
-//            val day = cal.get(Calendar.DAY_OF_MONTH)
-//
-//            val dialog = DatePickerDialog(this,
-//                android.R.style.Theme_DeviceDefault_Dialog_Alert,
-//                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-//                    dobPatientRegister.setText("$dayOfMonth/$monthOfYear/$year")
-//                },
-//                year, month, day)
-//            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.DKGRAY))
-//            dialog.show()
-//        }
-//
-//        val bloodGroups = arrayOf("Choose a blood group", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-")
-//        bloodGroupPatientRegister.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, bloodGroups)
-//
-//        bloodGroupPatientRegister.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onNothingSelected(p0: AdapterView<*>?) {
-//                registerBtnPatientRegister.isClickable = false
-//                Toast.makeText(this@RegisterPatient, "Please choose a bloodgroup", LENGTH_SHORT).show()
-//            }
-//
-//            override fun onItemSelected(p0: AdapterView<*>?, view: View?, p2: Int, id: Long) {
-//                if(bloodGroups[p2] == "Choose a blood group") {
-//                    registerBtnPatientRegister.isClickable = false
-//                    //Toast.makeText(this@RegisterPatient, "Please choose a valid bloodgroup", LENGTH_SHORT).show()
-//                }else {
-//                    registerBtnPatientRegister.isClickable = true
-//                    Toast.makeText(this@RegisterPatient, bloodGroups[p2] + " is selected", LENGTH_SHORT).show()
-//                }
-//            }
-//
-//        }
-//
-//        val gender = arrayOf("Choose a gender", "Male", "Female", "Other")
-//
-//        genderPatientRegister.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, gender)
-//
-//        genderPatientRegister.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onNothingSelected(p0: AdapterView<*>?) {
-//                registerBtnPatientRegister.isClickable = false
-//                Toast.makeText(this@RegisterPatient, "Please choose a gender", LENGTH_SHORT).show()
-//            }
-//
-//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-//                if(gender[p2] == "Choose a gender") {
-//                    registerBtnPatientRegister.isClickable = false
-//                   // Toast.makeText(this@RegisterPatient,"Please choose a valid gender" , LENGTH_SHORT).show()
-//                }else {
-//                    registerBtnPatientRegister.isClickable = true
-//                    Toast.makeText(this@RegisterPatient, gender[p2] + " is selected", LENGTH_SHORT).show()
-//                }
-//            }
-//
-//        }
-//
-//        val addressDistrict = arrayOf("Choose a district",
-//            "Bagerhat",
-//            "Bandarban",
-//            "Barguna",
-//            "Barisal",
-//            "Bhola",
-//            "Bogra",
-//            "Brahmanbaria",
-//            "Chandpur",
-//            "Chittagong",
-//            "Chuadanga",
-//            "Comilla",
-//            "Cox's Bazar",
-//            "Dhaka",
-//            "Dinajpur",
-//            "Faridpur",
-//            "Feni",
-//            "Gaibandha",
-//            "Gazipur",
-//            "Gopalganj",
-//            "Habiganj",
-//            "Jaipurhat",
-//            "Jamalpur",
-//            "Jessore",
-//            "Jhalakati",
-//            "Jhenaidah",
-//            "Khagrachari",
-//            "Khulna",
-//            "Kishoreganj",
-//            "Kurigram",
-//            "Kushtia",
-//            "Lakshmipur",
-//            "Lalmonirhat",
-//            "Madaripur",
-//            "Magura",
-//            "Manikganj",
-//            "Meherpur",
-//            "Moulvibazar",
-//            "Munshiganj",
-//            "Mymensingh",
-//            "Naogaon",
-//            "Narail",
-//            "Narayanganj",
-//            "Narsingdi",
-//            "Natore",
-//            "Nawabganj",
-//            "Netrakona",
-//            "Nilphamari",
-//            "Noakhali",
-//            "Pabna",
-//            "Panchagarh",
-//            "Parbattya Chattagram",
-//            "Patuakhali",
-//            "Pirojpur",
-//            "Rajbari",
-//            "Rajshahi",
-//            "Rangpur",
-//            "Satkhira",
-//            "Shariatpur",
-//            "Sherpur",
-//            "Sirajganj",
-//            "Sunamganj",
-//            "Sylhet",
-//            "Tangail",
-//            "Thakurgaon"
-//        )
-//
-//        addressDistrictPatientRegister.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, addressDistrict)
-//
-//        addressDistrictPatientRegister.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onNothingSelected(p0: AdapterView<*>?) {
-//                registerBtnPatientRegister.isClickable = false
-//                Toast.makeText(this@RegisterPatient, "Please choose a district", LENGTH_SHORT).show()
-//            }
-//
-//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-//                if(addressDistrict[p2] == "Choose a district") {
-//                    registerBtnPatientRegister.isClickable = false
-//                   // Toast.makeText(this@RegisterPatient,"Please choose a valid district" , LENGTH_SHORT).show()
-//                }else {
-//                    registerBtnPatientRegister.isClickable = true
-//                    Toast.makeText(this@RegisterPatient, addressDistrict[p2] + " is selected", LENGTH_SHORT).show()
-//                }
-//            }
-//
-//        }
 
         registerBtnPatientRegister.setOnClickListener {
             registerPatient()
@@ -168,25 +27,49 @@ class RegisterPatient : AppCompatActivity() {
     }
 
     private fun registerPatient(){
+        val username = usernamePatientRegister.text.toString()
+        val email = emailPatientRegister.text.toString().trim()
+        password = passwordPatientRegister.text.toString()
 
-        val usernamePatient = usernamePatientRegister.text.toString()
-        val emailPatientReg = emailPatientRegister.text.toString().trim()
-        val passwordPatientReg = passwordPatientRegister.text.toString()
-//        val dobPatient = dobPatientRegister.text.toString().trim()
-//        val contactPatient = contactPatientRegister.text.toString().trim()
-//        val bloodGroupPatient = bloodGroupPatientRegister.selectedItem.toString().trim()
-//        val genderPatient = genderPatientRegister.selectedItem.toString().trim()
-//        val addressDistrictPatient = addressDistrictPatientRegister.selectedItem.toString().trim()
-//        val addressAreaPatient = addressAreaPatientRegister.text.toString().trim()
-
-        if(usernamePatient.isEmpty() || emailPatientReg.isEmpty() || passwordPatientReg.isEmpty() ){
+        if(username.isEmpty() || email.isEmpty() || password.isEmpty() ){
             Toast.makeText(this, "Please fill everything up", LENGTH_SHORT).show()
         }else{
             //Add Sign up Options here.
-            val intent = Intent(this, HomePagePatient::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            finish()
+            val authDB = AuthDB(this)
+            authDB.setRegisterPatientBasicSuccessListener(this)
+            authDB.setRegisterPatientBasicFailureListener(this)
+            authDB.registerPatientBasic(username,email,password)
+
+
         }
+    }
+
+    override fun registerPatientBasicFailure() {
+        Log.d("failure","failure")
+        Toast.makeText(this, "Failure", LENGTH_SHORT).show()
+    }
+
+    override fun registerPatientBasicSuccess(patient: Patient) {
+        val authDB = AuthDB(this)
+        authDB.setLoginPatientSuccessListener(this)
+        authDB.setLoginPatientFailureListener(this)
+        Log.d("success","success")
+        Toast.makeText(this, "Registered Successfully", LENGTH_SHORT).show()
+        authDB.loginPatient(patient.email,password)
+    }
+
+    override fun loginPatientSuccess(patient: Patient) {
+        Log.d("success","success")
+        Toast.makeText(this, "Logged in Successfully", LENGTH_SHORT).show()
+
+        val intent = Intent(this, HomePagePatient::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        finish()
+    }
+
+    override fun loginPatientFailure() {
+        Log.d("failure","failure")
+        Toast.makeText(this, "Failure", LENGTH_SHORT).show()
     }
 }
