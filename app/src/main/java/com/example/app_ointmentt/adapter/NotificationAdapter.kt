@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.models.Notification
+import com.example.app_ointmentt.models.old.Notification
 import kotlinx.android.synthetic.main.cardview_notification.view.*
 
 class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
