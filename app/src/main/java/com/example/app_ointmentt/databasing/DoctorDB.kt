@@ -1,6 +1,8 @@
 package com.example.app_ointmentt.databasing
 
 
+import android.content.Context
+import android.preference.PreferenceManager
 import com.example.app_ointmentt.models.Doctor
 import com.example.app_ointmentt.models.Rating
 
@@ -11,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DoctorDB {
+class DoctorDB(val context: Context) {
 
     //interface variables
     //Find Doctor By Id
@@ -27,11 +29,13 @@ class DoctorDB {
     lateinit var mGetTopDoctorsFailureListener: GetTopDoctorsFailureListener
 
 
-
     //Find Top Doctors InAllCategories
     lateinit var mGetTopDoctorsInAllCategoriesSuccessListener: GetTopDoctorsInAllCategoriesSuccessListener
     lateinit var mGetTopDoctorsInAllCategoriesFailureListener: GetTopDoctorsInAllCategoriesFailureListener
 
+    //Update profile for doctors
+    lateinit var mUpdateProfileDoctorSuccessListener: UpdateDoctorProfileSuccessListener
+    lateinit var mUpdateProfileDoctorFailureListener: UpdateDoctorProfileFailureListener
 
     //functions
 
@@ -365,6 +369,63 @@ class DoctorDB {
         })
     }
 
+    fun updateDoctorProfile(updOpts: Map<String, String>)
+    {
+        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val jwt = sh.getString("jwt", "NONE FOUND").toString()
+        val uid = sh.getString("uid", "NONE FOUND").toString()
+        if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
+        {
+            //don't go any further
+            mUpdateProfileDoctorFailureListener.updateDoctorProfileFailure()
+        }
+        else
+        {
+            val paramsJSON = JSONObject()
+            paramsJSON.put("id", uid)
+
+            //manually check the updOpts map; could possibly be done with an existing converter but I cannot be bothered at this point
+            if ( updOpts.containsKey("name") )
+                paramsJSON.put("name", updOpts["name"].toString())
+            if ( updOpts.containsKey("phone") )
+                paramsJSON.put("phone", updOpts["phone"].toString())
+            if ( updOpts.containsKey("dob") )
+                paramsJSON.put("dob", updOpts["dob"].toString())
+            if ( updOpts.containsKey("gender") )
+                paramsJSON.put("gender", updOpts["gender"].toString())
+            if ( updOpts.containsKey("blood") )
+                paramsJSON.put("blood", updOpts["blood"].toString())
+            if ( updOpts.containsKey("address") )
+                paramsJSON.put("address", updOpts["address"].toString())
+            if ( updOpts.containsKey("specialty") )
+                paramsJSON.put("specialty", updOpts["specialty"].toString())
+            if ( updOpts.containsKey("bmdc") )
+                paramsJSON.put("bmdc", updOpts["bmdc"].toString())
+
+            val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+
+            val headerJwt = "Bearer $jwt"
+            val call = APIObject.api.updateProfileById(headerJwt, params)
+
+            call.enqueue(object: Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    mUpdateProfileDoctorFailureListener.updateDoctorProfileFailure()
+                }
+
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if ( response.isSuccessful )
+                    {
+                        mUpdateProfileDoctorSuccessListener.updateDoctorProfileSuccess()
+                    }
+                    else
+                    {
+                        mUpdateProfileDoctorFailureListener.updateDoctorProfileFailure()
+                    }
+                }
+            })
+        }
+    }
+
     /***************interfaces**************/
     //Find Doctor By Id
     interface GetDoctorByIdSuccessListener
@@ -410,6 +471,16 @@ class DoctorDB {
         fun getTopDoctorsInAllCategoriesFailure(message: String)
     }
 
+    //Update doctors
+    interface UpdateDoctorProfileSuccessListener
+    {
+        fun updateDoctorProfileSuccess()
+    }
+
+    interface UpdateDoctorProfileFailureListener
+    {
+        fun updateDoctorProfileFailure()
+    }
 
     /***************interface setters************/
 
@@ -455,5 +526,16 @@ class DoctorDB {
     fun setGetTopDoctorsInAllCategoriesFailureListener(int: GetTopDoctorsInAllCategoriesFailureListener)
     {
         this.mGetTopDoctorsInAllCategoriesFailureListener = int
+    }
+
+    //Update doctor profile
+    fun setUpdateDoctorProfileSuccessListener(int: UpdateDoctorProfileSuccessListener)
+    {
+        this.mUpdateProfileDoctorSuccessListener = int
+    }
+
+    fun setUpdateDoctorProfileFailureListener(int: UpdateDoctorProfileFailureListener)
+    {
+        this.mUpdateProfileDoctorFailureListener = int
     }
 }
