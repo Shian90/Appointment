@@ -61,138 +61,23 @@ class DoctorDB(val context: Context) {
         })
     }
 
-    /*******Find the Doctors in general with email and limit******/
-    fun getDoctors(limit: Int, email: String)
-    {
-        val paramsJSON = JSONObject()
-        paramsJSON.put("email", email)
-        paramsJSON.put("limit", limit)
-        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
-
-        val call = APIObject.api.getDoctors(params)
-
-        call.enqueue(object: Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                val message = "Failed to retrieve from database"
-                mGetDoctorsFailureListener.getDoctorsFailure(message)
-            }
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if ( response.isSuccessful )
-                {
-                    val jsonRes = JSONObject(response.body()!!.string())
-                    val doctors = jsonRes.getJSONArray("user")
-
-                    if(doctors.length() != 0) {
-                        for (i in 0 until doctors.length()) {
-                            val doctorJsonObject = doctors.getJSONObject(i)
-                            val doctor = Doctor().fromJSON(doctorJsonObject)
-                            mGetDoctorsSuccessListener.getDoctorsSuccess(doctor)
-                        }
-                    }
-                    else{
-                        val message = "No doctor found"
-                        mGetDoctorsFailureListener.getDoctorsFailure(message)
-                    }
-                }
-                else{
-                    val message = "Failed to retrieve response as success"
-                    mGetDoctorsFailureListener.getDoctorsFailure(message)
-                }
-
-            }
-        })
-    }
-
-    /********Find the Doctors in general with limit********/
-    fun getDoctors(limit: Int)
-    {
-        val paramsJSON = JSONObject()
-        paramsJSON.put("limit", limit)
-        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
-
-        val call = APIObject.api.getDoctors(params)
-
-        call.enqueue(object: Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                val message = "Failed to retrieve from database"
-                mGetDoctorsFailureListener.getDoctorsFailure(message)
-            }
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if ( response.isSuccessful )
-                {
-                    val jsonRes = JSONObject(response.body()!!.string())
-                    val doctors = jsonRes.getJSONArray("user")
-
-                    if(doctors.length() != 0) {
-                        for (i in 0 until doctors.length()) {
-                            val doctorJsonObject = doctors.getJSONObject(i)
-                            val doctor = Doctor().fromJSON(doctorJsonObject)
-                            mGetDoctorsSuccessListener.getDoctorsSuccess(doctor)
-                        }
-                    }
-                    else{
-                        val message = "No doctor found"
-                        mGetDoctorsFailureListener.getDoctorsFailure(message)
-                    }
-                }
-                else{
-                    val message = "Failed to retrieve response as success"
-                    mGetDoctorsFailureListener.getDoctorsFailure(message)
-                }
-
-            }
-        })
-    }
-
-    /********Find the Doctors in general with email*******/
-    fun getDoctors(email: String)
-    {
-        val paramsJSON = JSONObject()
-        paramsJSON.put("email", email)
-        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
-
-        val call = APIObject.api.getDoctors(params)
-
-        call.enqueue(object: Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                val message = "Failed to retrieve from database"
-                mGetDoctorsFailureListener.getDoctorsFailure(message)
-            }
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if ( response.isSuccessful )
-                {
-                    val jsonRes = JSONObject(response.body()!!.string())
-                    val doctors = jsonRes.getJSONArray("user")
-
-                    if(doctors.length() != 0) {
-                        for (i in 0 until doctors.length()) {
-                            val doctorJsonObject = doctors.getJSONObject(i)
-                            val doctor = Doctor().fromJSON(doctorJsonObject)
-                            mGetDoctorsSuccessListener.getDoctorsSuccess(doctor)
-                        }
-                    }
-                    else{
-                        val message = "No doctor found"
-                        mGetDoctorsFailureListener.getDoctorsFailure(message)
-                    }
-                }
-                else{
-                    val message = "Failed to retrieve response as success"
-                    mGetDoctorsFailureListener.getDoctorsFailure(message)
-                }
-
-            }
-        })
-    }
-
     /**********Find the Doctors in general*********/
-    fun getDoctors()
+    fun getDoctors(queryOpts: Map<String, String>)
     {
         val paramsJSON = JSONObject()
-        paramsJSON.put(null, null)
+
+        //Check queryOpts
+        if ( queryOpts.containsKey("name") )
+            paramsJSON.put("name", queryOpts["name"].toString())
+        if ( queryOpts.containsKey("gender") )
+            paramsJSON.put("gender", queryOpts["gender"].toString())
+        if ( queryOpts.containsKey("address") )
+            paramsJSON.put("address", queryOpts["address"].toString())
+        if ( queryOpts.containsKey("specialty") )
+            paramsJSON.put("specialty", queryOpts["specialty"].toString())
+        if ( queryOpts.containsKey("limit") )
+            paramsJSON.put("limit", queryOpts["limit"].toString())
+
         val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
 
         val call = APIObject.api.getDoctors(params)
@@ -231,11 +116,19 @@ class DoctorDB(val context: Context) {
     }
 
     /************Find top Doctors in particular specialty********/
-    fun getTopDoctors(specialty: String, limit: Int)
+    fun getTopDoctors(queryOpts: Map<String, String>)
     {
         val paramsJSON = JSONObject()
-        paramsJSON.put("specialty", specialty)
-        paramsJSON.put("limit", limit)
+
+        //Check queryOpts
+        if ( queryOpts.containsKey("gender") )
+            paramsJSON.put("gender", queryOpts["gender"].toString())
+        if ( queryOpts.containsKey("address") )
+            paramsJSON.put("address", queryOpts["address"].toString())
+        if ( queryOpts.containsKey("specialty") )
+            paramsJSON.put("specialty", queryOpts["specialty"].toString())
+        if ( queryOpts.containsKey("limit") )
+            paramsJSON.put("limit", queryOpts["limit"].toString())
 
         val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
 
