@@ -22,9 +22,6 @@ interface APICalls {
     @POST("doctor/findTop")
     fun getTopDoctors(@Body params: RequestBody): Call<ResponseBody>
 
-    @POST("doctor/findTopInAllCategories")
-    fun getTopDoctorsInAllCategories(@Body params: RequestBody): Call<ResponseBody>
-
     @POST("doctor/updateProfile")
     fun updateProfileById(@Header("Authorization") jwt: String, @Body params: RequestBody): Call<ResponseBody>
 
