@@ -32,6 +32,10 @@ class DoctorDB(val context: Context) {
     lateinit var mUpdateProfileDoctorSuccessListener: UpdateDoctorProfileSuccessListener
     lateinit var mUpdateProfileDoctorFailureListener: UpdateDoctorProfileFailureListener
 
+    //Delete doctor profile
+    lateinit var mDeleteProfileDoctorSuccessListener: DeleteDoctorProfileSuccessListener
+    lateinit var mDeleteProfileDoctorFailureListener: DeleteDoctorProfileFailureListener
+
     //functions
 
     /*******Find Doctor By Id ********/
@@ -226,6 +230,44 @@ class DoctorDB(val context: Context) {
         }
     }
 
+    /***** Delete doctor profile *****/
+    fun deleteDoctorById()
+    {
+        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val jwt = sh.getString("jwt", "NONE FOUND").toString()
+        val uid = sh.getString("uid", "NONE FOUND").toString()
+        if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
+        {
+            //don't go any further
+            mDeleteProfileDoctorFailureListener.deleteDoctorProfileFailure()
+        }
+        else {
+            val paramsJSON = JSONObject()
+            paramsJSON.put("doctorId", uid)
+            val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+
+            val headerJwt = "Bearer $jwt"
+            val call = APIObject.api.deleteDoctorById(headerJwt, params)
+
+            call.enqueue(object: Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    mDeleteProfileDoctorFailureListener.deleteDoctorProfileFailure()
+                }
+
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if ( response.isSuccessful )
+                    {
+                        mDeleteProfileDoctorSuccessListener.deleteDoctorProfileSuccess()
+                    }
+                    else
+                    {
+                        mDeleteProfileDoctorFailureListener.deleteDoctorProfileFailure()
+                    }
+                }
+            })
+        }
+    }
+
     /***************interfaces**************/
     //Find Doctor By Id
     interface GetDoctorByIdSuccessListener
@@ -269,6 +311,17 @@ class DoctorDB(val context: Context) {
     interface UpdateDoctorProfileFailureListener
     {
         fun updateDoctorProfileFailure()
+    }
+
+    //Delete doctor profile
+    interface DeleteDoctorProfileSuccessListener
+    {
+        fun deleteDoctorProfileSuccess()
+    }
+
+    interface DeleteDoctorProfileFailureListener
+    {
+        fun deleteDoctorProfileFailure()
     }
 
     /***************interface setters************/
@@ -315,5 +368,16 @@ class DoctorDB(val context: Context) {
     fun setUpdateDoctorProfileFailureListener(int: UpdateDoctorProfileFailureListener)
     {
         this.mUpdateProfileDoctorFailureListener = int
+    }
+
+    //Delete doctor profile
+    fun setDeleteDoctorProfileSuccessListener(int: DeleteDoctorProfileSuccessListener)
+    {
+        this.mDeleteProfileDoctorSuccessListener = int
+    }
+
+    fun setDeleteDoctorProfileFailureListener(int: DeleteDoctorProfileFailureListener)
+    {
+        this.mDeleteProfileDoctorFailureListener = int
     }
 }
