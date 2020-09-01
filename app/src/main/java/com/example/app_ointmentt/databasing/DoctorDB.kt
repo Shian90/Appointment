@@ -1,6 +1,8 @@
 package com.example.app_ointmentt.databasing
 
 
+import android.content.Context
+import android.preference.PreferenceManager
 import com.example.app_ointmentt.models.Doctor
 import com.example.app_ointmentt.models.Rating
 
@@ -11,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DoctorDB {
+class DoctorDB(val context: Context) {
 
     //interface variables
     //Find Doctor By Id
@@ -26,12 +28,13 @@ class DoctorDB {
     lateinit var mGetTopDoctorsSuccessListener: GetTopDoctorsSuccessListener
     lateinit var mGetTopDoctorsFailureListener: GetTopDoctorsFailureListener
 
+    //Update profile for doctors
+    lateinit var mUpdateProfileDoctorSuccessListener: UpdateDoctorProfileSuccessListener
+    lateinit var mUpdateProfileDoctorFailureListener: UpdateDoctorProfileFailureListener
 
-
-    //Find Top Doctors InAllCategories
-    lateinit var mGetTopDoctorsInAllCategoriesSuccessListener: GetTopDoctorsInAllCategoriesSuccessListener
-    lateinit var mGetTopDoctorsInAllCategoriesFailureListener: GetTopDoctorsInAllCategoriesFailureListener
-
+    //Delete doctor profile
+    lateinit var mDeleteProfileDoctorSuccessListener: DeleteDoctorProfileSuccessListener
+    lateinit var mDeleteProfileDoctorFailureListener: DeleteDoctorProfileFailureListener
 
     //functions
 
@@ -62,138 +65,23 @@ class DoctorDB {
         })
     }
 
-    /*******Find the Doctors in general with email and limit******/
-    fun getDoctors(limit: Int, email: String)
-    {
-        val paramsJSON = JSONObject()
-        paramsJSON.put("email", email)
-        paramsJSON.put("limit", limit)
-        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
-
-        val call = APIObject.api.getDoctors(params)
-
-        call.enqueue(object: Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                val message = "Failed to retrieve from database"
-                mGetDoctorsFailureListener.getDoctorsFailure(message)
-            }
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if ( response.isSuccessful )
-                {
-                    val jsonRes = JSONObject(response.body()!!.string())
-                    val doctors = jsonRes.getJSONArray("user")
-
-                    if(doctors.length() != 0) {
-                        for (i in 0 until doctors.length()) {
-                            val doctorJsonObject = doctors.getJSONObject(i)
-                            val doctor = Doctor().fromJSON(doctorJsonObject)
-                            mGetDoctorsSuccessListener.getDoctorsSuccess(doctor)
-                        }
-                    }
-                    else{
-                        val message = "No doctor found"
-                        mGetDoctorsFailureListener.getDoctorsFailure(message)
-                    }
-                }
-                else{
-                    val message = "Failed to retrieve response as success"
-                    mGetDoctorsFailureListener.getDoctorsFailure(message)
-                }
-
-            }
-        })
-    }
-
-    /********Find the Doctors in general with limit********/
-    fun getDoctors(limit: Int)
-    {
-        val paramsJSON = JSONObject()
-        paramsJSON.put("limit", limit)
-        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
-
-        val call = APIObject.api.getDoctors(params)
-
-        call.enqueue(object: Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                val message = "Failed to retrieve from database"
-                mGetDoctorsFailureListener.getDoctorsFailure(message)
-            }
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if ( response.isSuccessful )
-                {
-                    val jsonRes = JSONObject(response.body()!!.string())
-                    val doctors = jsonRes.getJSONArray("user")
-
-                    if(doctors.length() != 0) {
-                        for (i in 0 until doctors.length()) {
-                            val doctorJsonObject = doctors.getJSONObject(i)
-                            val doctor = Doctor().fromJSON(doctorJsonObject)
-                            mGetDoctorsSuccessListener.getDoctorsSuccess(doctor)
-                        }
-                    }
-                    else{
-                        val message = "No doctor found"
-                        mGetDoctorsFailureListener.getDoctorsFailure(message)
-                    }
-                }
-                else{
-                    val message = "Failed to retrieve response as success"
-                    mGetDoctorsFailureListener.getDoctorsFailure(message)
-                }
-
-            }
-        })
-    }
-
-    /********Find the Doctors in general with email*******/
-    fun getDoctors(email: String)
-    {
-        val paramsJSON = JSONObject()
-        paramsJSON.put("email", email)
-        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
-
-        val call = APIObject.api.getDoctors(params)
-
-        call.enqueue(object: Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                val message = "Failed to retrieve from database"
-                mGetDoctorsFailureListener.getDoctorsFailure(message)
-            }
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if ( response.isSuccessful )
-                {
-                    val jsonRes = JSONObject(response.body()!!.string())
-                    val doctors = jsonRes.getJSONArray("user")
-
-                    if(doctors.length() != 0) {
-                        for (i in 0 until doctors.length()) {
-                            val doctorJsonObject = doctors.getJSONObject(i)
-                            val doctor = Doctor().fromJSON(doctorJsonObject)
-                            mGetDoctorsSuccessListener.getDoctorsSuccess(doctor)
-                        }
-                    }
-                    else{
-                        val message = "No doctor found"
-                        mGetDoctorsFailureListener.getDoctorsFailure(message)
-                    }
-                }
-                else{
-                    val message = "Failed to retrieve response as success"
-                    mGetDoctorsFailureListener.getDoctorsFailure(message)
-                }
-
-            }
-        })
-    }
-
     /**********Find the Doctors in general*********/
-    fun getDoctors()
+    fun getDoctors(queryOpts: Map<String, String>)
     {
         val paramsJSON = JSONObject()
-        paramsJSON.put(null, null)
+
+        //Check queryOpts
+        if ( queryOpts.containsKey("name") )
+            paramsJSON.put("name", queryOpts["name"].toString())
+        if ( queryOpts.containsKey("gender") )
+            paramsJSON.put("gender", queryOpts["gender"].toString())
+        if ( queryOpts.containsKey("address") )
+            paramsJSON.put("address", queryOpts["address"].toString())
+        if ( queryOpts.containsKey("specialty") )
+            paramsJSON.put("specialty", queryOpts["specialty"].toString())
+        if ( queryOpts.containsKey("limit") )
+            paramsJSON.put("limit", queryOpts["limit"].toString())
+
         val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
 
         val call = APIObject.api.getDoctors(params)
@@ -232,11 +120,19 @@ class DoctorDB {
     }
 
     /************Find top Doctors in particular specialty********/
-    fun getTopDoctors(specialty: String, limit: Int)
+    fun getTopDoctors(queryOpts: Map<String, String>)
     {
         val paramsJSON = JSONObject()
-        paramsJSON.put("specialty", specialty)
-        paramsJSON.put("limit", limit)
+
+        //Check queryOpts
+        if ( queryOpts.containsKey("gender") )
+            paramsJSON.put("gender", queryOpts["gender"].toString())
+        if ( queryOpts.containsKey("address") )
+            paramsJSON.put("address", queryOpts["address"].toString())
+        if ( queryOpts.containsKey("specialty") )
+            paramsJSON.put("specialty", queryOpts["specialty"].toString())
+        if ( queryOpts.containsKey("limit") )
+            paramsJSON.put("limit", queryOpts["limit"].toString())
 
         val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
 
@@ -277,92 +173,99 @@ class DoctorDB {
         })
     }
 
-    /**********Find top Doctors in all Categories without limit********/
-    fun getTopDoctorsInAllCategories()
+    fun updateDoctorProfile(updOpts: Map<String, String>)
     {
-        val paramsJSON = JSONObject()
-        paramsJSON.put(null, null)
-        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val jwt = sh.getString("jwt", "NONE FOUND").toString()
+        val uid = sh.getString("uid", "NONE FOUND").toString()
+        if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
+        {
+            //don't go any further
+            mUpdateProfileDoctorFailureListener.updateDoctorProfileFailure()
+        }
+        else
+        {
+            val paramsJSON = JSONObject()
+            paramsJSON.put("id", uid)
 
-        val call = APIObject.api.getTopDoctorsInAllCategories(params)
+            //manually check the updOpts map; could possibly be done with an existing converter but I cannot be bothered at this point
+            if ( updOpts.containsKey("name") )
+                paramsJSON.put("name", updOpts["name"].toString())
+            if ( updOpts.containsKey("phone") )
+                paramsJSON.put("phone", updOpts["phone"].toString())
+            if ( updOpts.containsKey("dob") )
+                paramsJSON.put("dob", updOpts["dob"].toString())
+            if ( updOpts.containsKey("gender") )
+                paramsJSON.put("gender", updOpts["gender"].toString())
+            if ( updOpts.containsKey("blood") )
+                paramsJSON.put("blood", updOpts["blood"].toString())
+            if ( updOpts.containsKey("address") )
+                paramsJSON.put("address", updOpts["address"].toString())
+            if ( updOpts.containsKey("specialty") )
+                paramsJSON.put("specialty", updOpts["specialty"].toString())
+            if ( updOpts.containsKey("bmdc") )
+                paramsJSON.put("bmdc", updOpts["bmdc"].toString())
 
-        call.enqueue(object: Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                val message = "Failed to retrieve from database"
-                mGetTopDoctorsInAllCategoriesFailureListener.getTopDoctorsInAllCategoriesFailure(message)
-            }
+            val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
 
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if ( response.isSuccessful )
-                {
-                    val jsonRes = JSONObject(response.body()!!.string())
-                    val doctors = jsonRes.getJSONArray("users")
+            val headerJwt = "Bearer $jwt"
+            val call = APIObject.api.updateProfileById(headerJwt, params)
 
-                    if(doctors.length() != 0) {
-                        for (i in 0 until doctors.length()) {
-                            val doctorJsonObject = doctors.getJSONObject(i)
-                            val ratingJsonObject = doctorJsonObject.getJSONObject("rating")
-                            val rating = Rating().fromJSON(ratingJsonObject)
-                            val doctor = Doctor().fromJSON(doctorJsonObject)
-                            mGetTopDoctorsInAllCategoriesSuccessListener.getTopDoctorsInAllCategoriesSuccess(doctor, rating)
-                        }
+            call.enqueue(object: Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    mUpdateProfileDoctorFailureListener.updateDoctorProfileFailure()
+                }
+
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if ( response.isSuccessful )
+                    {
+                        mUpdateProfileDoctorSuccessListener.updateDoctorProfileSuccess()
                     }
-                    else{
-                        val message = "No doctor found"
-                        mGetTopDoctorsInAllCategoriesFailureListener.getTopDoctorsInAllCategoriesFailure(message)
+                    else
+                    {
+                        mUpdateProfileDoctorFailureListener.updateDoctorProfileFailure()
                     }
                 }
-                else{
-                    val message = "Failed to retrieve response as success"
-                    mGetTopDoctorsInAllCategoriesFailureListener.getTopDoctorsInAllCategoriesFailure(message)
-                }
-
-            }
-        })
+            })
+        }
     }
 
-    /*********Find top Doctors in all Categories with limit********/
-    fun getTopDoctorsInAllCategories(limit: Int)
+    /***** Delete doctor profile *****/
+    fun deleteDoctorById()
     {
-        val paramsJSON = JSONObject()
-        paramsJSON.put("limit", limit)
-        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val jwt = sh.getString("jwt", "NONE FOUND").toString()
+        val uid = sh.getString("uid", "NONE FOUND").toString()
+        if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
+        {
+            //don't go any further
+            mDeleteProfileDoctorFailureListener.deleteDoctorProfileFailure()
+        }
+        else {
+            val paramsJSON = JSONObject()
+            paramsJSON.put("doctorId", uid)
+            val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
 
-        val call = APIObject.api.getTopDoctorsInAllCategories(params)
+            val headerJwt = "Bearer $jwt"
+            val call = APIObject.api.deleteDoctorById(headerJwt, params)
 
-        call.enqueue(object: Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                val message = "Failed to retrieve from database"
-                mGetTopDoctorsInAllCategoriesFailureListener.getTopDoctorsInAllCategoriesFailure(message)
-            }
-
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if ( response.isSuccessful )
-                {
-                    val jsonRes = JSONObject(response.body()!!.string())
-                    val doctors = jsonRes.getJSONArray("users")
-
-                    if(doctors.length() != 0) {
-                        for (i in 0 until doctors.length()) {
-                            val doctorJsonObject = doctors.getJSONObject(i)
-                            val ratingJsonObject = doctorJsonObject.getJSONObject("rating")
-                            val rating = Rating().fromJSON(ratingJsonObject)
-                            val doctor = Doctor().fromJSON(doctorJsonObject)
-                            mGetTopDoctorsInAllCategoriesSuccessListener.getTopDoctorsInAllCategoriesSuccess(doctor, rating)
-                        }
-                    }
-                    else{
-                        val message = "No doctor found"
-                        mGetTopDoctorsInAllCategoriesFailureListener.getTopDoctorsInAllCategoriesFailure(message)
-                    }
-                }
-                else{
-                    val message = "Failed to retrieve response as success"
-                    mGetTopDoctorsInAllCategoriesFailureListener.getTopDoctorsInAllCategoriesFailure(message)
+            call.enqueue(object: Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    mDeleteProfileDoctorFailureListener.deleteDoctorProfileFailure()
                 }
 
-            }
-        })
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if ( response.isSuccessful )
+                    {
+                        mDeleteProfileDoctorSuccessListener.deleteDoctorProfileSuccess()
+                    }
+                    else
+                    {
+                        mDeleteProfileDoctorFailureListener.deleteDoctorProfileFailure()
+                    }
+                }
+            })
+        }
     }
 
     /***************interfaces**************/
@@ -399,17 +302,27 @@ class DoctorDB {
         fun getTopDoctorsFailure(message: String)
     }
 
-    //Find Top Doctors in particular specialty
-    interface GetTopDoctorsInAllCategoriesSuccessListener
+    //Update doctors
+    interface UpdateDoctorProfileSuccessListener
     {
-        fun getTopDoctorsInAllCategoriesSuccess(doctor: Doctor, rating: Rating)
+        fun updateDoctorProfileSuccess()
     }
 
-    interface GetTopDoctorsInAllCategoriesFailureListener
+    interface UpdateDoctorProfileFailureListener
     {
-        fun getTopDoctorsInAllCategoriesFailure(message: String)
+        fun updateDoctorProfileFailure()
     }
 
+    //Delete doctor profile
+    interface DeleteDoctorProfileSuccessListener
+    {
+        fun deleteDoctorProfileSuccess()
+    }
+
+    interface DeleteDoctorProfileFailureListener
+    {
+        fun deleteDoctorProfileFailure()
+    }
 
     /***************interface setters************/
 
@@ -446,14 +359,25 @@ class DoctorDB {
         this.mGetTopDoctorsFailureListener = int
     }
 
-    //Find top doctors in all categories
-    fun setGetTopDoctorsInAllCategoriesSuccessListener(int: GetTopDoctorsInAllCategoriesSuccessListener)
+    //Update doctor profile
+    fun setUpdateDoctorProfileSuccessListener(int: UpdateDoctorProfileSuccessListener)
     {
-        this.mGetTopDoctorsInAllCategoriesSuccessListener = int
+        this.mUpdateProfileDoctorSuccessListener = int
     }
 
-    fun setGetTopDoctorsInAllCategoriesFailureListener(int: GetTopDoctorsInAllCategoriesFailureListener)
+    fun setUpdateDoctorProfileFailureListener(int: UpdateDoctorProfileFailureListener)
     {
-        this.mGetTopDoctorsInAllCategoriesFailureListener = int
+        this.mUpdateProfileDoctorFailureListener = int
+    }
+
+    //Delete doctor profile
+    fun setDeleteDoctorProfileSuccessListener(int: DeleteDoctorProfileSuccessListener)
+    {
+        this.mDeleteProfileDoctorSuccessListener = int
+    }
+
+    fun setDeleteDoctorProfileFailureListener(int: DeleteDoctorProfileFailureListener)
+    {
+        this.mDeleteProfileDoctorFailureListener = int
     }
 }
