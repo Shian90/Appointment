@@ -48,7 +48,7 @@ interface APICalls {
     @POST("slot/getSlotById")
     fun getSlotById(@Body params: RequestBody): Call<ResponseBody>
 
-    @POST("slot/viewAllSlotsByDoctorId")
+    @POST("slot/viewAllSlotsByDoctor")
     fun viewAllSlotsByDoctor(@Body params: RequestBody): Call<ResponseBody>
 
     @POST("slot/deleteSlotByDoctorId")
