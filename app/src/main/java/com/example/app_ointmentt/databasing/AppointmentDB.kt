@@ -14,11 +14,14 @@ import retrofit2.Response
 class AppointmentDB(val context: Context) {
 
     /***Create interfaces***/
-    
+
     //Create appointment interfaces
     lateinit var mCreateAppointmentSuccessListener: CreateAppointmentSuccessListener
     lateinit var mCreateAppointmentFailureListener: CreateAppointmentFailureListener
 
+    //View appointment by ID interfaces
+    lateinit var mViewAppointmentByIdSuccessListener: ViewAppointmentByIdSuccessListener
+    lateinit var mViewAppointmentByIdFailureListener: ViewAppointmentByIdFailureListener
 
     /***Calling API through functions***/
     fun createAppointment(slotId: String)
@@ -61,6 +64,32 @@ class AppointmentDB(val context: Context) {
         }
     }
 
+    fun viewAppointmentById(appId: String)
+    {
+        val paramsJSON = JSONObject()
+        paramsJSON.put("appId", appId)
+        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+
+        val call = APIObject.api.viewAppointmentById(params)
+
+        call.enqueue(object: Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                mViewAppointmentByIdFailureListener.viewAppointmentByIdFailure()
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if ( response.isSuccessful )
+                {
+                    val jsonRes = JSONObject(response.body()!!.string())
+                    val appRet = Appointment().fromJSON(jsonRes.getJSONObject("appRet"))
+                    mViewAppointmentByIdSuccessListener.viewAppointmentByIdSuccess(appRet)
+                }
+                else
+                    mViewAppointmentByIdFailureListener.viewAppointmentByIdFailure()
+            }
+        })
+    }
+
 
     /***Interfaces***/
     interface CreateAppointmentSuccessListener
@@ -73,14 +102,35 @@ class AppointmentDB(val context: Context) {
         fun createAppointmentFailure(message: String?)
     }
 
+    interface ViewAppointmentByIdSuccessListener
+    {
+        fun viewAppointmentByIdSuccess(app: Appointment)
+    }
+
+    interface ViewAppointmentByIdFailureListener
+    {
+        fun viewAppointmentByIdFailure()
+    }
+
 
     /***Interface setters***/
     fun setCreateAppointmentSuccessListener(int: CreateAppointmentSuccessListener)
     {
         this.mCreateAppointmentSuccessListener = int
     }
+
     fun setCreateAppointmentFailureListener(int: CreateAppointmentFailureListener)
     {
         this.mCreateAppointmentFailureListener = int
+    }
+
+    fun setViewAppointmentByIdSuccessListener(int: ViewAppointmentByIdSuccessListener)
+    {
+        this.mViewAppointmentByIdSuccessListener = int
+    }
+
+    fun setViewAppointmentByIdFailureListener(int: ViewAppointmentByIdFailureListener)
+    {
+        this.mViewAppointmentByIdFailureListener = int
     }
 }
