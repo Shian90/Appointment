@@ -27,6 +27,11 @@ class AppointmentDB(val context: Context) {
     lateinit var mViewUpcomingAppointmentsPatientSuccessListener: ViewUpcomingAppointmentsPatientSuccessListener
     lateinit var mViewUpcomingAppointmentsPatientFailureListener: ViewUpcomingAppointmentsPatientFailureListener
 
+    //Upcoming Appointment for doctors interfaces
+    lateinit var mViewUpcomingAppointmentsDoctorSuccessListener: ViewUpcomingAppointmentsDoctorSuccessListener
+    lateinit var mViewUpcomingAppointmentsDoctorFailureListener: ViewUpcomingAppointmentsDoctorFailureListener
+
+
     /***Calling API through functions***/
     fun createAppointment(slotId: String)
     {
@@ -119,6 +124,32 @@ class AppointmentDB(val context: Context) {
         })
     }
 
+    fun viewUpcomingAppointmentsDoctor(doctorId : String){
+        val paramsJSON = JSONObject()
+        paramsJSON.put("doctorId", doctorId)
+        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+
+        val call = APIObject.api.viewUpcomingAppointmentsDoctor(params)
+
+        call.enqueue(object: Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                mViewUpcomingAppointmentsDoctorFailureListener.viewUpcomingAppointmentsDoctorFailure()
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if ( response.isSuccessful )
+                {
+                    val jsonRes = JSONObject(response.body()!!.string())
+                    val appointments = makeAppointmentArrayListFromJsonArray(jsonRes.getJSONArray("appRet"))
+                    mViewUpcomingAppointmentsDoctorSuccessListener.viewUpcomingAppointmentsDoctorSuccess(appointments)
+                }
+                else
+                    mViewUpcomingAppointmentsDoctorFailureListener.viewUpcomingAppointmentsDoctorFailure()
+            }
+        })
+    }
+
+
     /***Utilities***/
     //An utility function to return a list of appointments on the basis of jsonArray
     fun makeAppointmentArrayListFromJsonArray(jsonArray: JSONArray): ArrayList<Appointment> {
@@ -129,6 +160,7 @@ class AppointmentDB(val context: Context) {
         }
         return appointments
     }
+
 
     /***Interfaces***/
     interface CreateAppointmentSuccessListener
@@ -159,6 +191,15 @@ class AppointmentDB(val context: Context) {
         fun viewUpcomingAppointmentsPatientFailure()
     }
 
+    interface ViewUpcomingAppointmentsDoctorSuccessListener{
+        fun viewUpcomingAppointmentsDoctorSuccess(appointments: ArrayList<Appointment>)
+    }
+
+    interface ViewUpcomingAppointmentsDoctorFailureListener{
+        fun viewUpcomingAppointmentsDoctorFailure()
+    }
+
+
     /***Interface setters***/
     fun setCreateAppointmentSuccessListener(int: CreateAppointmentSuccessListener)
     {
@@ -186,5 +227,13 @@ class AppointmentDB(val context: Context) {
 
     fun setViewUpcomingAppointmentsPatientFailureListener(int: ViewUpcomingAppointmentsPatientFailureListener){
         this.mViewUpcomingAppointmentsPatientFailureListener = int
+    }
+
+    fun setViewUpcomingAppointmentsDoctorSuccessListener(int: ViewUpcomingAppointmentsDoctorSuccessListener){
+        this.mViewUpcomingAppointmentsDoctorSuccessListener = int
+    }
+
+    fun setViewUpcomingAppointmentsDoctorFailureListener(int: ViewUpcomingAppointmentsDoctorFailureListener){
+        this.mViewUpcomingAppointmentsDoctorFailureListener = int
     }
 }
