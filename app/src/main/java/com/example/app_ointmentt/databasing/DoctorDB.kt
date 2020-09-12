@@ -4,6 +4,7 @@ package com.example.app_ointmentt.databasing
 import android.content.Context
 import android.preference.PreferenceManager
 import com.example.app_ointmentt.models.Doctor
+import com.example.app_ointmentt.models.RatedDoctor
 import com.example.app_ointmentt.models.Rating
 
 import okhttp3.RequestBody
@@ -68,6 +69,8 @@ class DoctorDB(val context: Context) {
     /**********Find the Doctors in general*********/
     fun getDoctors(queryOpts: Map<String, String>)
     {
+        val doctorArray = arrayListOf<Doctor>()
+
         val paramsJSON = JSONObject()
 
         //Check queryOpts
@@ -102,8 +105,9 @@ class DoctorDB(val context: Context) {
                         for (i in 0 until doctors.length()) {
                             val doctorJsonObject = doctors.getJSONObject(i)
                             val doctor = Doctor().fromJSON(doctorJsonObject)
-                            mGetDoctorsSuccessListener.getDoctorsSuccess(doctor)
+                            doctorArray.add(doctor)
                         }
+                        mGetDoctorsSuccessListener.getDoctorsSuccess(doctorArray)
                     }
                     else{
                         val message = "No doctor found"
@@ -122,6 +126,8 @@ class DoctorDB(val context: Context) {
     /************Find top Doctors in particular specialty********/
     fun getTopDoctors(queryOpts: Map<String, String>)
     {
+        val ratedDoctorArray = arrayListOf<RatedDoctor>()
+
         val paramsJSON = JSONObject()
 
         //Check queryOpts
@@ -156,8 +162,12 @@ class DoctorDB(val context: Context) {
                             val ratingJsonObject = doctorJsonObject.getJSONObject("rating")
                             val rating = Rating().fromJSON(ratingJsonObject)
                             val doctor = Doctor().fromJSON(doctorJsonObject)
-                            mGetTopDoctorsSuccessListener.getTopDoctorsSuccess(doctor, rating)
+                            val ratedDoctor = RatedDoctor()
+                            ratedDoctor.doctor = doctor
+                            ratedDoctor.rating = rating
+                            ratedDoctorArray.add(ratedDoctor)
                         }
+                        mGetTopDoctorsSuccessListener.getTopDoctorsSuccess(ratedDoctorArray)
                     }
                     else{
                         val message = "No doctor found"
@@ -283,7 +293,7 @@ class DoctorDB(val context: Context) {
     //Find doctors
     interface GetDoctorsSuccessListener
     {
-        fun getDoctorsSuccess(doctor: Doctor)
+        fun getDoctorsSuccess(doctorArray: ArrayList<Doctor>)
     }
 
     interface GetDoctorsFailureListener
@@ -294,7 +304,7 @@ class DoctorDB(val context: Context) {
     //Find Top Doctors
     interface GetTopDoctorsSuccessListener
     {
-        fun getTopDoctorsSuccess(doctor: Doctor, rating: Rating)
+        fun getTopDoctorsSuccess(ratedDoctorArray: ArrayList<RatedDoctor>)
     }
 
     interface GetTopDoctorsFailureListener
