@@ -5,6 +5,7 @@ import android.preference.PreferenceManager
 import com.example.app_ointmentt.models.Appointment
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
+import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,7 +15,6 @@ import retrofit2.Response
 class AppointmentDB(val context: Context) {
 
     /***Create interfaces***/
-
     //Create appointment interfaces
     lateinit var mCreateAppointmentSuccessListener: CreateAppointmentSuccessListener
     lateinit var mCreateAppointmentFailureListener: CreateAppointmentFailureListener
@@ -22,6 +22,15 @@ class AppointmentDB(val context: Context) {
     //View appointment by ID interfaces
     lateinit var mViewAppointmentByIdSuccessListener: ViewAppointmentByIdSuccessListener
     lateinit var mViewAppointmentByIdFailureListener: ViewAppointmentByIdFailureListener
+
+    //Upcoming appointment for patients interfaces
+    lateinit var mViewUpcomingAppointmentsPatientSuccessListener: ViewUpcomingAppointmentsPatientSuccessListener
+    lateinit var mViewUpcomingAppointmentsPatientFailureListener: ViewUpcomingAppointmentsPatientFailureListener
+
+    //Upcoming Appointment for doctors interfaces
+    lateinit var mViewUpcomingAppointmentsDoctorSuccessListener: ViewUpcomingAppointmentsDoctorSuccessListener
+    lateinit var mViewUpcomingAppointmentsDoctorFailureListener: ViewUpcomingAppointmentsDoctorFailureListener
+
 
     /***Calling API through functions***/
     fun createAppointment(slotId: String)
@@ -90,6 +99,68 @@ class AppointmentDB(val context: Context) {
         })
     }
 
+    fun viewUpcomingAppointmentsPatient(patientId : String){
+        val paramsJSON = JSONObject()
+        paramsJSON.put("patientId", patientId)
+        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+
+        val call = APIObject.api.viewUpcomingAppointmentsPatient(params)
+
+        call.enqueue(object: Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                mViewUpcomingAppointmentsPatientFailureListener.viewUpcomingAppointmentsPatientFailure()
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if ( response.isSuccessful )
+                {
+                    val jsonRes = JSONObject(response.body()!!.string())
+                    val appointments = makeAppointmentArrayListFromJsonArray(jsonRes.getJSONArray("appRet"))
+                    mViewUpcomingAppointmentsPatientSuccessListener.viewUpcomingAppointmentsPatientSuccess(appointments)
+                }
+                else
+                    mViewUpcomingAppointmentsPatientFailureListener.viewUpcomingAppointmentsPatientFailure()
+            }
+        })
+    }
+
+    fun viewUpcomingAppointmentsDoctor(doctorId : String){
+        val paramsJSON = JSONObject()
+        paramsJSON.put("doctorId", doctorId)
+        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+
+        val call = APIObject.api.viewUpcomingAppointmentsDoctor(params)
+
+        call.enqueue(object: Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                mViewUpcomingAppointmentsDoctorFailureListener.viewUpcomingAppointmentsDoctorFailure()
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if ( response.isSuccessful )
+                {
+                    val jsonRes = JSONObject(response.body()!!.string())
+                    val appointments = makeAppointmentArrayListFromJsonArray(jsonRes.getJSONArray("appRet"))
+                    mViewUpcomingAppointmentsDoctorSuccessListener.viewUpcomingAppointmentsDoctorSuccess(appointments)
+                }
+                else
+                    mViewUpcomingAppointmentsDoctorFailureListener.viewUpcomingAppointmentsDoctorFailure()
+            }
+        })
+    }
+
+
+    /***Utilities***/
+    //An utility function to return a list of appointments on the basis of jsonArray
+    fun makeAppointmentArrayListFromJsonArray(jsonArray: JSONArray): ArrayList<Appointment> {
+        val appointments = ArrayList<Appointment>()
+        val countOfAppointment = jsonArray.length()
+        for(i in 0 until countOfAppointment){
+            appointments.add(Appointment().fromJSON(jsonArray.getJSONObject(i)))
+        }
+        return appointments
+    }
+
 
     /***Interfaces***/
     interface CreateAppointmentSuccessListener
@@ -112,6 +183,22 @@ class AppointmentDB(val context: Context) {
         fun viewAppointmentByIdFailure()
     }
 
+    interface ViewUpcomingAppointmentsPatientSuccessListener{
+        fun viewUpcomingAppointmentsPatientSuccess(appointments: ArrayList<Appointment>)
+    }
+
+    interface ViewUpcomingAppointmentsPatientFailureListener{
+        fun viewUpcomingAppointmentsPatientFailure()
+    }
+
+    interface ViewUpcomingAppointmentsDoctorSuccessListener{
+        fun viewUpcomingAppointmentsDoctorSuccess(appointments: ArrayList<Appointment>)
+    }
+
+    interface ViewUpcomingAppointmentsDoctorFailureListener{
+        fun viewUpcomingAppointmentsDoctorFailure()
+    }
+
 
     /***Interface setters***/
     fun setCreateAppointmentSuccessListener(int: CreateAppointmentSuccessListener)
@@ -132,5 +219,21 @@ class AppointmentDB(val context: Context) {
     fun setViewAppointmentByIdFailureListener(int: ViewAppointmentByIdFailureListener)
     {
         this.mViewAppointmentByIdFailureListener = int
+    }
+
+    fun setViewUpcomingAppointmentsPatientSuccessListener(int: ViewUpcomingAppointmentsPatientSuccessListener){
+        this.mViewUpcomingAppointmentsPatientSuccessListener = int
+    }
+
+    fun setViewUpcomingAppointmentsPatientFailureListener(int: ViewUpcomingAppointmentsPatientFailureListener){
+        this.mViewUpcomingAppointmentsPatientFailureListener = int
+    }
+
+    fun setViewUpcomingAppointmentsDoctorSuccessListener(int: ViewUpcomingAppointmentsDoctorSuccessListener){
+        this.mViewUpcomingAppointmentsDoctorSuccessListener = int
+    }
+
+    fun setViewUpcomingAppointmentsDoctorFailureListener(int: ViewUpcomingAppointmentsDoctorFailureListener){
+        this.mViewUpcomingAppointmentsDoctorFailureListener = int
     }
 }
