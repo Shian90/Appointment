@@ -11,7 +11,6 @@ import com.example.app_ointmentt.models.old.Doctor
 import com.example.app_ointmentt.ui.patient.fragment.PatientRequestAppointment
 import com.example.app_ointmentt.utils.changeFragmentFromFragment
 import kotlinx.android.synthetic.main.cardview_doctor_list.view.*
-import kotlinx.android.synthetic.main.cardview_notification.view.txt
 
 class AllDoctorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items: List<Doctor> = ArrayList()
@@ -43,7 +42,7 @@ class AllDoctorAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class DoctorViewHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView){
-        val doctorName: TextView = itemView.txt
+        val doctorName: TextView = itemView.`@+id/historyText`
         val cardView: CardView  = itemView.doctorListCardView
         fun bind(doctor: Doctor){
             doctorName.setText(doctor.name)

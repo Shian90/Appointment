@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.adapter.HistoryAdapter
 import com.example.app_ointmentt.dataset.HistoryRawData
 import kotlinx.android.synthetic.main.fragment_doctor_history.view.*
 
@@ -44,7 +43,7 @@ class DoctorHistoryFragment : Fragment() {
     private fun initRecyclerView(rootView: View){
         rootView.historyRecyclerView.apply {
             historyAdapter =
-                HistoryAdapter()
+                HistoryAdapter(it)
             adapter = historyAdapter
             layoutManager = LinearLayoutManager(context)
         }
