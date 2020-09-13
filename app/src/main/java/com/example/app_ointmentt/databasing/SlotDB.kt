@@ -24,6 +24,10 @@ class SlotDB(val context: Context) {
     lateinit var mGetSlotByIDSuccessListener: getSlotByIdSuccessListener
     lateinit var mGetSlotByIDFailureListener: getSlotByIdFailureListener
 
+    //View all slots By Doctor Id interfaces
+    lateinit var mViewAllSlotsByDoctorSuccessListener: viewAllSlotsByDoctorSuccessListener
+    lateinit var mViewAllSlotsByDoctorFailureListener: viewAllSlotsByDoctorFailureListener
+
 
     /***Calling API through functions***/
     fun createSlot(date: String, startTime: String, endTime: String, numSlots: Int, status: Int)
@@ -106,6 +110,47 @@ class SlotDB(val context: Context) {
 
     }
 
+    fun viewAllSlotsByDoctor(doctorId: String)
+    {
+        val slotsArray = arrayListOf<Slot>()
+        val paramsJSON = JSONObject()
+        paramsJSON.put("doctorId", doctorId)
+
+        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+        val call = APIObject.api.viewAllSlotsByDoctor(params)
+
+        call.enqueue(object: Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                mViewAllSlotsByDoctorFailureListener.viewAllSlotsByDoctorFailureListener()
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if ( response.isSuccessful )
+                {
+                    val jsonRes = JSONObject(response.body()!!.string())
+                    val slots = jsonRes.getJSONArray("slots")
+
+                    if(slots.length() != 0){
+                        for(i in 0 until slots.length()){
+                            val slotObj = slots.getJSONObject(i)
+                            val slot = Slot().fromJSON(slotObj)
+                            slotsArray.add(slot)
+                        }
+                        mViewAllSlotsByDoctorSuccessListener.viewAllSlotsByDoctorSuccessListener(slotsArray)
+                    }
+                    else{
+                        mViewAllSlotsByDoctorFailureListener.viewAllSlotsByDoctorFailureListener()
+                    }
+
+                }
+                else
+                {
+                    mViewAllSlotsByDoctorFailureListener.viewAllSlotsByDoctorFailureListener()
+                }
+            }
+        })
+    }
+
     /***Interfaces***/
     interface createSlotSuccessListener
     {
@@ -127,6 +172,16 @@ class SlotDB(val context: Context) {
         fun getSlotByIdFailureListener()
     }
 
+    interface viewAllSlotsByDoctorSuccessListener
+    {
+        fun viewAllSlotsByDoctorSuccessListener(slotsArray: ArrayList<Slot>)
+    }
+
+    interface viewAllSlotsByDoctorFailureListener
+    {
+        fun viewAllSlotsByDoctorFailureListener()
+    }
+
     /***Interface setters***/
     fun setCreateSlotSuccessListener(int: createSlotSuccessListener)
     {
@@ -146,6 +201,16 @@ class SlotDB(val context: Context) {
     fun setGetSlotByIdFailureListener(int: getSlotByIdFailureListener)
     {
         this.mGetSlotByIDFailureListener = int
+    }
+
+    fun setViewAllSlotsByDoctorSuccessListener(int: viewAllSlotsByDoctorSuccessListener)
+    {
+        this.mViewAllSlotsByDoctorSuccessListener = int
+    }
+
+    fun setViewAllSlotsByDoctorFailureListener(int: viewAllSlotsByDoctorFailureListener)
+    {
+        this.mViewAllSlotsByDoctorFailureListener = int
     }
 
 }
