@@ -28,9 +28,14 @@ class SlotDB(val context: Context) {
     lateinit var mViewAllSlotsByDoctorSuccessListener: viewAllSlotsByDoctorSuccessListener
     lateinit var mViewAllSlotsByDoctorFailureListener: viewAllSlotsByDoctorFailureListener
 
+    //Delete Doctor Slots interfaces
+    lateinit var mDeleteDoctorSlotsFailureListener: deleteDoctorSlotsFailureListener
+    lateinit var mDeleteDoctorSlotsSuccessListener: deleteDoctorSlotsSuccessListener
+
     //Delete Slot By Id interfaces
     lateinit var mDeleteSlotByIdFailureListener: deleteSlotByIdFailureListener
     lateinit var mDeleteSlotByIdSuccessListener: deleteSlotByIdSuccessListener
+
 
     /***Calling API through functions***/
     fun createSlot(date: String, startTime: String, endTime: String, numSlots: Int, status: Int)
@@ -193,6 +198,39 @@ class SlotDB(val context: Context) {
         }
     }
 
+    fun deleteSlotsByDoctorId()
+    {
+        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val jwt = sh.getString("jwt", "NONE FOUND").toString()
+        val uid = sh.getString("uid", "NONE FOUND").toString()
+        if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
+        {
+            //don't go any further
+            Log.d("CREATESLOTS", "$jwt $uid")
+            mDeleteDoctorSlotsFailureListener.deleteDoctorSlotsFailure()
+        }
+        else
+        {
+            val paramsJSON = JSONObject()
+            paramsJSON.put("doctorId", uid)
+            val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+
+            val headerJwt = "Bearer $jwt"
+
+            val call = APIObject.api.deleteSlotByDoctorId(headerJwt, params)
+
+            call.enqueue(object: Callback<ResponseBody> {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    mDeleteDoctorSlotsSuccessListener.deleteDoctorSlotsSuccess()
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    mDeleteDoctorSlotsFailureListener.deleteDoctorSlotsFailure()
+                }
+            })
+        }
+    }
+
     /***Interfaces***/
     interface createSlotSuccessListener
     {
@@ -222,6 +260,16 @@ class SlotDB(val context: Context) {
     interface viewAllSlotsByDoctorFailureListener
     {
         fun viewAllSlotsByDoctorFailureListener()
+    }
+
+    interface deleteDoctorSlotsSuccessListener
+    {
+        fun deleteDoctorSlotsSuccess()
+    }
+
+    interface deleteDoctorSlotsFailureListener
+    {
+        fun deleteDoctorSlotsFailure()
     }
 
     interface deleteSlotByIdSuccessListener
@@ -265,6 +313,16 @@ class SlotDB(val context: Context) {
         this.mViewAllSlotsByDoctorFailureListener = int
     }
 
+    fun setDeleteDoctorSlotsSuccessListener(int: deleteDoctorSlotsSuccessListener)
+    {
+        this.mDeleteDoctorSlotsSuccessListener = int
+    }
+
+    fun setDeleteDoctorSlotsFailureListener(int: deleteDoctorSlotsFailureListener)
+    {
+        this.mDeleteDoctorSlotsFailureListener = int
+    }
+
     fun setDeleteSlotByIdSuccessListener(int: deleteSlotByIdSuccessListener)
     {
         this.mDeleteSlotByIdSuccessListener = int
@@ -274,5 +332,4 @@ class SlotDB(val context: Context) {
     {
         this.mDeleteSlotByIdFailureListener = int
     }
-
 }
