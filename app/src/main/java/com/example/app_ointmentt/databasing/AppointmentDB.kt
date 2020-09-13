@@ -43,6 +43,9 @@ class AppointmentDB(val context: Context) {
     lateinit var mViewPastAppointmentsDoctorSuccessListener: ViewPastAppointmentsDoctorSuccessListener
     lateinit var mViewPastAppointmentsDoctorFailureListener: ViewPastAppointmentsDoctorFailureListener
 
+    //Delete Appointment By Id interfaces
+    lateinit var mDeleteAppointmentByIdSuccessListener: DeleteAppointmentByIdSuccessListener
+    lateinit var mDeleteAppointmentByIdFailureListener: DeleteAppointmentByIdFailureListener
 
     /***Calling API through functions***/
     fun createAppointment(slotId: String)
@@ -293,6 +296,46 @@ class AppointmentDB(val context: Context) {
         }
     }
 
+    fun deleteAppointmentById(appointmentId: String){
+        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val jwt = sh.getString("jwt", "NONE FOUND").toString()
+        val uid = sh.getString("uid", "NONE FOUND").toString()
+
+        if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
+        {
+            val message = "Please log in before deleting appointment."
+            mDeleteAppointmentByIdFailureListener.deleteAppointmentByIdFailure(message)
+        }
+        else
+        {
+            val paramsJSON = JSONObject()
+            paramsJSON.put("appointmentId", appointmentId)
+
+            val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+
+            val headerJwt = "Bearer $jwt"
+            val call = APIObject.api.deleteAppointmentById(headerJwt, params)
+
+            call.enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                    mDeleteAppointmentByIdFailureListener.deleteAppointmentByIdFailure(t.message)
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        mDeleteAppointmentByIdSuccessListener.deleteAppointmentByIdSuccess()
+                    } else {
+                        mViewPastAppointmentsPatientFailureListener.viewPastAppointmentsPatientFailure(response.message())
+                    }
+                }
+            })
+        }
+    }
+
 
     /***Utilities***/
     //An utility function to return a list of appointments on the basis of jsonArray
@@ -368,6 +411,17 @@ class AppointmentDB(val context: Context) {
         fun viewPastAppointmentsDoctorFailure(message: String?)
     }
 
+    interface DeleteAppointmentByIdSuccessListener
+    {
+        fun deleteAppointmentByIdSuccess()
+    }
+
+    interface DeleteAppointmentByIdFailureListener
+    {
+        fun deleteAppointmentByIdFailure(message: String?)
+    }
+
+
     /***Interface setters***/
     fun setCreateAppointmentSuccessListener(int: CreateAppointmentSuccessListener)
     {
@@ -429,5 +483,15 @@ class AppointmentDB(val context: Context) {
 
     fun setViewPastAppointmentsDoctorFailureListener(int: ViewPastAppointmentsDoctorFailureListener){
         this.mViewPastAppointmentsDoctorFailureListener = int
+    }
+
+    fun setDeleteAppointmentByIdSuccessListener(int: DeleteAppointmentByIdSuccessListener)
+    {
+        this.mDeleteAppointmentByIdSuccessListener = int
+    }
+
+    fun setDeleteAppointmentByIdFailureListener(int: DeleteAppointmentByIdFailureListener)
+    {
+        this.mDeleteAppointmentByIdFailureListener = int
     }
 }
