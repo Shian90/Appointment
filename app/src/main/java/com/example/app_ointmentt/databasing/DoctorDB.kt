@@ -124,8 +124,7 @@ class DoctorDB(val context: Context) {
     }
 
     /************Find top Doctors in particular specialty********/
-    fun getTopDoctors(queryOpts: Map<String, String>)
-    {
+    fun getTopDoctors(queryOpts: Map<String, String>) {
         val ratedDoctorArray = arrayListOf<RatedDoctor>()
 
         val paramsJSON = JSONObject()

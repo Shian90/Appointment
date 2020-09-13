@@ -41,7 +41,7 @@ class PatientHomeFragment : Fragment() {
 
     private fun initRecyclerView(rootView: View){
         rootView.doctorTyperRecyclerView.apply {
-            doctorTypeAdapter =  DoctorTypeAdapter()
+            doctorTypeAdapter = activity?.applicationContext?.let { DoctorTypeAdapter.newInstance(it) }!!
             adapter = doctorTypeAdapter
             layoutManager = LinearLayoutManager(context)
         }
