@@ -39,6 +39,10 @@ class AppointmentDB(val context: Context) {
     lateinit var mViewPastAppointmentsPatientSuccessListener: ViewPastAppointmentsPatientSuccessListener
     lateinit var mViewPastAppointmentsPatientFailureListener: ViewPastAppointmentsPatientFailureListener
 
+    //Past Appointment for doctors interfaces
+    lateinit var mViewPastAppointmentsDoctorSuccessListener: ViewPastAppointmentsDoctorSuccessListener
+    lateinit var mViewPastAppointmentsDoctorFailureListener: ViewPastAppointmentsDoctorFailureListener
+
 
     /***Calling API through functions***/
     fun createAppointment(slotId: String)
@@ -245,6 +249,50 @@ class AppointmentDB(val context: Context) {
         }
     }
 
+    fun viewPastAppointmentsDoctor(updOpts: Map<String, String>){
+        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val jwt = sh.getString("jwt", "NONE FOUND").toString()
+        val uid = sh.getString("uid", "NONE FOUND").toString()
+
+        if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
+        {
+            val message = "Please login to view past appointment."
+            mViewPastAppointmentsDoctorFailureListener.viewPastAppointmentsDoctorFailure(message)
+        }
+        else
+        {
+            val paramsJSON = JSONObject()
+            paramsJSON.put("doctorId", updOpts["doctorId"].toString())
+
+            val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+
+            val headerJwt = "Bearer $jwt"
+            val call = APIObject.api.viewPastAppointmentsDoctor(headerJwt, params)
+
+            call.enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                    mViewPastAppointmentsDoctorFailureListener.viewPastAppointmentsDoctorFailure(t.message)
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val jsonRes = JSONObject(response.body()!!.string())
+                        val appointments = makeAppointmentArrayListFromJsonArray(jsonRes.getJSONArray("appsRet"))
+                        mViewPastAppointmentsDoctorSuccessListener.viewPastAppointmentsDoctorSuccess(appointments)
+                    } else {
+                        mViewPastAppointmentsDoctorFailureListener.viewPastAppointmentsDoctorFailure(
+                            response.message()
+                        )
+                    }
+                }
+            })
+        }
+    }
+
 
     /***Utilities***/
     //An utility function to return a list of appointments on the basis of jsonArray
@@ -312,6 +360,13 @@ class AppointmentDB(val context: Context) {
         fun viewPastAppointmentsPatientFailure(message: String?)
     }
 
+    interface ViewPastAppointmentsDoctorSuccessListener{
+        fun viewPastAppointmentsDoctorSuccess(appointments: ArrayList<Appointment>)
+    }
+
+    interface ViewPastAppointmentsDoctorFailureListener{
+        fun viewPastAppointmentsDoctorFailure(message: String?)
+    }
 
     /***Interface setters***/
     fun setCreateAppointmentSuccessListener(int: CreateAppointmentSuccessListener)
@@ -366,5 +421,13 @@ class AppointmentDB(val context: Context) {
 
     fun setViewPastAppointmentsPatientFailureListener(int: ViewPastAppointmentsPatientFailureListener){
         this.mViewPastAppointmentsPatientFailureListener = int
+    }
+
+    fun setViewPastAppointmentsDoctorSuccessListener(int: ViewPastAppointmentsDoctorSuccessListener){
+        this.mViewPastAppointmentsDoctorSuccessListener = int
+    }
+
+    fun setViewPastAppointmentsDoctorFailureListener(int: ViewPastAppointmentsDoctorFailureListener){
+        this.mViewPastAppointmentsDoctorFailureListener = int
     }
 }
