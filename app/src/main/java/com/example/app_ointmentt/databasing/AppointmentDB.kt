@@ -31,6 +31,10 @@ class AppointmentDB(val context: Context) {
     lateinit var mViewUpcomingAppointmentsDoctorSuccessListener: ViewUpcomingAppointmentsDoctorSuccessListener
     lateinit var mViewUpcomingAppointmentsDoctorFailureListener: ViewUpcomingAppointmentsDoctorFailureListener
 
+    //Complete Appointment Interfaces
+    lateinit var mCompleteAppointmentSuccessListener: CompleteAppointmentSuccessListener
+    lateinit var mCompleteAppointmentFailureListener: CompleteAppointmentFailureListener
+
 
     /***Calling API through functions***/
     fun createAppointment(slotId: String)
@@ -149,6 +153,46 @@ class AppointmentDB(val context: Context) {
         })
     }
 
+    fun completeAppointment(appointmentId: String){
+        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val jwt = sh.getString("jwt", "NONE FOUND").toString()
+        val uid = sh.getString("uid", "NONE FOUND").toString()
+
+        if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
+        {
+            //don't go any further
+            mCompleteAppointmentFailureListener.completeAppointmentFailure()
+        }
+        else
+        {
+            val paramsJSON = JSONObject()
+            paramsJSON.put("appointmentId", appointmentId)
+
+            val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+
+            val headerJwt = "Bearer $jwt"
+            val call = APIObject.api.completeAppointment(headerJwt, params)
+
+            call.enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                    mCompleteAppointmentFailureListener.completeAppointmentFailure()
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        mCompleteAppointmentSuccessListener.completeAppointmentSuccess()
+                    } else {
+                        mCompleteAppointmentFailureListener.completeAppointmentFailure()
+                    }
+                }
+            })
+        }
+    }
+
 
     /***Utilities***/
     //An utility function to return a list of appointments on the basis of jsonArray
@@ -199,6 +243,16 @@ class AppointmentDB(val context: Context) {
         fun viewUpcomingAppointmentsDoctorFailure()
     }
 
+    interface CompleteAppointmentSuccessListener
+    {
+        fun completeAppointmentSuccess()
+    }
+
+    interface CompleteAppointmentFailureListener
+    {
+        fun completeAppointmentFailure()
+    }
+
 
     /***Interface setters***/
     fun setCreateAppointmentSuccessListener(int: CreateAppointmentSuccessListener)
@@ -235,5 +289,15 @@ class AppointmentDB(val context: Context) {
 
     fun setViewUpcomingAppointmentsDoctorFailureListener(int: ViewUpcomingAppointmentsDoctorFailureListener){
         this.mViewUpcomingAppointmentsDoctorFailureListener = int
+    }
+
+    fun setCompleteAppointmentSuccessListener(int: CompleteAppointmentSuccessListener)
+    {
+        this.mCompleteAppointmentSuccessListener = int
+    }
+
+    fun setCompleteAppointmentFailureListener(int: CompleteAppointmentFailureListener)
+    {
+        this.mCompleteAppointmentFailureListener = int
     }
 }
