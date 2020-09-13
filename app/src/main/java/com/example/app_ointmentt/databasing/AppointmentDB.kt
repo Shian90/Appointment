@@ -35,6 +35,10 @@ class AppointmentDB(val context: Context) {
     lateinit var mCompleteAppointmentSuccessListener: CompleteAppointmentSuccessListener
     lateinit var mCompleteAppointmentFailureListener: CompleteAppointmentFailureListener
 
+    //Past Appointment for patients interfaces
+    lateinit var mViewPastAppointmentsPatientSuccessListener: ViewPastAppointmentsPatientSuccessListener
+    lateinit var mViewPastAppointmentsPatientFailureListener: ViewPastAppointmentsPatientFailureListener
+
 
     /***Calling API through functions***/
     fun createAppointment(slotId: String)
@@ -87,7 +91,7 @@ class AppointmentDB(val context: Context) {
 
         call.enqueue(object: Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                mViewAppointmentByIdFailureListener.viewAppointmentByIdFailure()
+                mViewAppointmentByIdFailureListener.viewAppointmentByIdFailure(t.message)
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -98,7 +102,7 @@ class AppointmentDB(val context: Context) {
                     mViewAppointmentByIdSuccessListener.viewAppointmentByIdSuccess(appRet)
                 }
                 else
-                    mViewAppointmentByIdFailureListener.viewAppointmentByIdFailure()
+                    mViewAppointmentByIdFailureListener.viewAppointmentByIdFailure(response.message())
             }
         })
     }
@@ -112,7 +116,7 @@ class AppointmentDB(val context: Context) {
 
         call.enqueue(object: Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                mViewUpcomingAppointmentsPatientFailureListener.viewUpcomingAppointmentsPatientFailure()
+                mViewUpcomingAppointmentsPatientFailureListener.viewUpcomingAppointmentsPatientFailure(t.message)
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -123,7 +127,9 @@ class AppointmentDB(val context: Context) {
                     mViewUpcomingAppointmentsPatientSuccessListener.viewUpcomingAppointmentsPatientSuccess(appointments)
                 }
                 else
-                    mViewUpcomingAppointmentsPatientFailureListener.viewUpcomingAppointmentsPatientFailure()
+                    mViewUpcomingAppointmentsPatientFailureListener.viewUpcomingAppointmentsPatientFailure(
+                        response.message()
+                    )
             }
         })
     }
@@ -137,7 +143,7 @@ class AppointmentDB(val context: Context) {
 
         call.enqueue(object: Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                mViewUpcomingAppointmentsDoctorFailureListener.viewUpcomingAppointmentsDoctorFailure()
+                mViewUpcomingAppointmentsDoctorFailureListener.viewUpcomingAppointmentsDoctorFailure(t.message)
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -148,7 +154,9 @@ class AppointmentDB(val context: Context) {
                     mViewUpcomingAppointmentsDoctorSuccessListener.viewUpcomingAppointmentsDoctorSuccess(appointments)
                 }
                 else
-                    mViewUpcomingAppointmentsDoctorFailureListener.viewUpcomingAppointmentsDoctorFailure()
+                    mViewUpcomingAppointmentsDoctorFailureListener.viewUpcomingAppointmentsDoctorFailure(
+                        response.message()
+                    )
             }
         })
     }
@@ -160,8 +168,8 @@ class AppointmentDB(val context: Context) {
 
         if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
         {
-            //don't go any further
-            mCompleteAppointmentFailureListener.completeAppointmentFailure()
+            val message = "Please login to complete your appointment."
+            mCompleteAppointmentFailureListener.completeAppointmentFailure(message)
         }
         else
         {
@@ -176,7 +184,7 @@ class AppointmentDB(val context: Context) {
             call.enqueue(object : Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 
-                    mCompleteAppointmentFailureListener.completeAppointmentFailure()
+                    mCompleteAppointmentFailureListener.completeAppointmentFailure(t.message)
                 }
 
                 override fun onResponse(
@@ -186,7 +194,51 @@ class AppointmentDB(val context: Context) {
                     if (response.isSuccessful) {
                         mCompleteAppointmentSuccessListener.completeAppointmentSuccess()
                     } else {
-                        mCompleteAppointmentFailureListener.completeAppointmentFailure()
+                        mCompleteAppointmentFailureListener.completeAppointmentFailure(response.message())
+                    }
+                }
+            })
+        }
+    }
+
+    fun viewPastAppointmentsPatient(updOpts: Map<String, String>){
+        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val jwt = sh.getString("jwt", "NONE FOUND").toString()
+        val uid = sh.getString("uid", "NONE FOUND").toString()
+
+        if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
+        {
+            val message = "Please login to view past appointment."
+            mViewPastAppointmentsPatientFailureListener.viewPastAppointmentsPatientFailure(message)
+        }
+        else
+        {
+            val paramsJSON = JSONObject()
+            paramsJSON.put("patientId", updOpts["patientId"].toString())
+
+            val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+
+            val headerJwt = "Bearer $jwt"
+            val call = APIObject.api.viewPastAppointmentsPatient(headerJwt, params)
+
+            call.enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                    mViewPastAppointmentsPatientFailureListener.viewPastAppointmentsPatientFailure(t.message)
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful) {
+                        val jsonRes = JSONObject(response.body()!!.string())
+                        val appointments = makeAppointmentArrayListFromJsonArray(jsonRes.getJSONArray("appsRet"))
+                        mViewPastAppointmentsPatientSuccessListener.viewPastAppointmentsPatientSuccess(appointments)
+                    } else {
+                        mViewPastAppointmentsPatientFailureListener.viewPastAppointmentsPatientFailure(
+                            response.message()
+                        )
                     }
                 }
             })
@@ -224,7 +276,7 @@ class AppointmentDB(val context: Context) {
 
     interface ViewAppointmentByIdFailureListener
     {
-        fun viewAppointmentByIdFailure()
+        fun viewAppointmentByIdFailure(message: String?)
     }
 
     interface ViewUpcomingAppointmentsPatientSuccessListener{
@@ -232,7 +284,7 @@ class AppointmentDB(val context: Context) {
     }
 
     interface ViewUpcomingAppointmentsPatientFailureListener{
-        fun viewUpcomingAppointmentsPatientFailure()
+        fun viewUpcomingAppointmentsPatientFailure(message: String?)
     }
 
     interface ViewUpcomingAppointmentsDoctorSuccessListener{
@@ -240,7 +292,7 @@ class AppointmentDB(val context: Context) {
     }
 
     interface ViewUpcomingAppointmentsDoctorFailureListener{
-        fun viewUpcomingAppointmentsDoctorFailure()
+        fun viewUpcomingAppointmentsDoctorFailure(message: String?)
     }
 
     interface CompleteAppointmentSuccessListener
@@ -250,7 +302,14 @@ class AppointmentDB(val context: Context) {
 
     interface CompleteAppointmentFailureListener
     {
-        fun completeAppointmentFailure()
+        fun completeAppointmentFailure(message: String?)
+    }
+
+    interface ViewPastAppointmentsPatientSuccessListener{
+        fun viewPastAppointmentsPatientSuccess(appointments: ArrayList<Appointment>)
+    }
+    interface ViewPastAppointmentsPatientFailureListener{
+        fun viewPastAppointmentsPatientFailure(message: String?)
     }
 
 
@@ -299,5 +358,13 @@ class AppointmentDB(val context: Context) {
     fun setCompleteAppointmentFailureListener(int: CompleteAppointmentFailureListener)
     {
         this.mCompleteAppointmentFailureListener = int
+    }
+
+    fun setViewPastAppointmentsPatientSuccessListener(int: ViewPastAppointmentsPatientSuccessListener){
+        this.mViewPastAppointmentsPatientSuccessListener = int
+    }
+
+    fun setViewPastAppointmentsPatientFailureListener(int: ViewPastAppointmentsPatientFailureListener){
+        this.mViewPastAppointmentsPatientFailureListener = int
     }
 }
