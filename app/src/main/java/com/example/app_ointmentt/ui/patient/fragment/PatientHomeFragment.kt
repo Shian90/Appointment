@@ -2,84 +2,48 @@ package com.example.app_ointmentt.ui.patient.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.adaptersNew.RatedDoctorAdapter
-import com.example.app_ointmentt.databasing.DoctorDB
-import com.example.app_ointmentt.models.RatedDoctor
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
+import com.example.app_ointmentt.adapter.DoctorTypeAdapter
+import com.example.app_ointmentt.dataset.doctorTypeData
+import kotlinx.android.synthetic.main.fragment_patient_homepage.view.*
 
-class PatientHomeFragment : Fragment(), DoctorDB.GetTopDoctorsSuccessListener, DoctorDB.GetTopDoctorsFailureListener{
-
+class PatientHomeFragment : Fragment() {
+    private lateinit var doctorTypeAdapter: DoctorTypeAdapter
     private lateinit var iHomepage: IHomepage
-    lateinit var doctorTypeRecyclerView: RecyclerView
-    lateinit var mContext: Context
-    lateinit var ddb: DoctorDB
-    lateinit var ratedDoctorArrayOverall: ArrayList<RatedDoctor>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         iHomepage.setToolbarTitle("Appointment")
     }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view: View = inflater.inflate(R.layout.fragment_patient_homepage, container, false)
-
-        doctorTypeRecyclerView = view.findViewById(R.id.doctorTyperRecyclerView)
-
-        mContext = this.context!!
-
-        ddb = DoctorDB(mContext)
-        ddb.setGetTopDoctorsSuccessListener(this)
-        ddb.setGetTopDoctorsFailureListener(this)
-
-        ratedDoctorArrayOverall = arrayListOf()
-
+        initRecyclerView(view)
+        bindData()
         return view
-    }
-
-    override fun onStart() {
-        val queryOpts = mutableMapOf<String, String>()
-        queryOpts.put("specialty", "ENT")
-        ddb.getTopDoctors(queryOpts)
-        queryOpts["specialty"] = "Cardiology"
-        ddb.getTopDoctors(queryOpts)
-        super.onStart()
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         iHomepage = activity as IHomepage
     }
-
-    private fun initRecyclerView(){
-        val doctorTypeRecyclerViewAdapter = GroupAdapter<GroupieViewHolder>()
-        ratedDoctorArrayOverall.forEach {
-            doctorTypeRecyclerViewAdapter.add(RatedDoctorAdapter(it))
-        }
-        doctorTypeRecyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL ,false)
-        doctorTypeRecyclerView.adapter = doctorTypeRecyclerViewAdapter
+    private fun bindData(){
+        doctorTypeAdapter.submitList(doctorTypeData.members)
     }
 
-    override fun getTopDoctorsSuccess(ratedDoctorArray: ArrayList<RatedDoctor>) {
-        ratedDoctorArray.forEach {
-            ratedDoctorArrayOverall.add(it)
+    private fun initRecyclerView(rootView: View){
+        rootView.doctorTyperRecyclerView.apply {
+            doctorTypeAdapter =  DoctorTypeAdapter()
+            adapter = doctorTypeAdapter
+            layoutManager = LinearLayoutManager(context)
         }
-        initRecyclerView()
-    }
-
-    override fun getTopDoctorsFailure(message: String) {
-        Toast.makeText(mContext, "Failed to get doctors", Toast.LENGTH_SHORT).show()
-        Log.d("getTopDoctorsFailure", "Failed: ${message.toString()}")
     }
 }
-
