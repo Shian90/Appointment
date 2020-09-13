@@ -86,7 +86,7 @@ interface APICalls {
     fun completeAppointment(@Header("Authorization") jwt: String, @Body params: RequestBody): Call<ResponseBody>
 
     @POST("appointment/updatePrescription")
-    fun editPrescription(@Header("Authorization") jwt: String, @Body params: RequestBody): Call<ResponseBody>
+    fun updatePrescription(@Header("Authorization") jwt: String, @Body params: RequestBody): Call<ResponseBody>
 
     //rating routes
 
