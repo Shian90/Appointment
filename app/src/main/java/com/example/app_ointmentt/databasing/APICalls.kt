@@ -55,7 +55,7 @@ interface APICalls {
     fun deleteSlotByDoctorId(@Header("Authorization") jwt: String, @Body params: RequestBody): Call<ResponseBody>
 
     @POST("slot/deleteSlotId")
-    fun deleteSlotId(@Header("Authorization") jwt: String, @Body params: RequestBody): Call<ResponseBody>
+    fun deleteSlotById(@Header("Authorization") jwt: String, @Body params: RequestBody): Call<ResponseBody>
 
 
     //appointment routes
