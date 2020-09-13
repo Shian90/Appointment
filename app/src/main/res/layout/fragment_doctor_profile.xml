@@ -56,7 +56,7 @@
                             android:id="@+id/ProfileUsername"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Username"
+                            android:text="Loading..."
                             android:textSize="30sp"
                             android:textStyle="bold"
                             android:layout_margin="5dp"
@@ -86,6 +86,7 @@
                     android:orientation="horizontal"
                     android:layout_marginBottom="20dp">
                     <TextView
+                        android:id="@+id/doctor_email_address"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:text="Email Address"
@@ -105,6 +106,7 @@
                     android:orientation="horizontal"
                     android:layout_marginBottom="20dp">
                     <TextView
+                        android:id="@+id/doctor_dob"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:text="DOB"
@@ -123,6 +125,7 @@
                     android:orientation="horizontal"
                     android:layout_marginBottom="20dp">
                     <TextView
+                        android:id="@+id/doctor_gender"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:text="Gender"
@@ -141,6 +144,7 @@
                     android:orientation="horizontal"
                     android:layout_marginBottom="20dp">
                     <TextView
+                        android:id="@+id/doctor_blood_group"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:text="Blood Group"
@@ -159,6 +163,7 @@
                     android:orientation="horizontal"
                     android:layout_marginBottom="20dp">
                     <TextView
+                        android:id="@+id/doctor_bmdc"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:text="BMDC Reg Number"
@@ -177,6 +182,7 @@
                     android:orientation="horizontal"
                     android:layout_marginBottom="20dp">
                     <TextView
+                        android:id="@+id/doctor_phone"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:text="Phone Number"
@@ -198,29 +204,10 @@
                     android:layout_marginBottom="20dp">
 
                     <TextView
+                        android:id="@+id/doctor_specialty"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:text="Password"
-                        android:textSize="18sp"/>
-
-                    <ImageButton
-                        android:id="@+id/doctorPasswordEditBtn"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="190dp"
-                        android:src="@android:drawable/ic_input_add" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="20dp">
-
-                    <TextView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:text="Speciality"
+                        android:text="Specialty"
                         android:textSize="18sp"/>
 
                     <ImageButton
@@ -238,6 +225,7 @@
                     android:layout_marginBottom="20dp">
 
                     <TextView
+                        android:id="@+id/doctor_address"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:text="Location"

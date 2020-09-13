@@ -51,4 +51,11 @@ class Patient
 
         return patient
     }
+
+    fun isDOBInitialized() = ::dob.isInitialized
+    fun isGenderInitialized() = ::gender.isInitialized
+    fun isPhoneInitialized() = ::phone.isInitialized
+    fun isBloodInitialized() = ::blood.isInitialized
+    fun isAddressInitialized() = ::address.isInitialized
+    fun isPastInitialized() = ::past.isInitialized
 }
