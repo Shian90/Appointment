@@ -20,6 +20,10 @@ class SlotDB(val context: Context) {
     lateinit var mCreateSlotSuccessListener: createSlotSuccessListener
     lateinit var mCreateSlotFailureListener: createSlotFailureListener
 
+    //Get Slot By Id interfaces
+    lateinit var mGetSlotByIDSuccessListener: getSlotByIdSuccessListener
+    lateinit var mGetSlotByIDFailureListener: getSlotByIdFailureListener
+
 
     /***Calling API through functions***/
     fun createSlot(date: String, startTime: String, endTime: String, numSlots: Int, status: Int)
@@ -71,6 +75,37 @@ class SlotDB(val context: Context) {
         }
     }
 
+    fun getSlotById(slotId: String)
+    {
+        val paramsJSON = JSONObject()
+        paramsJSON.put("slotId", slotId)
+
+        Log.d("ParamsJSON", "$paramsJSON")
+        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+        val call = APIObject.api.getSlotById(params)
+
+        call.enqueue(object: Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                mGetSlotByIDFailureListener.getSlotByIdFailureListener()
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if ( response.isSuccessful )
+                {
+                    val jsonRes = JSONObject(response.body()!!.string())
+                    val slotJSONObject = jsonRes.getJSONObject("slotRet")
+                    val slot = Slot().fromJSON(slotJSONObject)
+                    mGetSlotByIDSuccessListener.getSlotByIdSuccessListener(slot)
+                }
+                else
+                {
+                    mGetSlotByIDFailureListener.getSlotByIdFailureListener()
+                }
+            }
+        })
+
+    }
+
     /***Interfaces***/
     interface createSlotSuccessListener
     {
@@ -82,6 +117,16 @@ class SlotDB(val context: Context) {
         fun createSlotFailure()
     }
 
+    interface getSlotByIdSuccessListener
+    {
+        fun getSlotByIdSuccessListener(slot: Slot)
+    }
+
+    interface getSlotByIdFailureListener
+    {
+        fun getSlotByIdFailureListener()
+    }
+
     /***Interface setters***/
     fun setCreateSlotSuccessListener(int: createSlotSuccessListener)
     {
@@ -91,6 +136,16 @@ class SlotDB(val context: Context) {
     fun setCreateSlotFailureListener(int: createSlotFailureListener)
     {
         this.mCreateSlotFailureListener = int
+    }
+
+    fun setGetSlotByIdSuccessListener(int: getSlotByIdSuccessListener)
+    {
+        this.mGetSlotByIDSuccessListener = int
+    }
+
+    fun setGetSlotByIdFailureListener(int: getSlotByIdFailureListener)
+    {
+        this.mGetSlotByIDFailureListener = int
     }
 
 }
