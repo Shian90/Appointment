@@ -17,6 +17,7 @@ class RatingDB(val context: Context) {
     lateinit var mGetRatingsByIdSuccessListener: GetRatingsByIdSuccessListener
     lateinit var mGetRatingsByIdFailureListener: GetRatingsByIdFailureListener
 
+    //Update rating by id interface
     lateinit var mUpdateRatingByIdSuccessListener: UpdateRatingByIdSuccessListener
     lateinit var mUpdateRatingByIdFailureListener: UpdateRatingByIdFailureListener
 
@@ -32,7 +33,7 @@ class RatingDB(val context: Context) {
 
         call.enqueue(object: Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                mGetRatingsByIdFailureListener.getRatingsByIDFailure()
+                mGetRatingsByIdFailureListener.getRatingsByIDFailure(t.message)
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -44,7 +45,7 @@ class RatingDB(val context: Context) {
                     mGetRatingsByIdSuccessListener.getRatingsByIDSuccess(rating)
                 }
                 else
-                    mGetRatingsByIdFailureListener.getRatingsByIDFailure()
+                    mGetRatingsByIdFailureListener.getRatingsByIDFailure(response.message())
             }
         })
     }
@@ -57,8 +58,8 @@ class RatingDB(val context: Context) {
 
         if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
         {
-            //don't go any further
-            mUpdateRatingByIdFailureListener.updateRatingByIdFailure()
+            val message = "Please login to rate."
+            mUpdateRatingByIdFailureListener.updateRatingByIdFailure(message)
         }
         else
         {
@@ -75,7 +76,7 @@ class RatingDB(val context: Context) {
             call.enqueue(object : Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
 
-                    mUpdateRatingByIdFailureListener.updateRatingByIdFailure()
+                    mUpdateRatingByIdFailureListener.updateRatingByIdFailure(t.message)
                 }
 
                 override fun onResponse(
@@ -87,7 +88,7 @@ class RatingDB(val context: Context) {
                         mUpdateRatingByIdSuccessListener.updateRatingByIdSuccess()
                     } else {
 
-                        mUpdateRatingByIdFailureListener.updateRatingByIdFailure()
+                        mUpdateRatingByIdFailureListener.updateRatingByIdFailure(response.message())
                     }
                 }
             })
@@ -103,7 +104,7 @@ class RatingDB(val context: Context) {
 
     interface GetRatingsByIdFailureListener
     {
-        fun getRatingsByIDFailure()
+        fun getRatingsByIDFailure(message: String?)
     }
 
     interface UpdateRatingByIdSuccessListener
@@ -113,7 +114,7 @@ class RatingDB(val context: Context) {
 
     interface UpdateRatingByIdFailureListener
     {
-        fun updateRatingByIdFailure()
+        fun updateRatingByIdFailure(message: String?)
     }
 
 
