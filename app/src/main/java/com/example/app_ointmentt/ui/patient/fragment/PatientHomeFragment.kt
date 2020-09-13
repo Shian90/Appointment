@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
@@ -41,6 +42,8 @@ class PatientHomeFragment : Fragment(), DoctorDB.GetTopDoctorsSuccessListener, D
         ddb.setGetTopDoctorsSuccessListener(this)
         ddb.setGetTopDoctorsFailureListener(this)
 
+        ratedDoctorArrayOverall = arrayListOf()
+
         return view
     }
 
@@ -63,6 +66,7 @@ class PatientHomeFragment : Fragment(), DoctorDB.GetTopDoctorsSuccessListener, D
         ratedDoctorArrayOverall.forEach {
             doctorTypeRecyclerViewAdapter.add(RatedDoctorAdapter(it))
         }
+        doctorTypeRecyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL ,false)
         doctorTypeRecyclerView.adapter = doctorTypeRecyclerViewAdapter
     }
 
