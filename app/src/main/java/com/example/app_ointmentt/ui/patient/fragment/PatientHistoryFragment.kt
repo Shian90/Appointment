@@ -54,9 +54,7 @@ class PatientHistoryFragment : Fragment(),
     }
 
     override fun onStart() {
-        val queryOpts = mutableMapOf<String, String>()
-        queryOpts["patientId"] = "5966a725-468d-4c18-994e-0be6c7745e81"
-        appdb.viewPastAppointmentsPatient(queryOpts)
+        appdb.viewPastAppointmentsPatient()
         super.onStart()
 
     }
