@@ -55,4 +55,10 @@ class Doctor
 
         return doctor
     }
+    fun isDOBInitialized() = ::dob.isInitialized
+    fun isGenderInitialized() = ::gender.isInitialized
+    fun isPhoneInitialized() = ::phone.isInitialized
+    fun isBloodInitialized() = ::blood.isInitialized
+    fun isAddressInitialized() = ::address.isInitialized
+    fun isSpecialtyInitialized() = ::specialty.isInitialized
 }
