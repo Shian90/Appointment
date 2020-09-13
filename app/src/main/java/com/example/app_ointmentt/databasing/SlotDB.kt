@@ -28,6 +28,9 @@ class SlotDB(val context: Context) {
     lateinit var mViewAllSlotsByDoctorSuccessListener: viewAllSlotsByDoctorSuccessListener
     lateinit var mViewAllSlotsByDoctorFailureListener: viewAllSlotsByDoctorFailureListener
 
+    //Delete Slot By Id interfaces
+    lateinit var mDeleteSlotByIdFailureListener: deleteSlotByIdFailureListener
+    lateinit var mDeleteSlotByIdSuccessListener: deleteSlotByIdSuccessListener
 
     /***Calling API through functions***/
     fun createSlot(date: String, startTime: String, endTime: String, numSlots: Int, status: Int)
@@ -151,6 +154,45 @@ class SlotDB(val context: Context) {
         })
     }
 
+    fun deleteSlotById(slotId: String)
+    {
+        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val jwt = sh.getString("jwt", "NONE FOUND").toString()
+        val uid = sh.getString("uid", "NONE FOUND").toString()
+        if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
+        {
+            //don't go any further
+            Log.d("DELETEAPI", "$jwt ")
+            mDeleteSlotByIdFailureListener.deleteSlotByIdFailure()
+        }
+        else {
+            Log.d("DELETEAPI", "$jwt ")
+            val paramsJSON = JSONObject()
+            paramsJSON.put("slotId", slotId)
+            val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+
+            val headerJwt = "Bearer $jwt"
+            val call = APIObject.api.deleteSlotById(headerJwt, params)
+            call.enqueue(object: Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    mDeleteSlotByIdFailureListener.deleteSlotByIdFailure()
+                }
+
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if ( response.isSuccessful )
+                    {
+                        Log.d("Response", "$response ")
+                        mDeleteSlotByIdSuccessListener.deleteSlotByIdSuccess()
+                    }
+                    else
+                    {
+                        mDeleteSlotByIdFailureListener.deleteSlotByIdFailure()
+                    }
+                }
+            })
+        }
+    }
+
     /***Interfaces***/
     interface createSlotSuccessListener
     {
@@ -182,6 +224,16 @@ class SlotDB(val context: Context) {
         fun viewAllSlotsByDoctorFailureListener()
     }
 
+    interface deleteSlotByIdSuccessListener
+    {
+        fun deleteSlotByIdSuccess()
+    }
+
+    interface deleteSlotByIdFailureListener
+    {
+        fun deleteSlotByIdFailure()
+    }
+
     /***Interface setters***/
     fun setCreateSlotSuccessListener(int: createSlotSuccessListener)
     {
@@ -211,6 +263,16 @@ class SlotDB(val context: Context) {
     fun setViewAllSlotsByDoctorFailureListener(int: viewAllSlotsByDoctorFailureListener)
     {
         this.mViewAllSlotsByDoctorFailureListener = int
+    }
+
+    fun setDeleteSlotByIdSuccessListener(int: deleteSlotByIdSuccessListener)
+    {
+        this.mDeleteSlotByIdSuccessListener = int
+    }
+
+    fun setDeleteSlotByIdFailureListener(int: deleteSlotByIdFailureListener)
+    {
+        this.mDeleteSlotByIdFailureListener = int
     }
 
 }
