@@ -50,13 +50,11 @@ class PatientHistoryFragment : Fragment(),
         patientHistories = arrayListOf()
 
         return view
-
     }
 
     override fun onStart() {
         appdb.viewPastAppointmentsPatient()
         super.onStart()
-
     }
 
     override fun onAttach(context: Context) {
