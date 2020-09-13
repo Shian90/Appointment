@@ -2,14 +2,16 @@ package com.example.app_ointmentt.ui.patient.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.adapter.DoctorTypeAdapter
 import com.example.app_ointmentt.adaptersNew.RatedDoctorAdapter
 import com.example.app_ointmentt.databasing.DoctorDB
 import com.example.app_ointmentt.models.RatedDoctor
@@ -18,7 +20,6 @@ import com.xwray.groupie.GroupieViewHolder
 
 class PatientHomeFragment : Fragment(), DoctorDB.GetTopDoctorsSuccessListener, DoctorDB.GetTopDoctorsFailureListener{
 
-    private lateinit var doctorTypeAdapter: DoctorTypeAdapter
     private lateinit var iHomepage: IHomepage
     lateinit var doctorTypeRecyclerView: RecyclerView
     lateinit var mContext: Context
@@ -29,14 +30,19 @@ class PatientHomeFragment : Fragment(), DoctorDB.GetTopDoctorsSuccessListener, D
         super.onCreate(savedInstanceState)
         iHomepage.setToolbarTitle("Appointment")
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_patient_homepage, container, false)
 
         doctorTypeRecyclerView = view.findViewById(R.id.doctorTyperRecyclerView)
 
         mContext = this.context!!
-        ddb = DoctorDB(mContext)
 
+        ddb = DoctorDB(mContext)
+        ddb.setGetTopDoctorsSuccessListener(this)
+        ddb.setGetTopDoctorsFailureListener(this)
+
+        ratedDoctorArrayOverall = arrayListOf()
 
         return view
     }
@@ -45,7 +51,8 @@ class PatientHomeFragment : Fragment(), DoctorDB.GetTopDoctorsSuccessListener, D
         val queryOpts = mutableMapOf<String, String>()
         queryOpts.put("specialty", "ENT")
         ddb.getTopDoctors(queryOpts)
-        initRecyclerView()
+        queryOpts["specialty"] = "Cardiology"
+        ddb.getTopDoctors(queryOpts)
         super.onStart()
     }
 
@@ -59,6 +66,7 @@ class PatientHomeFragment : Fragment(), DoctorDB.GetTopDoctorsSuccessListener, D
         ratedDoctorArrayOverall.forEach {
             doctorTypeRecyclerViewAdapter.add(RatedDoctorAdapter(it))
         }
+        doctorTypeRecyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL ,false)
         doctorTypeRecyclerView.adapter = doctorTypeRecyclerViewAdapter
     }
 
@@ -66,10 +74,12 @@ class PatientHomeFragment : Fragment(), DoctorDB.GetTopDoctorsSuccessListener, D
         ratedDoctorArray.forEach {
             ratedDoctorArrayOverall.add(it)
         }
+        initRecyclerView()
     }
 
     override fun getTopDoctorsFailure(message: String) {
-        TODO("Not yet implemented")
+        Toast.makeText(mContext, "Failed to get doctors", Toast.LENGTH_SHORT).show()
+        Log.d("getTopDoctorsFailure", "Failed: ${message.toString()}")
     }
 }
 
