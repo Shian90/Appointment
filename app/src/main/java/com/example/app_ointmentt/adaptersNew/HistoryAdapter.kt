@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.cardview_history.view.*
 
 class HistoryAdapter(val histories: Appointment) : Item<GroupieViewHolder>() {
     override fun getLayout(): Int {
-        return R.layout.fragment_patient_history
+        return R.layout.cardview_history
     }
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {

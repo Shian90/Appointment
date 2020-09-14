@@ -4,11 +4,11 @@ import com.example.app_ointmentt.R
 import com.example.app_ointmentt.models.Appointment
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
-import kotlinx.android.synthetic.main.cardview_history.view.*
+import kotlinx.android.synthetic.main.cardview_notification.view.*
 
 class NotificationAdapter(val notifications: Appointment): Item<GroupieViewHolder>() {
     override fun getLayout(): Int {
-        return R.layout.fragment_patient_notification
+        return R.layout.cardview_notification
     }
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
