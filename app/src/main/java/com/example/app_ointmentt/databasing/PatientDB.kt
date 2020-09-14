@@ -1,6 +1,7 @@
 package com.example.app_ointmentt.databasing
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.util.Log
 import com.example.app_ointmentt.models.Patient
@@ -12,6 +13,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class PatientDB(val context: Context) {
+
+    private val sharedPrefFile = "appointmentSharedPref"
 
     /***Create interfaces***/
 
@@ -56,7 +59,7 @@ class PatientDB(val context: Context) {
 
     fun updatePatientProfile(updOpts: Map<String, String>)
     {
-        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val sh: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
         val jwt = sh.getString("jwt", "NONE FOUND").toString()
         val uid = sh.getString("uid", "NONE FOUND").toString()
         if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
@@ -110,7 +113,7 @@ class PatientDB(val context: Context) {
 
     fun deletePatientById()
     {
-        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val sh: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
         val jwt = sh.getString("jwt", "NONE FOUND").toString()
         val uid = sh.getString("uid", "NONE FOUND").toString()
         if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )

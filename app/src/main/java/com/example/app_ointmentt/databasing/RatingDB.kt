@@ -1,6 +1,7 @@
 package com.example.app_ointmentt.databasing
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.example.app_ointmentt.models.Rating
 import okhttp3.RequestBody
@@ -11,6 +12,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RatingDB(val context: Context) {
+
+    private val sharedPrefFile = "appointmentSharedPref"
 
     /***Create interfaces***/
     //Get ratings by id interface
@@ -52,7 +55,7 @@ class RatingDB(val context: Context) {
 
     fun updateRatingById(updOpts: Map<String, String>)
     {
-        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val sh: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
         val jwt = sh.getString("jwt", "NONE FOUND").toString()
         val uid = sh.getString("uid", "NONE FOUND").toString()
 

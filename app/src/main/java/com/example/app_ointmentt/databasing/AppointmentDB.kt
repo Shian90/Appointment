@@ -1,6 +1,7 @@
 package com.example.app_ointmentt.databasing
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.example.app_ointmentt.models.Appointment
 import okhttp3.RequestBody
@@ -15,6 +16,8 @@ import retrofit2.Response
 class AppointmentDB(val context: Context) {
 
     /***Create interfaces***/
+    private val sharedPrefFile = "appointmentSharedPref"
+
     //Create appointment interfaces
     lateinit var mCreateAppointmentSuccessListener: CreateAppointmentSuccessListener
     lateinit var mCreateAppointmentFailureListener: CreateAppointmentFailureListener
@@ -54,7 +57,7 @@ class AppointmentDB(val context: Context) {
     /***Calling API through functions***/
     fun createAppointment(slotId: String)
     {
-        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val sh: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
         val jwt = sh.getString("jwt", "NONE FOUND").toString()
         val uid = sh.getString("uid", "NONE FOUND").toString()
 
@@ -118,62 +121,86 @@ class AppointmentDB(val context: Context) {
         })
     }
 
-    fun viewUpcomingAppointmentsPatient(patientId : String){
-        val paramsJSON = JSONObject()
-        paramsJSON.put("patientId", patientId)
-        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+    fun viewUpcomingAppointmentsPatient(){
+        val sh: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
+        val jwt = sh.getString("jwt", "NONE FOUND").toString()
+        val uid = sh.getString("uid", "NONE FOUND").toString()
 
-        val call = APIObject.api.viewUpcomingAppointmentsPatient(params)
+        if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
+        {
+            val message = "Please login to complete your appointment."
+            mViewUpcomingAppointmentsPatientFailureListener.viewUpcomingAppointmentsPatientFailure(message)
+        }
+        else
+        {
+            val paramsJSON = JSONObject()
+            paramsJSON.put("patientId", uid)
+            val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
 
-        call.enqueue(object: Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                mViewUpcomingAppointmentsPatientFailureListener.viewUpcomingAppointmentsPatientFailure(t.message)
-            }
+            val call = APIObject.api.viewUpcomingAppointmentsPatient(params)
 
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if ( response.isSuccessful )
-                {
-                    val jsonRes = JSONObject(response.body()!!.string())
-                    val appointments = makeAppointmentArrayListFromJsonArray(jsonRes.getJSONArray("appRet"))
-                    mViewUpcomingAppointmentsPatientSuccessListener.viewUpcomingAppointmentsPatientSuccess(appointments)
+            call.enqueue(object: Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    mViewUpcomingAppointmentsPatientFailureListener.viewUpcomingAppointmentsPatientFailure(t.message)
                 }
-                else
-                    mViewUpcomingAppointmentsPatientFailureListener.viewUpcomingAppointmentsPatientFailure(
-                        response.message()
-                    )
-            }
-        })
+
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if ( response.isSuccessful )
+                    {
+                        val jsonRes = JSONObject(response.body()!!.string())
+                        val appointments = makeAppointmentArrayListFromJsonArray(jsonRes.getJSONArray("appRet"))
+                        mViewUpcomingAppointmentsPatientSuccessListener.viewUpcomingAppointmentsPatientSuccess(appointments)
+                    }
+                    else
+                        mViewUpcomingAppointmentsPatientFailureListener.viewUpcomingAppointmentsPatientFailure(
+                            response.message()
+                        )
+                }
+            })
+        }
     }
 
-    fun viewUpcomingAppointmentsDoctor(doctorId : String){
-        val paramsJSON = JSONObject()
-        paramsJSON.put("doctorId", doctorId)
-        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+    fun viewUpcomingAppointmentsDoctor(){
+        val sh: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
+        val jwt = sh.getString("jwt", "NONE FOUND").toString()
+        val uid = sh.getString("uid", "NONE FOUND").toString()
 
-        val call = APIObject.api.viewUpcomingAppointmentsDoctor(params)
+        if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
+        {
+            val message = "Please login to complete your appointment."
+            mViewUpcomingAppointmentsDoctorFailureListener.viewUpcomingAppointmentsDoctorFailure(message)
+        }
+        else
+        {
+            val paramsJSON = JSONObject()
+            paramsJSON.put("doctorId", uid)
+            val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
 
-        call.enqueue(object: Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                mViewUpcomingAppointmentsDoctorFailureListener.viewUpcomingAppointmentsDoctorFailure(t.message)
-            }
+            val call = APIObject.api.viewUpcomingAppointmentsDoctor(params)
 
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if ( response.isSuccessful )
-                {
-                    val jsonRes = JSONObject(response.body()!!.string())
-                    val appointments = makeAppointmentArrayListFromJsonArray(jsonRes.getJSONArray("appRet"))
-                    mViewUpcomingAppointmentsDoctorSuccessListener.viewUpcomingAppointmentsDoctorSuccess(appointments)
+            call.enqueue(object: Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    mViewUpcomingAppointmentsDoctorFailureListener.viewUpcomingAppointmentsDoctorFailure(t.message)
                 }
-                else
-                    mViewUpcomingAppointmentsDoctorFailureListener.viewUpcomingAppointmentsDoctorFailure(
-                        response.message()
-                    )
-            }
-        })
+
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    if ( response.isSuccessful )
+                    {
+                        val jsonRes = JSONObject(response.body()!!.string())
+                        val appointments = makeAppointmentArrayListFromJsonArray(jsonRes.getJSONArray("appRet"))
+                        mViewUpcomingAppointmentsDoctorSuccessListener.viewUpcomingAppointmentsDoctorSuccess(appointments)
+                    }
+                    else
+                        mViewUpcomingAppointmentsDoctorFailureListener.viewUpcomingAppointmentsDoctorFailure(
+                            response.message()
+                        )
+                }
+            })
+        }
     }
 
     fun completeAppointment(appointmentId: String){
-        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val sh: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
         val jwt = sh.getString("jwt", "NONE FOUND").toString()
         val uid = sh.getString("uid", "NONE FOUND").toString()
 
@@ -213,7 +240,7 @@ class AppointmentDB(val context: Context) {
     }
 
     fun viewPastAppointmentsPatient(){
-        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val sh: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
         val jwt = sh.getString("jwt", "NONE FOUND").toString()
         val uid = sh.getString("uid", "NONE FOUND").toString()
 
@@ -256,8 +283,8 @@ class AppointmentDB(val context: Context) {
         }
     }
 
-    fun viewPastAppointmentsDoctor(updOpts: Map<String, String>){
-        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+    fun viewPastAppointmentsDoctor(){
+        val sh: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
         val jwt = sh.getString("jwt", "NONE FOUND").toString()
         val uid = sh.getString("uid", "NONE FOUND").toString()
 
@@ -269,7 +296,7 @@ class AppointmentDB(val context: Context) {
         else
         {
             val paramsJSON = JSONObject()
-            paramsJSON.put("doctorId", updOpts["doctorId"].toString())
+            paramsJSON.put("doctorId", uid)
 
             val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
 
@@ -301,7 +328,7 @@ class AppointmentDB(val context: Context) {
     }
 
     fun deleteAppointmentById(appointmentId: String){
-        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val sh: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
         val jwt = sh.getString("jwt", "NONE FOUND").toString()
         val uid = sh.getString("uid", "NONE FOUND").toString()
 
@@ -342,7 +369,7 @@ class AppointmentDB(val context: Context) {
 
     fun updatePrescription(appId: String, prescription: String)
     {
-        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val sh: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
         val jwt = sh.getString("jwt", "NONE FOUND").toString()
         val uid = sh.getString("uid", "NONE FOUND").toString()
         if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )

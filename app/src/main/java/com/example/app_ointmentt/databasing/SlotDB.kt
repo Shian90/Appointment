@@ -1,6 +1,7 @@
 package com.example.app_ointmentt.databasing
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.preference.PreferenceManager
 import com.example.app_ointmentt.models.Doctor
@@ -13,6 +14,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SlotDB(val context: Context) {
+
+    private val sharedPrefFile = "appointmentSharedPref"
 
     /***Create interfaces***/
 
@@ -42,7 +45,7 @@ class SlotDB(val context: Context) {
     {
         val slotArray = arrayListOf<Slot>()
 
-        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val sh: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
         val jwt = sh.getString("jwt", "NONE FOUND").toString()
         val uid = sh.getString("uid", "NONE FOUND").toString()
         if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
@@ -160,7 +163,7 @@ class SlotDB(val context: Context) {
 
     fun deleteSlotById(slotId: String)
     {
-        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val sh: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
         val jwt = sh.getString("jwt", "NONE FOUND").toString()
         val uid = sh.getString("uid", "NONE FOUND").toString()
         if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
@@ -198,7 +201,7 @@ class SlotDB(val context: Context) {
 
     fun deleteSlotsByDoctorId()
     {
-        val sh = PreferenceManager.getDefaultSharedPreferences(context)
+        val sh: SharedPreferences = context.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
         val jwt = sh.getString("jwt", "NONE FOUND").toString()
         val uid = sh.getString("uid", "NONE FOUND").toString()
         if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
