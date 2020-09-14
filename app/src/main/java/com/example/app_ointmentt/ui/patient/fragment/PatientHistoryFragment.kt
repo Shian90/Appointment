@@ -72,7 +72,7 @@ class PatientHistoryFragment : Fragment(),
     }
 
     override fun viewPastAppointmentsPatientSuccess(appointments: ArrayList<Appointment>) {
-        patientHistories.forEach{
+        appointments.forEach{
             patientHistories.add(it)
         }
         initRecyclerView()
