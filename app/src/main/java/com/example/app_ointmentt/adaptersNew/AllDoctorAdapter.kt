@@ -4,7 +4,7 @@ import com.example.app_ointmentt.R
 import com.example.app_ointmentt.models.Doctor
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
-import kotlinx.android.synthetic.main.fragment_see_all_doctors.view.*
+import kotlinx.android.synthetic.main.cardview_doctor_list.view.*
 
 class AllDoctorAdapter (val alldocs: Doctor) : Item<GroupieViewHolder>()
 {
