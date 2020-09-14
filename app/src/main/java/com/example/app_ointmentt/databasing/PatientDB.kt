@@ -38,7 +38,7 @@ class PatientDB(val context: Context) {
 
         call.enqueue(object: Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                mGetPatientByIdFailureListener.getPatientByIdFailure()
+                mGetPatientByIdFailureListener.getPatientByIdFailure(t.message)
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -49,7 +49,7 @@ class PatientDB(val context: Context) {
                     mGetPatientByIdSuccessListener.getPatientByIdSuccess(patient)
                 }
                 else
-                    mGetPatientByIdFailureListener.getPatientByIdFailure()
+                    mGetPatientByIdFailureListener.getPatientByIdFailure(response.message())
             }
         })
     }
@@ -61,7 +61,8 @@ class PatientDB(val context: Context) {
         val uid = sh.getString("uid", "NONE FOUND").toString()
         if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
         {
-            mUpdatePatientProfileFailureListener.updatePatientProfileFailure()
+            val message = "Please login before updating your profile."
+            mUpdatePatientProfileFailureListener.updatePatientProfileFailure(message)
         }
         else
         {
@@ -90,7 +91,7 @@ class PatientDB(val context: Context) {
 
             call.enqueue(object: Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    mUpdatePatientProfileFailureListener.updatePatientProfileFailure()
+                    mUpdatePatientProfileFailureListener.updatePatientProfileFailure(t.message)
                 }
 
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -100,7 +101,7 @@ class PatientDB(val context: Context) {
                     }
                     else
                     {
-                        mUpdatePatientProfileFailureListener.updatePatientProfileFailure()
+                        mUpdatePatientProfileFailureListener.updatePatientProfileFailure(response.message())
                     }
                 }
             })
@@ -114,8 +115,8 @@ class PatientDB(val context: Context) {
         val uid = sh.getString("uid", "NONE FOUND").toString()
         if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
         {
-            Log.d("DELETEAPI", "$jwt $uid")
-            mDeletePatientByIdFailureListener.deletePatientByIdFailure()
+            val message = "Please login to delete"
+            mDeletePatientByIdFailureListener.deletePatientByIdFailure(message)
         }
         else {
             Log.d("DELETEAPI", "$jwt $uid")
@@ -128,7 +129,7 @@ class PatientDB(val context: Context) {
 
             call.enqueue(object: Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    mDeletePatientByIdFailureListener.deletePatientByIdFailure()
+                    mDeletePatientByIdFailureListener.deletePatientByIdFailure(t.message)
                 }
 
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -138,7 +139,7 @@ class PatientDB(val context: Context) {
                     }
                     else
                     {
-                        mDeletePatientByIdFailureListener.deletePatientByIdFailure()
+                        mDeletePatientByIdFailureListener.deletePatientByIdFailure(response.message())
                     }
                 }
             })
@@ -153,7 +154,7 @@ class PatientDB(val context: Context) {
 
     interface GetPatientByIdFailureListener
     {
-        fun getPatientByIdFailure()
+        fun getPatientByIdFailure(message: String?)
     }
 
     interface UpdatePatientProfileSuccessListener
@@ -163,7 +164,7 @@ class PatientDB(val context: Context) {
 
     interface UpdatePatientProfileFailureListener
     {
-        fun updatePatientProfileFailure()
+        fun updatePatientProfileFailure(message: String?)
     }
 
     interface DeletePatientByIdSuccessListener
@@ -173,7 +174,7 @@ class PatientDB(val context: Context) {
 
     interface DeletePatientByIdFailureListener
     {
-        fun deletePatientByIdFailure()
+        fun deletePatientByIdFailure(message: String?)
     }
 
     /***Interface setters***/

@@ -47,9 +47,8 @@ class SlotDB(val context: Context) {
         val uid = sh.getString("uid", "NONE FOUND").toString()
         if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
         {
-            //don't go any further
-            Log.d("CREATESLOTS", "$jwt $uid")
-            mCreateSlotFailureListener.createSlotFailure()
+           val message = "Please login before creating slots."
+            mCreateSlotFailureListener.createSlotFailure(message)
         }
         else
         {
@@ -81,7 +80,7 @@ class SlotDB(val context: Context) {
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    mCreateSlotFailureListener.createSlotFailure()
+                    mCreateSlotFailureListener.createSlotFailure(t.message)
                 }
             })
         }
@@ -98,7 +97,7 @@ class SlotDB(val context: Context) {
 
         call.enqueue(object: Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                mGetSlotByIDFailureListener.getSlotByIdFailureListener()
+                mGetSlotByIDFailureListener.getSlotByIdFailureListener(t.message)
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -111,7 +110,7 @@ class SlotDB(val context: Context) {
                 }
                 else
                 {
-                    mGetSlotByIDFailureListener.getSlotByIdFailureListener()
+                    mGetSlotByIDFailureListener.getSlotByIdFailureListener(response.message())
                 }
             }
         })
@@ -129,7 +128,7 @@ class SlotDB(val context: Context) {
 
         call.enqueue(object: Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                mViewAllSlotsByDoctorFailureListener.viewAllSlotsByDoctorFailureListener()
+                mViewAllSlotsByDoctorFailureListener.viewAllSlotsByDoctorFailureListener(t.message)
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -147,13 +146,13 @@ class SlotDB(val context: Context) {
                         mViewAllSlotsByDoctorSuccessListener.viewAllSlotsByDoctorSuccessListener(slotsArray)
                     }
                     else{
-                        mViewAllSlotsByDoctorFailureListener.viewAllSlotsByDoctorFailureListener()
+                        mViewAllSlotsByDoctorFailureListener.viewAllSlotsByDoctorFailureListener(response.message())
                     }
 
                 }
                 else
                 {
-                    mViewAllSlotsByDoctorFailureListener.viewAllSlotsByDoctorFailureListener()
+                    mViewAllSlotsByDoctorFailureListener.viewAllSlotsByDoctorFailureListener(response.message())
                 }
             }
         })
@@ -166,12 +165,11 @@ class SlotDB(val context: Context) {
         val uid = sh.getString("uid", "NONE FOUND").toString()
         if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
         {
-            //don't go any further
-            Log.d("DELETEAPI", "$jwt ")
-            mDeleteSlotByIdFailureListener.deleteSlotByIdFailure()
+            val message = "Please login before deleting a slot."
+            mDeleteSlotByIdFailureListener.deleteSlotByIdFailure(message)
         }
         else {
-            Log.d("DELETEAPI", "$jwt ")
+
             val paramsJSON = JSONObject()
             paramsJSON.put("slotId", slotId)
             val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
@@ -180,7 +178,7 @@ class SlotDB(val context: Context) {
             val call = APIObject.api.deleteSlotById(headerJwt, params)
             call.enqueue(object: Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    mDeleteSlotByIdFailureListener.deleteSlotByIdFailure()
+                    mDeleteSlotByIdFailureListener.deleteSlotByIdFailure(t.message)
                 }
 
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -191,7 +189,7 @@ class SlotDB(val context: Context) {
                     }
                     else
                     {
-                        mDeleteSlotByIdFailureListener.deleteSlotByIdFailure()
+                        mDeleteSlotByIdFailureListener.deleteSlotByIdFailure(response.message())
                     }
                 }
             })
@@ -205,9 +203,8 @@ class SlotDB(val context: Context) {
         val uid = sh.getString("uid", "NONE FOUND").toString()
         if ( jwt == "NONE FOUND" || uid == "NONE FOUND" )
         {
-            //don't go any further
-            Log.d("CREATESLOTS", "$jwt $uid")
-            mDeleteDoctorSlotsFailureListener.deleteDoctorSlotsFailure()
+           val message = "Please login before deleting the slots."
+            mDeleteDoctorSlotsFailureListener.deleteDoctorSlotsFailure(message)
         }
         else
         {
@@ -225,7 +222,7 @@ class SlotDB(val context: Context) {
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    mDeleteDoctorSlotsFailureListener.deleteDoctorSlotsFailure()
+                    mDeleteDoctorSlotsFailureListener.deleteDoctorSlotsFailure(t.message)
                 }
             })
         }
@@ -239,7 +236,7 @@ class SlotDB(val context: Context) {
 
     interface createSlotFailureListener
     {
-        fun createSlotFailure()
+        fun createSlotFailure(message: String?)
     }
 
     interface getSlotByIdSuccessListener
@@ -249,7 +246,7 @@ class SlotDB(val context: Context) {
 
     interface getSlotByIdFailureListener
     {
-        fun getSlotByIdFailureListener()
+        fun getSlotByIdFailureListener(message: String?)
     }
 
     interface viewAllSlotsByDoctorSuccessListener
@@ -259,7 +256,7 @@ class SlotDB(val context: Context) {
 
     interface viewAllSlotsByDoctorFailureListener
     {
-        fun viewAllSlotsByDoctorFailureListener()
+        fun viewAllSlotsByDoctorFailureListener(message: String?)
     }
 
     interface deleteDoctorSlotsSuccessListener
@@ -269,7 +266,7 @@ class SlotDB(val context: Context) {
 
     interface deleteDoctorSlotsFailureListener
     {
-        fun deleteDoctorSlotsFailure()
+        fun deleteDoctorSlotsFailure(message: String?)
     }
 
     interface deleteSlotByIdSuccessListener
@@ -279,7 +276,7 @@ class SlotDB(val context: Context) {
 
     interface deleteSlotByIdFailureListener
     {
-        fun deleteSlotByIdFailure()
+        fun deleteSlotByIdFailure(message: String?)
     }
 
     /***Interface setters***/
