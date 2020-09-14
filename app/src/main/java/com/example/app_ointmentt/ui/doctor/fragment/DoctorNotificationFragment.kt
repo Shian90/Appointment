@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.adapter.NotificationAdapter
+import com.example.app_ointmentt.adaptersNew.NotificationAdapter
 import com.example.app_ointmentt.dataset.Rawdata
 import kotlinx.android.synthetic.main.fragment_doctor_notification.view.*
 
@@ -28,7 +28,7 @@ class DoctorNotificationFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_doctor_notification,container,false)
         initRecyclerView(rootView)
-        bindData()
+
         return rootView
     }
 
@@ -38,16 +38,8 @@ class DoctorNotificationFragment : Fragment() {
     }
 
 
-    private fun bindData(){
-        notificationAdapter.submitList(Rawdata.members)
-    }
 
     private fun initRecyclerView(rootView: View){
-            rootView.notificationRecyclerView.apply {
-            notificationAdapter =
-                NotificationAdapter()
-            adapter = notificationAdapter
-            layoutManager = LinearLayoutManager(context)
-        }
+
     }
 }

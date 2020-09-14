@@ -133,8 +133,8 @@ class PatientProfileFragment:Fragment(),
         }
     }
 
-    override fun getPatientByIdFailure() {
+    override fun getPatientByIdFailure(message: String?) {
         Log.d("getPatientByIdFailure", "getPatientByIdFailure: Failed to retrieve user info")
-        Toast.makeText(context,"Failed to get User Profile. Please Try Later",Toast.LENGTH_SHORT).show()
+        Toast.makeText(context,"Failed to get User Profile. Please Try Later. ${message}",Toast.LENGTH_SHORT).show()
     }
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
+import com.example.app_ointmentt.adaptersNew.HistoryAdapter
 import com.example.app_ointmentt.dataset.HistoryRawData
 import kotlinx.android.synthetic.main.fragment_doctor_history.view.*
 
@@ -27,7 +28,6 @@ class DoctorHistoryFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_doctor_history,container,false)
         initRecyclerView(rootView)
-        bindData()
         return rootView
     }
 
@@ -36,16 +36,6 @@ class DoctorHistoryFragment : Fragment() {
         iHomeFragment = activity as IHomepage
     }
 
-    private fun bindData(){
-        historyAdapter.submitList(HistoryRawData.members)
-    }
-
     private fun initRecyclerView(rootView: View){
-        rootView.historyRecyclerView.apply {
-            historyAdapter =
-                HistoryAdapter(it)
-            adapter = historyAdapter
-            layoutManager = LinearLayoutManager(context)
-        }
     }
 }
