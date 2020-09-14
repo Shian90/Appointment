@@ -146,8 +146,8 @@ object PatientHistoryRawData {
 
 object doctorTypeData{
     val members = (listOf<DoctorType>(
-        DoctorType("Mental Doctor"),
-        DoctorType("Lung Doctor"),
+        DoctorType("ENT"),
+        DoctorType("Cardiology"),
         DoctorType("Heart Doctor"),
         DoctorType("Kidney Doctor"),
         DoctorType("Brain Doctor"),
