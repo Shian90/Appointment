@@ -54,15 +54,7 @@ class PatientNotificationFragment : Fragment(),
     }
 
     override fun onStart() {
-        val sh = PreferenceManager.getDefaultSharedPreferences(mContext)
-        val patientId = sh.getString("uid", "NONE FOUND").toString()
-        if(patientId == "NONE FOUND"){
-            Toast.makeText(mContext, "Failed to get notifications. Please login to get notifications.", Toast.LENGTH_SHORT).show()
-            Log.d("AuthorizationProb", "Failed: No patiend id is found in shared preferences")
-        }
-        else{
-            appdb.viewUpcomingAppointmentsPatient(patientId)
-        }
+        appdb.viewUpcomingAppointmentsPatient()
         super.onStart()
     }
 
@@ -83,7 +75,7 @@ class PatientNotificationFragment : Fragment(),
     }
 
     override fun viewUpcomingAppointmentsPatientSuccess(appointments: ArrayList<Appointment>) {
-        patientNotifications.forEach{
+        appointments.forEach{
             patientNotifications.add(it)
         }
         initRecyclerView()
