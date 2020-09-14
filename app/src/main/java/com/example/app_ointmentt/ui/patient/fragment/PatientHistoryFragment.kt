@@ -67,7 +67,7 @@ class PatientHistoryFragment : Fragment(),
         patientHistories.forEach{
             patientHistoryRecyclerViewAdapter.add(HistoryAdapter(it))
         }
-        patientHistoryRecylerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL ,false)
+        patientHistoryRecylerView.layoutManager = LinearLayoutManager(mContext)
         patientHistoryRecylerView.adapter = patientHistoryRecyclerViewAdapter
     }
 
