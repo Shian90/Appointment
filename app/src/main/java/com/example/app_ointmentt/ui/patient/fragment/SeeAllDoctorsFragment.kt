@@ -82,7 +82,7 @@ class SeeAllDoctorsFragment : Fragment(), DoctorDB.GetDoctorsSuccessListener, Do
     private fun initRecyclerView(){
         val doctorsRecyclerViewAdapter = GroupAdapter<GroupieViewHolder>()
         allDoctorsArrayOverall.forEach {
-            doctorsRecyclerViewAdapter.add(it)
+            doctorsRecyclerViewAdapter.add(AllDoctorAdapter(it))
         }
         doctorsRecyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL ,false)
         doctorsRecyclerView.adapter = doctorsRecyclerViewAdapter
