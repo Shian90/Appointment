@@ -39,8 +39,8 @@ fun changeFragmentFromActivity(fragment: Fragment,root: Int,activity: AppCompatA
 }
 
 
-fun invokeBottomModalSheet(view: View?){
-    val bottomSheetFragment = BottomSheetFragment()
+fun invokeBottomModalSheet(view: View?,field: String){
+    val bottomSheetFragment = BottomSheetFragment.newInstance(field)
     val activity = view!!.context as AppCompatActivity
     bottomSheetFragment.show(activity.supportFragmentManager, bottomSheetFragment.tag)
 }

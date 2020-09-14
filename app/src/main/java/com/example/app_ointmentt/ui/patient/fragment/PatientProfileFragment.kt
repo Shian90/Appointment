@@ -48,27 +48,27 @@ class PatientProfileFragment:Fragment(),
             .into(view.profile_image);
         /** Add Update Button For All Fields **/
         view.patientUserNameEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"name")
         }
 
         view.patientAddressEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"address")
         }
         view.patientBloodGroupEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"blood")
         }
 
         view.patientDOBEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"dob")
         }
         view.patientDiseasesEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"past")
         }
         view.patientEmailEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"email")
         }
         view.patientGenderEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"gender")
         }
 
         view.patientLogoutBtn.setOnClickListener{
@@ -84,7 +84,7 @@ class PatientProfileFragment:Fragment(),
             activity!!.finish()
         }
         view.patientPhoneNumberEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"phone")
         }
         return view
     }
