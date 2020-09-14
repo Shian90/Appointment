@@ -212,7 +212,7 @@ class AppointmentDB(val context: Context) {
         }
     }
 
-    fun viewPastAppointmentsPatient(updOpts: Map<String, String>){
+    fun viewPastAppointmentsPatient(){
         val sh = PreferenceManager.getDefaultSharedPreferences(context)
         val jwt = sh.getString("jwt", "NONE FOUND").toString()
         val uid = sh.getString("uid", "NONE FOUND").toString()
@@ -225,7 +225,7 @@ class AppointmentDB(val context: Context) {
         else
         {
             val paramsJSON = JSONObject()
-            paramsJSON.put("patientId", updOpts["patientId"].toString())
+            paramsJSON.put("patientId", uid)
 
             val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
 

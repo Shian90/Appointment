@@ -2,20 +2,32 @@ package com.example.app_ointmentt.ui.patient.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.adapter.NotificationAdapter
-import com.example.app_ointmentt.dataset.Rawdata
-import kotlinx.android.synthetic.main.fragment_doctor_notification.view.*
+import com.example.app_ointmentt.adaptersNew.NotificationAdapter
+import com.example.app_ointmentt.databasing.AppointmentDB
+import com.example.app_ointmentt.models.Appointment
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 
-class PatientNotificationFragment : Fragment() {
-    private lateinit var notificationAdapter: NotificationAdapter
+
+class PatientNotificationFragment : Fragment(),
+    AppointmentDB.ViewPastAppointmentsPatientFailureListener,
+    AppointmentDB.ViewUpcomingAppointmentsPatientSuccessListener {
     private lateinit var iHomepage: IHomepage
+    lateinit var patientNotificationRecyclerView: RecyclerView
+    lateinit var patientNotifications: ArrayList<Appointment>
+    lateinit var appdb: AppointmentDB
+    lateinit var mContext: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +38,32 @@ class PatientNotificationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_doctor_notification,container,false)
-        initRecyclerView(rootView)
-        bindData()
-        return rootView
+        val view: View = inflater.inflate(R.layout.fragment_doctor_notification,container,false)
+
+        patientNotificationRecyclerView = view.findViewById(R.id.notificationRecyclerView)
+
+        mContext = this.context!!
+
+        appdb = AppointmentDB(mContext)
+        appdb.setViewUpcomingAppointmentsPatientSuccessListener(this)
+        appdb.setViewPastAppointmentsPatientFailureListener(this)
+
+        patientNotifications = arrayListOf()
+
+        return view
+    }
+
+    override fun onStart() {
+        val sh = PreferenceManager.getDefaultSharedPreferences(mContext)
+        val patientId = sh.getString("uid", "NONE FOUND").toString()
+        if(patientId == "NONE FOUND"){
+            Toast.makeText(mContext, "Failed to get notifications. Please login to get notifications.", Toast.LENGTH_SHORT).show()
+            Log.d("AuthorizationProb", "Failed: No patiend id is found in shared preferences")
+        }
+        else{
+            appdb.viewUpcomingAppointmentsPatient(patientId)
+        }
+        super.onStart()
     }
 
     override fun onAttach(context: Context) {
@@ -37,16 +71,26 @@ class PatientNotificationFragment : Fragment() {
         iHomepage = activity as IHomepage
     }
 
-    private fun bindData(){
-        notificationAdapter.submitList(Rawdata.members)
+
+    private fun initRecyclerView(){
+        val patientNotificationRecyclerViewAdapter = GroupAdapter<GroupieViewHolder>()
+        patientNotifications.forEach{
+           patientNotificationRecyclerViewAdapter.add(NotificationAdapter(it))
+        }
+        patientNotificationRecyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL ,false)
+        patientNotificationRecyclerView.adapter = patientNotificationRecyclerViewAdapter
+
     }
 
-    private fun initRecyclerView(rootView: View){
-        rootView.notificationRecyclerView.apply {
-            notificationAdapter =
-                NotificationAdapter()
-            adapter = notificationAdapter
-            layoutManager = LinearLayoutManager(context)
+    override fun viewUpcomingAppointmentsPatientSuccess(appointments: ArrayList<Appointment>) {
+        patientNotifications.forEach{
+            patientNotifications.add(it)
         }
+        initRecyclerView()
+    }
+
+    override fun viewPastAppointmentsPatientFailure(message: String?) {
+        Toast.makeText(mContext, "Failed to get notifications", Toast.LENGTH_SHORT).show()
+        Log.d("viewUpcomingAppPat", "Failed: ${message.toString()}")
     }
 }
