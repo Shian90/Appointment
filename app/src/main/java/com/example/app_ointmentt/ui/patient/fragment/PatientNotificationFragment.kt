@@ -38,7 +38,7 @@ class PatientNotificationFragment : Fragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_doctor_notification,container,false)
+        val view: View = inflater.inflate(R.layout.fragment_patient_notification,container,false)
 
         patientNotificationRecyclerView = view.findViewById(R.id.notificationRecyclerView)
 
