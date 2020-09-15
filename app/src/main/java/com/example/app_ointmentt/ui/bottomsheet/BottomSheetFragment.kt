@@ -7,9 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.databasing.DoctorDB
 import com.example.app_ointmentt.databasing.PatientDB
+import com.example.app_ointmentt.ui.patient.fragment.PatientProfileFragment
+import com.example.app_ointmentt.utils.changeFragmentFromActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_bottom_sheet_dialog.view.*
 
@@ -65,21 +68,25 @@ class BottomSheetFragment : BottomSheetDialogFragment(),
     override fun updatePatientProfileSuccess() {
         Toast.makeText(activity!!.applicationContext!!,"Update was successful. Please Refresh to see changes",Toast.LENGTH_SHORT).show()
         activity!!.supportFragmentManager.beginTransaction().remove(this).commit()
+        changeFragmentFromActivity(fragment = PatientProfileFragment(),root =  R.id.mainPatient, activity = activity as AppCompatActivity)
     }
 
     override fun updatePatientProfileFailure(message: String?) {
         Toast.makeText(activity!!.applicationContext!!,"Update was failed.",Toast.LENGTH_SHORT).show()
         activity!!.supportFragmentManager.beginTransaction().remove(this).commit()
+        changeFragmentFromActivity(fragment = PatientProfileFragment(),root =  R.id.mainPatient, activity = activity as AppCompatActivity)
     }
 
     override fun updateDoctorProfileSuccess() {
         Toast.makeText(activity!!.applicationContext!!,"Update was successful. Please Refresh to see changes",Toast.LENGTH_SHORT).show()
         activity!!.supportFragmentManager.beginTransaction().remove(this).commit()
+        changeFragmentFromActivity(fragment = PatientProfileFragment(),root =  R.id.mainPatient, activity = activity as AppCompatActivity)
     }
 
     override fun updateDoctorProfileFailure() {
         Toast.makeText(activity!!.applicationContext!!,"Update was failed.",Toast.LENGTH_SHORT).show()
         activity!!.supportFragmentManager.beginTransaction().remove(this).commit()
+        changeFragmentFromActivity(fragment = PatientProfileFragment(),root =  R.id.mainPatient, activity = activity as AppCompatActivity)
     }
 
 }
