@@ -66,7 +66,7 @@ class DoctorHistoryFragment : Fragment(), AppointmentDB.ViewPastAppointmentsDoct
     private fun initRecyclerView(){
         val doctorHistoryRecyclerViewAdapter = GroupAdapter<GroupieViewHolder>()
         doctorHistories.forEach{
-            doctorHistoryRecyclerViewAdapter.add(HistoryAdapter(it))
+            doctorHistoryRecyclerViewAdapter.add(HistoryAdapter(it, "doctor"))
         }
         doctorHistoryRecylerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL ,false)
         doctorHistoryRecylerView.adapter = doctorHistoryRecyclerViewAdapter

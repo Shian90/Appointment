@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_doctor_notification.view.*
 class DoctorNotificationFragment : Fragment(),
     AppointmentDB.ViewUpcomingAppointmentsDoctorSuccessListener,
     AppointmentDB.ViewPastAppointmentsDoctorFailureListener {
-    private lateinit var notificationAdapter: NotificationAdapter
     private lateinit var iHomeFragment: IHomepage
     lateinit var doctorNotificationRecyclerView: RecyclerView
     lateinit var doctorNotifications: ArrayList<Appointment>

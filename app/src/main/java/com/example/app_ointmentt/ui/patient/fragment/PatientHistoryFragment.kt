@@ -65,7 +65,7 @@ class PatientHistoryFragment : Fragment(),
     private fun initRecyclerView(){
         val patientHistoryRecyclerViewAdapter = GroupAdapter<GroupieViewHolder>()
         patientHistories.forEach{
-            patientHistoryRecyclerViewAdapter.add(HistoryAdapter(it))
+            patientHistoryRecyclerViewAdapter.add(HistoryAdapter(it, "patient"))
         }
         patientHistoryRecylerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL ,false)
         patientHistoryRecylerView.adapter = patientHistoryRecyclerViewAdapter
