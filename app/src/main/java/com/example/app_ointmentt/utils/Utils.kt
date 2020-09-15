@@ -1,6 +1,7 @@
 package com.example.app_ointmentt.utils
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -43,6 +44,11 @@ fun invokeBottomModalSheet(view: View?,field: String){
     val bottomSheetFragment = BottomSheetFragment.newInstance(field)
     val activity = view!!.context as AppCompatActivity
     bottomSheetFragment.show(activity.supportFragmentManager, bottomSheetFragment.tag)
+}
+
+fun loadSharedPreference(context: Context): SharedPreferences{
+    val sharedPrefFile = "appointmentSharedPref"
+    return context.getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE)
 }
 
 fun changeActivity(){
