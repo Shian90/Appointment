@@ -93,7 +93,7 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             seeAllBtn.setOnClickListener{
                 changeFragmentFromFragment(
-                    fragment = SeeAllDoctorsFragment(),
+                    fragment = SeeAllDoctorsFragment.newInstance(doctorTypeTitle.text.toString()),
                     context = it.context,
                     root = R.id.mainPatient,
                     addToBackStack = true)

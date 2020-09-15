@@ -2,7 +2,6 @@ package com.example.app_ointmentt.ui.patient.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -69,7 +68,7 @@ class PatientNotificationFragment : Fragment(),
         patientNotifications.forEach{
            patientNotificationRecyclerViewAdapter.add(NotificationAdapter(it))
         }
-        patientNotificationRecyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL ,false)
+        patientNotificationRecyclerView.layoutManager = LinearLayoutManager(mContext)
         patientNotificationRecyclerView.adapter = patientNotificationRecyclerViewAdapter
 
     }

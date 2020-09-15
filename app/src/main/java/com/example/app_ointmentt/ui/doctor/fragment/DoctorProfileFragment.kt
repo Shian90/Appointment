@@ -41,34 +41,34 @@ DoctorDB.GetDoctorByIdFailureListener{
             setDoctorProfileFromAPI(view,context)
         }
         view.doctorUserNameEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"name")
         }
 
         view.doctorLocationEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"address")
         }
         view.doctorBloodGroupEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"blood")
         }
 
         view.doctorDOBEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"dob")
         }
 
         view.doctorEmailEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"email")
         }
         view.doctorGenderEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"gender")
         }
         view.doctorTypeEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"specialty")
         }
         view.doctorBMDCEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"bmdc")
         }
         view.doctorPhoneNumberEditBtn.setOnClickListener {
-            invokeBottomModalSheet(it)
+            invokeBottomModalSheet(it,"phone")
         }
 
         view.doctorLogoutBtn.setOnClickListener {

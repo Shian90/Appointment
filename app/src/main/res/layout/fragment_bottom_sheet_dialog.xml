@@ -10,23 +10,27 @@
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <TextView
+        android:id="@+id/updateProfileField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Change to make"
         android:textSize="20sp" />
+
     <EditText
+        android:id="@+id/updateProfileEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:hint="Enter Changes"
         android:textSize="20sp" />
+
     <Button
-        android:id="@+id/updateProfile"
+        android:id="@+id/updateProfileBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@android:color/holo_orange_light"
+        android:background="@android:color/holo_blue_dark"
         android:text="Update Profile"
         android:textColor="@android:color/white" />
 </LinearLayout>

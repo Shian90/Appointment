@@ -6,13 +6,13 @@ import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.cardview_doctor_list.view.*
 
-class AllDoctorAdapter (val alldocs: Doctor) : Item<GroupieViewHolder>()
+class AllDoctorAdapter (private val allDocs: Doctor) : Item<GroupieViewHolder>()
 {
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.itemView.txt.text = alldocs.name
+        viewHolder.itemView.txt!!.text = allDocs.name
     }
 
     override fun getLayout(): Int {
-        return R.layout.fragment_see_all_doctors
+        return R.layout.cardview_doctor_list
     }
 }
