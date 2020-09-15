@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_doctor_notification.view.*
 
 class DoctorNotificationFragment : Fragment(),
     AppointmentDB.ViewUpcomingAppointmentsDoctorSuccessListener,
-    AppointmentDB.ViewPastAppointmentsDoctorFailureListener {
+    AppointmentDB.ViewUpcomingAppointmentsDoctorFailureListener {
     private lateinit var iHomeFragment: IHomepage
     lateinit var doctorNotificationRecyclerView: RecyclerView
     lateinit var doctorNotifications: ArrayList<Appointment>
@@ -47,7 +47,7 @@ class DoctorNotificationFragment : Fragment(),
 
         appdb = AppointmentDB(mContext)
         appdb.setViewUpcomingAppointmentsDoctorSuccessListener(this)
-        appdb.setViewPastAppointmentsDoctorFailureListener(this)
+        appdb.setViewUpcomingAppointmentsDoctorFailureListener(this)
 
         doctorNotifications = arrayListOf()
 
@@ -83,7 +83,7 @@ class DoctorNotificationFragment : Fragment(),
         initRecyclerView()
     }
 
-    override fun viewPastAppointmentsDoctorFailure(message: String?) {
+    override fun viewUpcomingAppointmentsDoctorFailure(message: String?) {
         Toast.makeText(mContext, "Failed to get notifications", Toast.LENGTH_SHORT).show()
         Log.d("viewUpcomingAppDoc", "Failed: ${message.toString()}")
     }
