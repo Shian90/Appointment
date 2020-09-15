@@ -67,7 +67,7 @@ class PatientNotificationFragment : Fragment(),
     private fun initRecyclerView(){
         val patientNotificationRecyclerViewAdapter = GroupAdapter<GroupieViewHolder>()
         patientNotifications.forEach{
-           patientNotificationRecyclerViewAdapter.add(NotificationAdapter(it))
+           patientNotificationRecyclerViewAdapter.add(NotificationAdapter(it, "patient"))
         }
         patientNotificationRecyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL ,false)
         patientNotificationRecyclerView.adapter = patientNotificationRecyclerViewAdapter
