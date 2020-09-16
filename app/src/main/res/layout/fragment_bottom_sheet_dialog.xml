@@ -25,6 +25,11 @@
         android:hint="Enter Changes"
         android:textSize="20sp" />
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/updateProfileBtn"
         android:layout_width="match_parent"
@@ -33,4 +38,5 @@
         android:background="@android:color/holo_blue_dark"
         android:text="Update Profile"
         android:textColor="@android:color/white" />
+
 </LinearLayout>
