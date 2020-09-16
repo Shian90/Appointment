@@ -6,11 +6,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.databasing.DoctorDB
 import com.example.app_ointmentt.databasing.PatientDB
+import com.example.app_ointmentt.ui.doctor.fragment.DoctorProfileFragment
 import com.example.app_ointmentt.ui.patient.fragment.PatientProfileFragment
 import com.example.app_ointmentt.utils.changeFragmentFromActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -23,6 +26,8 @@ class BottomSheetFragment : BottomSheetDialogFragment(),
     DoctorDB.UpdateDoctorProfileSuccessListener{
     private val sharedPrefFile = "appointmentSharedPref"
     private lateinit var field: String
+    private lateinit var specialty: String
+    private var spinnerListener: AdapterView.OnItemSelectedListener? =null
     companion object{
         private const val ARGS_FIELD_NAME = "field"
         fun newInstance(field: String): BottomSheetFragment{
@@ -36,10 +41,49 @@ class BottomSheetFragment : BottomSheetDialogFragment(),
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_bottom_sheet_dialog, container, false)
+
+        val doctorTypeArray = arrayOf("ENT","Cardiology","Cardiologist","Dermatologist","Endocrinologists","Gastroenterologist","Nephrologists")
+
+
+        if(view.spinner!=null){
+            val doctorSpecialtyAdapter = ArrayAdapter(activity as AppCompatActivity, android.R.layout.simple_spinner_item,doctorTypeArray)
+            view.spinner.adapter = doctorSpecialtyAdapter
+
+            view.spinner.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>,
+                                            view: View, position: Int, id: Long) {
+                    specialty = doctorTypeArray[position]
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+
+                }
+            }
+
+        }
+
+
         if(arguments!=null){
             field = arguments!!.getString(ARGS_FIELD_NAME).toString()
         }
+        if(field == "specialty"){
+            view.spinner.visibility = View.VISIBLE
+            view.updateProfileEditText.visibility = View.GONE
+
+        }
+        else{
+            view.spinner.visibility = View.GONE
+            view.updateProfileEditText.visibility = View.VISIBLE
+        }
         view.updateProfileField.text = field.capitalize()
+        val sharedPreferences: SharedPreferences = activity!!.applicationContext!!.getSharedPreferences(sharedPrefFile,
+            Context.MODE_PRIVATE)
+        val userType = sharedPreferences.getString("type",null)
+        if(userType.equals("patient")){
+            view.spinner.visibility = View.GONE
+        }
         view.updateProfileBtn.setOnClickListener{
             val sharedPreferences: SharedPreferences = activity!!.applicationContext!!.getSharedPreferences(sharedPrefFile,
                 Context.MODE_PRIVATE)
@@ -49,16 +93,25 @@ class BottomSheetFragment : BottomSheetDialogFragment(),
                 doctorDB.setUpdateDoctorProfileSuccessListener(this)
                 doctorDB.setUpdateDoctorProfileFailureListener(this)
                 val updMap = mutableMapOf<String, String>()
-                updMap[field] = view.updateProfileEditText.text.toString()
+                if(field == "specialty"){
+                    updMap[field] = specialty
+
+                }
+                else{
+                    updMap[field] = view.updateProfileEditText.text.toString()
+                }
                 doctorDB.updateDoctorProfile(updMap)
+                changeFragmentFromActivity(fragment = DoctorProfileFragment(),root =  R.id.mainDoctor, activity = activity as AppCompatActivity)
             }
             else if(userType.equals("patient")){
+
                 val patientDB = PatientDB(activity!!.applicationContext!!)
                 patientDB.setUpdatePatientProfileSuccessListener(this)
                 patientDB.setUpdatePatientProfileFailureListener(this)
                 val updMap = mutableMapOf<String, String>()
                 updMap[field] = view.updateProfileEditText.text.toString()
                 patientDB.updatePatientProfile(updMap)
+                changeFragmentFromActivity(fragment = PatientProfileFragment(),root =  R.id.mainPatient, activity = activity as AppCompatActivity)
             }
 
         }
@@ -68,25 +121,23 @@ class BottomSheetFragment : BottomSheetDialogFragment(),
     override fun updatePatientProfileSuccess() {
         Toast.makeText(activity!!.applicationContext!!,"Update was successful. Please Refresh to see changes",Toast.LENGTH_SHORT).show()
         activity!!.supportFragmentManager.beginTransaction().remove(this).commit()
-        changeFragmentFromActivity(fragment = PatientProfileFragment(),root =  R.id.mainPatient, activity = activity as AppCompatActivity)
     }
 
     override fun updatePatientProfileFailure(message: String?) {
         Toast.makeText(activity!!.applicationContext!!,"Update was failed.",Toast.LENGTH_SHORT).show()
         activity!!.supportFragmentManager.beginTransaction().remove(this).commit()
-        changeFragmentFromActivity(fragment = PatientProfileFragment(),root =  R.id.mainPatient, activity = activity as AppCompatActivity)
+
     }
 
     override fun updateDoctorProfileSuccess() {
         Toast.makeText(activity!!.applicationContext!!,"Update was successful. Please Refresh to see changes",Toast.LENGTH_SHORT).show()
         activity!!.supportFragmentManager.beginTransaction().remove(this).commit()
-        changeFragmentFromActivity(fragment = PatientProfileFragment(),root =  R.id.mainPatient, activity = activity as AppCompatActivity)
+
     }
 
     override fun updateDoctorProfileFailure() {
         Toast.makeText(activity!!.applicationContext!!,"Update was failed.",Toast.LENGTH_SHORT).show()
         activity!!.supportFragmentManager.beginTransaction().remove(this).commit()
-        changeFragmentFromActivity(fragment = PatientProfileFragment(),root =  R.id.mainPatient, activity = activity as AppCompatActivity)
     }
 
 }

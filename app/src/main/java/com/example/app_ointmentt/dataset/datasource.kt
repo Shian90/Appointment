@@ -148,14 +148,11 @@ object doctorTypeData{
     val members = (listOf<DoctorType>(
         DoctorType("ENT"),
         DoctorType("Cardiology"),
-        DoctorType("Heart Doctor"),
-        DoctorType("Kidney Doctor"),
-        DoctorType("Brain Doctor"),
-        DoctorType("Mental Doctor"),
-        DoctorType("Lung Doctor"),
-        DoctorType("Heart Doctor"),
-        DoctorType("Kidney Doctor"),
-        DoctorType("Brain Doctor")
+        DoctorType("Cardiologist"),
+        DoctorType("Dermatologist"),
+        DoctorType("Endocrinologists"),
+        DoctorType("Gastroenterologist"),
+        DoctorType("Nephrologists")
     ))
 }
 
