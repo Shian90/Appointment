@@ -20,8 +20,8 @@ import com.xwray.groupie.GroupieViewHolder
 
 
 class PatientNotificationFragment : Fragment(),
-    AppointmentDB.ViewPastAppointmentsPatientFailureListener,
-    AppointmentDB.ViewUpcomingAppointmentsPatientSuccessListener {
+    AppointmentDB.ViewUpcomingAppointmentsPatientSuccessListener,
+    AppointmentDB.ViewUpcomingAppointmentsPatientFailureListener {
     private lateinit var iHomepage: IHomepage
     lateinit var patientNotificationRecyclerView: RecyclerView
     lateinit var patientNotifications: ArrayList<Appointment>
@@ -37,7 +37,7 @@ class PatientNotificationFragment : Fragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_doctor_notification,container,false)
+        val view: View = inflater.inflate(R.layout.fragment_patient_notification,container,false)
 
         patientNotificationRecyclerView = view.findViewById(R.id.notificationRecyclerView)
 
@@ -45,7 +45,7 @@ class PatientNotificationFragment : Fragment(),
 
         appdb = AppointmentDB(mContext)
         appdb.setViewUpcomingAppointmentsPatientSuccessListener(this)
-        appdb.setViewPastAppointmentsPatientFailureListener(this)
+        appdb.setViewUpcomingAppointmentsPatientFailureListener(this)
 
         patientNotifications = arrayListOf()
 
@@ -66,7 +66,7 @@ class PatientNotificationFragment : Fragment(),
     private fun initRecyclerView(){
         val patientNotificationRecyclerViewAdapter = GroupAdapter<GroupieViewHolder>()
         patientNotifications.forEach{
-           patientNotificationRecyclerViewAdapter.add(NotificationAdapter(it))
+           patientNotificationRecyclerViewAdapter.add(NotificationAdapter(it, "patient"))
         }
         patientNotificationRecyclerView.layoutManager = LinearLayoutManager(mContext)
         patientNotificationRecyclerView.adapter = patientNotificationRecyclerViewAdapter
@@ -80,7 +80,7 @@ class PatientNotificationFragment : Fragment(),
         initRecyclerView()
     }
 
-    override fun viewPastAppointmentsPatientFailure(message: String?) {
+    override fun viewUpcomingAppointmentsPatientFailure(message: String?) {
         Toast.makeText(mContext, "Failed to get notifications", Toast.LENGTH_SHORT).show()
         Log.d("viewUpcomingAppPat", "Failed: ${message.toString()}")
     }

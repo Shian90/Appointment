@@ -6,12 +6,17 @@ import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.cardview_notification.view.*
 
-class NotificationAdapter(val notifications: Appointment): Item<GroupieViewHolder>() {
+class NotificationAdapter(val notifications: Appointment, val type: String): Item<GroupieViewHolder>() {
     override fun getLayout(): Int {
         return R.layout.cardview_notification
     }
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-        viewHolder.itemView.txt.text = "You have an appointment with ${notifications.slot.doctor.name} on ${notifications.slot.dateOfSlot}"
+        if(type=="patient"){
+            viewHolder.itemView.txt.text = "You have an appointment with ${notifications.slot.doctor.name} on ${notifications.slot.dateOfSlot}"
+        }
+        else if(type == "doctor") {
+            viewHolder.itemView.txt.text = "You have an appointment with ${notifications.patient.name} on ${notifications.slot.dateOfSlot}"
+        }
     }
 }
