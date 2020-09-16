@@ -109,8 +109,8 @@ class PatientProfileFragment:Fragment(),
     }
 
     override fun getPatientByIdSuccess(patient: Patient) {
-        ProfileUsername.text = patient.name
-        profile_email.text = patient.email
+        ProfileUsername!!.text = patient.name
+        profile_email!!.text = patient.email
         if(patient.isDOBInitialized()){
             profile_dob.text = patient.dob
         }

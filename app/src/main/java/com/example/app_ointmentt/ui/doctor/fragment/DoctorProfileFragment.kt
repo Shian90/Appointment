@@ -106,9 +106,9 @@ DoctorDB.GetDoctorByIdFailureListener{
     }
 
     override fun getDoctorByIDSuccess(doctor: Doctor) {
-        ProfileUsername.text = doctor.name
-        doctor_email_address.text = doctor.email
-        doctor_bmdc.text = doctor.bmdc
+        ProfileUsername!!.text = doctor.name
+        doctor_email_address!!.text = doctor.email
+        doctor_bmdc!!.text = doctor.bmdc
         if(doctor.isDOBInitialized()){
             doctor_dob.text = doctor.dob
         }
