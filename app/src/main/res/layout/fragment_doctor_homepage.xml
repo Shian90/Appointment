@@ -115,6 +115,7 @@
 
 
             <Button
+                android:id="@+id/saveSlotsBtn"
                 android:layout_width="206dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

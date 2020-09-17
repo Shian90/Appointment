@@ -1,23 +1,44 @@
 package com.example.app_ointmentt.ui.doctor.fragment
 
+import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
+import com.example.app_ointmentt.databasing.AppointmentDB
+import com.example.app_ointmentt.databasing.SlotDB
+import com.example.app_ointmentt.models.Slot
+import kotlinx.android.synthetic.main.cardview_doctor_numslots.*
 import kotlinx.android.synthetic.main.fragment_doctor_homepage.*
 import kotlinx.android.synthetic.main.fragment_doctor_homepage.view.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
-class DoctorHomeFragment : Fragment() {
+class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener,
+    SlotDB.createSlotFailureListener {
     private lateinit var iHomeFragment: IHomepage
+    lateinit var startTime: String
+    lateinit var endTime: String
+    lateinit var numSlots: String
+    lateinit var slotDialog: Dialog
+    lateinit var slotdb: SlotDB
+    lateinit var mContext: Context
+    var year: Int? = null
+    var month: Int? = null
+    var day: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +51,29 @@ class DoctorHomeFragment : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_doctor_homepage, container, false)
 
+        mContext = this.context!!
+
+        slotdb = SlotDB(mContext)
+        slotdb.setCreateSlotSuccessListener(this)
+        slotdb.setCreateSlotFailureListener(this)
+
+        view.noOfSlotsBtn.setOnClickListener {
+            showDialog()
+        }
+
         view.startTimeDefaultDoctorBtn.setOnClickListener {
             showCalenderAndGetTime(it,startTimeDefaultDoctor)
         }
+
         view.endTimeDefaultBtn.setOnClickListener{
             showCalenderAndGetTime(it,endTimeDefault)
         }
+
+        view.saveSlotsBtn.setOnClickListener {
+            Log.d("Sthhhh", "$year-$month-$day, $startTime, $endTime, ${numSlots.toInt()}")
+            sendInfo("$year-$month-$day", startTime, endTime, numSlots.toInt(), 0)
+        }
+
         view.switchSetTime.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                     dayDefaultDoctor.visibility =View.VISIBLE
@@ -53,17 +91,49 @@ class DoctorHomeFragment : Fragment() {
         iHomeFragment = activity as IHomepage
     }
 
+    private fun showDialog(){
+        slotDialog = Dialog(activity as AppCompatActivity)
+        slotDialog.setContentView(R.layout.cardview_doctor_numslots)
+        slotDialog.setTitle("Number of Slots")
+        slotDialog.show()
+        numSlots = ""
+        val okBtn = slotDialog.findViewById<View>(R.id.okBtn)
+        val textt = slotDialog.findViewById<EditText>(R.id.numSlotsText)
+        okBtn.setOnClickListener {
+            Log.d("SlotNUM", "$numSlots")
+            numSlots = textt.text.toString()
+            noOfSlots.text = textt.text
+            slotDialog.dismiss()
+        }
+    }
+
     private fun showCalenderAndGetTime(view: View?,textView: TextView) {
         val cal = Calendar.getInstance()
+        var selectedTime: String
         val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
+
+            Log.d("Calendar", "$cal")
+
+            year = cal.get(Calendar.YEAR)
+            month = cal.get(Calendar.MONTH)
+            day = cal.get(Calendar.DAY_OF_MONTH)
+
             Toast.makeText(
                 view!!.context,
                 SimpleDateFormat("HH:mm", Locale.US).format(cal.time),
                 Toast.LENGTH_LONG
             ).show()
             textView.text = SimpleDateFormat("HH:mm", Locale.US).format(cal.time)
+            selectedTime = SimpleDateFormat("HH:mm", Locale.US).format(cal.time).toString()
+
+            if(textView.equals(startTimeDefaultDoctor) ){
+                startTime = selectedTime
+            }
+            else if(textView.equals(endTimeDefault)){
+                endTime = selectedTime
+            }
         }
         TimePickerDialog(
             view!!.context,
@@ -73,5 +143,21 @@ class DoctorHomeFragment : Fragment() {
             false
         ).show()
     }
+
+    private fun sendInfo(date: String, startTime: String, endTime: String, numSlots: Int, status: Int){
+        slotdb.createSlot(date, startTime, endTime, numSlots, status)
+    }
+
+    override fun createSlotSuccess(slotArray: ArrayList<Slot>) {
+        Log.d("SlotCreationSuccessful", "Successfully Created slots.")
+        Toast.makeText(activity as AppCompatActivity, "You have successfully created slots for appointments.", Toast.LENGTH_SHORT)
+    }
+
+    override fun createSlotFailure(message: String?) {
+        Log.d("SlotCreationFailed", "Failed. $message")
+        Toast.makeText(activity as AppCompatActivity, "Slots creation has been failed", Toast.LENGTH_SHORT)
+    }
+
+
 }
 
