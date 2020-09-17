@@ -25,12 +25,12 @@
 
                 <ImageButton
                     android:id="@+id/doctorLogoutBtn"
-                    android:background="@color/colorPrimary"
-                    android:layout_margin="5dp"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="right"
-                    android:src="@drawable/ic_logout"/>
+                    android:layout_margin="5dp"
+                    android:background="@color/colorPrimary"
+                    android:src="@drawable/abc_vector_test" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

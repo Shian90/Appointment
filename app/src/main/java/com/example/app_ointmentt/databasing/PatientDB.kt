@@ -2,7 +2,6 @@ package com.example.app_ointmentt.databasing
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
 import android.util.Log
 import com.example.app_ointmentt.models.Patient
 import okhttp3.RequestBody
@@ -86,6 +85,8 @@ class PatientDB(val context: Context) {
                 paramsJSON.put("blood", updOpts["blood"].toString())
             if ( updOpts.containsKey("address") )
                 paramsJSON.put("address", updOpts["address"].toString())
+            if ( updOpts.containsKey("past") )
+                paramsJSON.put("past", updOpts["past"].toString())
 
             val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
 

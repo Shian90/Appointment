@@ -115,7 +115,7 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     doctorNames[index].text = doctors[index].doctor.name
                     doctorsArray[index].setOnClickListener{
                         changeFragmentFromFragment(
-                            fragment = PatientRequestAppointment.newInstance(doctorName = doctors[index].doctor.name),
+                            fragment = PatientRequestAppointment.newInstance(doctorName = doctors[index].doctor.name,doctorId = doctors[index].doctor.id),
                             context = it.context,
                             root = R.id.mainPatient,
                             addToBackStack = true)
