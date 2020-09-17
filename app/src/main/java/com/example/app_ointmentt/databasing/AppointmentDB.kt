@@ -3,6 +3,7 @@ package com.example.app_ointmentt.databasing
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import android.util.Log
 import com.example.app_ointmentt.models.Appointment
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -221,7 +222,6 @@ class AppointmentDB(val context: Context) {
 
             call.enqueue(object : Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-
                     mCompleteAppointmentFailureListener.completeAppointmentFailure(t.message)
                 }
 
@@ -305,7 +305,6 @@ class AppointmentDB(val context: Context) {
 
             call.enqueue(object : Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-
                     mViewPastAppointmentsDoctorFailureListener.viewPastAppointmentsDoctorFailure(t.message)
                 }
 

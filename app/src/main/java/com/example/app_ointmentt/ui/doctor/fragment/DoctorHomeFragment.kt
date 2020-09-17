@@ -1,5 +1,6 @@
 package com.example.app_ointmentt.ui.doctor.fragment
 
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
@@ -61,6 +62,10 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener,
             showDialog()
         }
 
+        view.dayDefaultDoctorBtn.setOnClickListener {
+            showCalendarView()
+        }
+
         view.startTimeDefaultDoctorBtn.setOnClickListener {
             showCalenderAndGetTime(it,startTimeDefaultDoctor)
         }
@@ -81,6 +86,9 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener,
             } else {
                 dayDefaultDoctor.visibility =View.GONE
                 dayDefaultDoctorBtn.visibility = View.GONE
+
+                //If the switch is clicked at least once and reverted
+                getCurrentDate()
             }
         }
         return view
@@ -91,16 +99,35 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener,
         iHomeFragment = activity as IHomepage
     }
 
+    private fun getCurrentDate(){
+        val cal = Calendar.getInstance()
+        year = cal.get(Calendar.YEAR)
+        month = cal.get(Calendar.MONTH)
+        day = cal.get(Calendar.DAY_OF_MONTH)
+    }
+
+    private fun showCalendarView(){
+        //Initializing with current date if switch is clicked and day button is being used.
+         getCurrentDate()
+
+        val dpd = DatePickerDialog(activity as AppCompatActivity, DatePickerDialog.OnDateSetListener { view, myear, mmonth, mdayOfMonth ->
+            year = myear
+            month = mmonth
+            day = mdayOfMonth
+            dayDefaultDoctor.text = "$year - $month - $day"
+        }, year!!, month!!, day!!)
+
+        dpd.show()
+    }
+
     private fun showDialog(){
         slotDialog = Dialog(activity as AppCompatActivity)
         slotDialog.setContentView(R.layout.cardview_doctor_numslots)
-        slotDialog.setTitle("Number of Slots")
         slotDialog.show()
         numSlots = ""
         val okBtn = slotDialog.findViewById<View>(R.id.okBtn)
         val textt = slotDialog.findViewById<EditText>(R.id.numSlotsText)
         okBtn.setOnClickListener {
-            Log.d("SlotNUM", "$numSlots")
             numSlots = textt.text.toString()
             noOfSlots.text = textt.text
             slotDialog.dismiss()
@@ -110,21 +137,22 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener,
     private fun showCalenderAndGetTime(view: View?,textView: TextView) {
         val cal = Calendar.getInstance()
         var selectedTime: String
+
         val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
-
-            Log.d("Calendar", "$cal")
-
-            year = cal.get(Calendar.YEAR)
-            month = cal.get(Calendar.MONTH)
-            day = cal.get(Calendar.DAY_OF_MONTH)
 
             Toast.makeText(
                 view!!.context,
                 SimpleDateFormat("HH:mm", Locale.US).format(cal.time),
                 Toast.LENGTH_LONG
             ).show()
+
+            //If the switch is never clicked
+            if(year == null && month == null && day == null){
+                getCurrentDate()
+            }
+
             textView.text = SimpleDateFormat("HH:mm", Locale.US).format(cal.time)
             selectedTime = SimpleDateFormat("HH:mm", Locale.US).format(cal.time).toString()
 
@@ -150,12 +178,12 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener,
 
     override fun createSlotSuccess(slotArray: ArrayList<Slot>) {
         Log.d("SlotCreationSuccessful", "Successfully Created slots.")
-        Toast.makeText(activity as AppCompatActivity, "You have successfully created slots for appointments.", Toast.LENGTH_SHORT)
+        Toast.makeText(mContext, "You have successfully created slots for appointments.", Toast.LENGTH_SHORT)
     }
 
     override fun createSlotFailure(message: String?) {
         Log.d("SlotCreationFailed", "Failed. $message")
-        Toast.makeText(activity as AppCompatActivity, "Slots creation has been failed", Toast.LENGTH_SHORT)
+        Toast.makeText(mContext, "Slots creation has been failed", Toast.LENGTH_SHORT)
     }
 
 
