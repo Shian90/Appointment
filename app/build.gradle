@@ -34,7 +34,11 @@ android {
         }
     }
 
+
+
 }
+
+
 
 dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -55,4 +59,6 @@ dependencies {
     //groupie dependencies
     implementation "com.xwray:groupie:2.8.0"
     implementation "com.xwray:groupie-kotlin-android-extensions:2.8.0"
+
+
 }

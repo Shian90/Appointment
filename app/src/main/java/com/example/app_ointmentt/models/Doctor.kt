@@ -4,6 +4,7 @@ import org.json.JSONObject
 
 class Doctor
 {
+
     lateinit var id: String
     lateinit var name: String
     lateinit var email: String

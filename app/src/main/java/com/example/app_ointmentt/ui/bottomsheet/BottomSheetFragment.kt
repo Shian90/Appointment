@@ -3,6 +3,7 @@ package com.example.app_ointmentt.ui.bottomsheet
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,10 +43,13 @@ class BottomSheetFragment : BottomSheetDialogFragment(),
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_bottom_sheet_dialog, container, false)
 
-        val doctorTypeArray = arrayOf("ENT","Cardiology","Cardiologist","Dermatologist","Endocrinologists","Gastroenterologist","Nephrologists")
+        val doctorTypeArray = arrayOf("ENT","Cardiology","Dermatology","Endocrinology","Gastroenterology","Nephrology")
 
-
-        if(view.spinner!=null){
+        if(arguments!=null){
+            field = arguments!!.getString(ARGS_FIELD_NAME).toString()
+            Log.d("Field", field)
+        }
+        if(view.spinner!=null&&field=="specialty"){
             val doctorSpecialtyAdapter = ArrayAdapter(activity as AppCompatActivity, android.R.layout.simple_spinner_item,doctorTypeArray)
             view.spinner.adapter = doctorSpecialtyAdapter
 
@@ -65,9 +69,7 @@ class BottomSheetFragment : BottomSheetDialogFragment(),
         }
 
 
-        if(arguments!=null){
-            field = arguments!!.getString(ARGS_FIELD_NAME).toString()
-        }
+
         if(field == "specialty"){
             view.spinner.visibility = View.VISIBLE
             view.updateProfileEditText.visibility = View.GONE
