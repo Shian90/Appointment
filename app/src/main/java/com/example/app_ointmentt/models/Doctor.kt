@@ -1,19 +1,33 @@
 package com.example.app_ointmentt.models
 
+import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 import org.json.JSONObject
 
+@Serializable
 class Doctor
 {
+    @SerializedName("id")
     lateinit var id: String
+    @SerializedName("name")
     lateinit var name: String
+    @SerializedName("email")
     lateinit var email: String
+    @SerializedName("pass")
     lateinit var pass: String
+    @SerializedName("phone")
     lateinit var phone: String
+    @SerializedName("dob")
     lateinit var dob: String
+    @SerializedName("gender")
     lateinit var gender: String
+    @SerializedName("blood")
     lateinit var blood: String
+    @SerializedName("address")
     lateinit var address: String
+    @SerializedName("specialty")
     lateinit var specialty: String
+    @SerializedName("bmdc")
     lateinit var bmdc: String
 
     fun fromJSON(res: JSONObject) : Doctor

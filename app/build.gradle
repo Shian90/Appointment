@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlinx-serialization'
+
 
 android {
     compileSdkVersion 29
@@ -34,7 +36,11 @@ android {
         }
     }
 
+
+
 }
+
+
 
 dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -55,4 +61,7 @@ dependencies {
     //groupie dependencies
     implementation "com.xwray:groupie:2.8.0"
     implementation "com.xwray:groupie-kotlin-android-extensions:2.8.0"
+
+    //Serialize dependency
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
 }
