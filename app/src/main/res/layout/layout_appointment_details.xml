@@ -10,10 +10,24 @@
         android:id="@+id/doctor_name_appointment_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="60dp"
         android:text="Doctor Name"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.103"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/doctor_name_appointment_details2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="108dp"
+        android:text="Doctor Name"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.089"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,9 +35,24 @@
         android:id="@+id/patient_name_appointment_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="68dp"
         android:text="Patient Name"
+        android:textSize="20dp"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="@+id/doctor_name_appointment_details"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/doctor_name_appointment_details"
+        app:layout_constraintTop_toBottomOf="@+id/doctor_name_appointment_details" />
+
+    <TextView
+        android:id="@+id/patient_name_appointment_details2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="124dp"
+        android:text="Patient Name"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/doctor_name_appointment_details"
         app:layout_constraintTop_toBottomOf="@+id/doctor_name_appointment_details" />
 
@@ -31,9 +60,25 @@
         android:id="@+id/date_appointment_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="86dp"
+        android:layout_marginLeft="-12px"
+        android:layout_marginTop="72dp"
         android:text="Date of Slot"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="@+id/patient_name_appointment_details"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/patient_name_appointment_details"
+        app:layout_constraintTop_toBottomOf="@+id/patient_name_appointment_details" />
+
+    <TextView
+        android:id="@+id/date_appointment_details2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="124dp"
+        android:text="Date of Slot"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.019"
         app:layout_constraintStart_toStartOf="@+id/patient_name_appointment_details"
         app:layout_constraintTop_toBottomOf="@+id/patient_name_appointment_details" />
 
@@ -41,31 +86,34 @@
         android:id="@+id/start_time_appointment_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         android:text="Start time"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/prescription_appointment_diagnosis"
         app:layout_constraintEnd_toEndOf="@+id/date_appointment_details"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/date_appointment_details"
-        app:layout_constraintTop_toBottomOf="@+id/date_appointment_details" />
+        app:layout_constraintTop_toBottomOf="@+id/date_appointment_details"
+        app:layout_constraintVertical_bias="0.778" />
 
     <TextView
         android:id="@+id/end_time_appointment_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="168dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="88dp"
         android:text="end Time"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/start_time_appointment_details"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_appointment_details" />
 
     <EditText
         android:id="@+id/prescription_appointment_drugs"
         android:layout_width="291dp"
         android:layout_height="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="44dp"
         android:hint="Drugs"
-        android:text="Prescription"
         app:layout_constraintEnd_toEndOf="@+id/end_time_appointment_details"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/start_time_appointment_details"
@@ -73,27 +121,30 @@
 
     <EditText
         android:id="@+id/prescription_appointment_diagnosis"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="80dp"
         android:ems="10"
         android:hint="Diagnosis"
         android:inputType="textPersonName"
-        android:text="Name"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/end_time_appointment_details"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/start_time_appointment_details"
-        app:layout_constraintTop_toBottomOf="@+id/start_time_appointment_details" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.642" />
 
     <Button
         android:id="@+id/view_appointment_layout_button"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="Button"
+        android:background="@drawable/ic_rounded_button"
+        android:text="Ok"
+        android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/prescription_appointment_drugs"
+        app:layout_constraintHorizontal_bias="0.637"
         app:layout_constraintStart_toStartOf="@+id/prescription_appointment_drugs"
-        app:layout_constraintTop_toBottomOf="@+id/prescription_appointment_drugs"
-        app:layout_constraintVertical_bias="0.283" />
+        app:layout_constraintTop_toTopOf="@+id/prescription_appointment_drugs"
+        app:layout_constraintVertical_bias="0.833" />
 </androidx.constraintlayout.widget.ConstraintLayout>
