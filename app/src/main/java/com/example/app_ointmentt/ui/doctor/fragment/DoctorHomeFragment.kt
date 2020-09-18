@@ -42,6 +42,7 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener, SlotDB.
     lateinit var slotsRecyclerView: RecyclerView
     lateinit var slotsOverall: ArrayList<Slot>
     lateinit var doctorId: String
+    lateinit var doneDialog: Dialog
 
     //sharedPreference File Name
     private val sharedPrefFile = "appointmentSharedPref"
@@ -144,7 +145,7 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener, SlotDB.
     }
 
     private fun showDialog(){
-        slotDialog = Dialog(activity as AppCompatActivity)
+        slotDialog = Dialog(mContext)
         slotDialog.setContentView(R.layout.cardview_doctor_numslots)
         slotDialog.show()
         numSlots = ""
@@ -200,13 +201,20 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener, SlotDB.
     }
 
     override fun createSlotSuccess(slotArray: ArrayList<Slot>) {
+        doneDialog = Dialog(mContext)
+        doneDialog.setContentView(R.layout.fragment_appointment_confirmation)
+        doneDialog.show()
+        val homeBtn = doneDialog.findViewById<View>(R.id.goBackHomeBtn)
+        homeBtn.setOnClickListener {
+            doneDialog.dismiss()
+        }
         Log.d("SlotCreationSuccessful", "Successfully Created slots.")
-        Toast.makeText(mContext, "You have successfully created slots for appointments.", Toast.LENGTH_SHORT)
+        Toast.makeText(mContext, "You have successfully created slots for appointments.", Toast.LENGTH_SHORT).show()
     }
 
     override fun createSlotFailure(message: String?) {
         Log.d("SlotCreationFailed", "Failed. $message")
-        Toast.makeText(mContext, "Slots creation has been failed", Toast.LENGTH_SHORT)
+        Toast.makeText(mContext, "Slots creation has been failed", Toast.LENGTH_SHORT).show()
     }
 
     override fun viewAllSlotsByDoctorSuccessListener(slotsArray: ArrayList<Slot>) {
