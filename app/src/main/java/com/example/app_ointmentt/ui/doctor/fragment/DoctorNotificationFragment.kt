@@ -19,9 +19,8 @@ import com.example.app_ointmentt.tools.onClickListeners.appointmentOnClickListen
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
-class DoctorNotificationFragment : Fragment(),
-    AppointmentDB.ViewUpcomingAppointmentsDoctorSuccessListener,
-    AppointmentDB.ViewUpcomingAppointmentsDoctorFailureListener {
+class DoctorNotificationFragment : Fragment(), AppointmentDB.ViewUpcomingAppointmentsDoctorSuccessListener, AppointmentDB.ViewUpcomingAppointmentsDoctorFailureListener {
+
     private lateinit var iHomeFragment: IHomepage
     lateinit var doctorNotificationRecyclerView: RecyclerView
     lateinit var doctorNotifications: ArrayList<Appointment>

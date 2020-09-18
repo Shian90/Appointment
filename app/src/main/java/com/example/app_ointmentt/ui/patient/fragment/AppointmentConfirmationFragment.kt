@@ -10,6 +10,7 @@ import com.example.app_ointmentt.R
 import kotlinx.android.synthetic.main.fragment_appointment_confirmation.view.*
 
 class AppointmentConfirmationFragment: Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
