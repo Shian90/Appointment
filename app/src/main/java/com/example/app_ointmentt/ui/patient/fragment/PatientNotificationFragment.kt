@@ -70,7 +70,7 @@ class PatientNotificationFragment : Fragment(),
            patientNotificationRecyclerViewAdapter.add(NotificationAdapter(it, "patient"))
         }
         patientNotificationRecyclerView.layoutManager = LinearLayoutManager(mContext)
-        val listener = AppointmentOnClickListener(mContext, "patient")
+        val listener = AppointmentOnClickListener(mContext, "patient", "notif")
         patientNotificationRecyclerViewAdapter.setOnItemClickListener(listener)
         patientNotificationRecyclerView.adapter = patientNotificationRecyclerViewAdapter
 
