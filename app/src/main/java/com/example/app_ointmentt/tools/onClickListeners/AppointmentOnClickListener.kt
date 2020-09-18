@@ -90,6 +90,10 @@ class AppointmentOnClickListener(val context: Context, val usertype: String) : O
             }
             drugTextBox.setText(drugs)
             diagnosisTextBox.setText(diagnosis)
+            drugTextBox.isFocusable = false
+            drugTextBox.isEnabled = false
+            diagnosisTextBox.isFocusable = false
+            diagnosisTextBox.isEnabled = false
             button.setOnClickListener {
                 appdb.completeAppointment(app.id)
             }
