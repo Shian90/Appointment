@@ -38,63 +38,15 @@
         app:layout_constraintStart_toStartOf="@+id/doctorNameRequestAppointment"
         app:layout_constraintTop_toBottomOf="@+id/doctorNameRequestAppointment" />
 
-    <CalendarView
-        android:id="@+id/calendarRequestApoointment"
-        android:layout_width="285dp"
-        android:layout_height="262dp"
-        android:layout_marginTop="28dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/doctor_slot_recycler_view"
+        android:layout_width="418dp"
+        android:layout_height="480dp"
+        android:layout_marginTop="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/doctorDetailsRequestAppointment" />
-
-    <TextView
-        android:id="@+id/startTimeRequestAppointment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Start time"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/calendarRequestApoointment"
-        app:layout_constraintTop_toBottomOf="@+id/calendarRequestApoointment" />
-
-    <TextView
-        android:id="@+id/endTImeRequestAppointment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="28dp"
-        android:text="End time"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/startTimeRequestAppointment"
-        app:layout_constraintTop_toBottomOf="@+id/calendarRequestApoointment" />
-
-    <TextView
-        android:id="@+id/dateRequestAppointment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:text="Date"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/calendarRequestApoointment"
-        app:layout_constraintHorizontal_bias="0.309"
-        app:layout_constraintStart_toEndOf="@+id/endTImeRequestAppointment"
-        app:layout_constraintTop_toBottomOf="@+id/calendarRequestApoointment" />
-
-    <Button
-        android:id="@+id/requestAppointmentbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/ic_rounded_button"
-        android:text="Request Appointment"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/dateRequestAppointment"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/startTimeRequestAppointment"
-        app:layout_constraintTop_toBottomOf="@+id/endTImeRequestAppointment"
-        app:layout_constraintVertical_bias="0.46" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
