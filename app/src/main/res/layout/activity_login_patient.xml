@@ -60,22 +60,24 @@
         android:text="Create Account"
         android:textColor="@android:color/holo_blue_dark"
         app:layout_constraintEnd_toEndOf="@+id/textView6"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <Button
         android:id="@+id/doctorModuleBtn"
         style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="233dp"
+        android:layout_height="47dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="12dp"
         android:elevation="2dp"
         android:text="Login As A Doctor"
         android:textColor="@android:color/holo_blue_dark"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/signUpBtnPatientLogin"
-        app:layout_constraintHorizontal_bias="0.26"
+        app:layout_constraintHorizontal_bias="0.56"
         app:layout_constraintStart_toStartOf="@+id/signUpBtnPatientLogin"
         app:layout_constraintTop_toBottomOf="@+id/signUpBtnPatientLogin"
         app:layout_constraintVertical_bias="0.0" />
