@@ -70,7 +70,7 @@ class DoctorNotificationFragment : Fragment(), AppointmentDB.ViewUpcomingAppoint
             doctorNotificationRecyclerViewAdapter.add(NotificationAdapter(it, "doctor"))
         }
         doctorNotificationRecyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL ,false)
-        val listener = AppointmentOnClickListener(mContext, "doctor")
+        val listener = AppointmentOnClickListener(mContext, "doctor", "notif")
         doctorNotificationRecyclerViewAdapter.setOnItemClickListener(listener)
         doctorNotificationRecyclerView.adapter = doctorNotificationRecyclerViewAdapter
 

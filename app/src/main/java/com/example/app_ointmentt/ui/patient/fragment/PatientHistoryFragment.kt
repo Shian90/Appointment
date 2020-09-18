@@ -69,7 +69,7 @@ class PatientHistoryFragment : Fragment(),
             patientHistoryRecyclerViewAdapter.add(HistoryAdapter(it, "patient"))
         }
         patientHistoryRecylerView.layoutManager = LinearLayoutManager(mContext)
-        val listener = AppointmentOnClickListener(mContext, "patient")
+        val listener = AppointmentOnClickListener(mContext, "patient", "history")
         patientHistoryRecyclerViewAdapter.setOnItemClickListener(listener)
         patientHistoryRecylerView.adapter = patientHistoryRecyclerViewAdapter
     }

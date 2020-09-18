@@ -2,7 +2,6 @@ package com.example.app_ointmentt.tools.onClickListeners
 
 import android.app.AlertDialog
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -17,7 +16,7 @@ import com.example.app_ointmentt.tools.adaptersNew.NotificationAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.OnItemClickListener
 
-class AppointmentOnClickListener(val context: Context, val usertype: String) : OnItemClickListener, AppointmentDB.CompleteAppointmentSuccessListener, AppointmentDB.CompleteAppointmentFailureListener, AppointmentDB.UpdatePrescriptionSuccessListener, AppointmentDB.UpdatePrescriptionFailureListener{
+class AppointmentOnClickListener(val context: Context, val usertype: String, val apptype: String) : OnItemClickListener, AppointmentDB.CompleteAppointmentSuccessListener, AppointmentDB.CompleteAppointmentFailureListener, AppointmentDB.UpdatePrescriptionSuccessListener, AppointmentDB.UpdatePrescriptionFailureListener, AppointmentDB.DeleteAppointmentByIdSuccessListener, AppointmentDB.DeleteAppointmentByIdFailureListener{
 
     lateinit var dialog: AlertDialog
     lateinit var layoutInflater: LayoutInflater
@@ -26,12 +25,12 @@ class AppointmentOnClickListener(val context: Context, val usertype: String) : O
 
     override fun onItemClick(item: Item<*>, view: View) {
 
-        if ( item is HistoryAdapter )
+        if ( apptype == "history" )
         {
             item as HistoryAdapter
             app = item.app
         }
-        else
+        else if ( apptype == "notif" )
         {
             item as NotificationAdapter
             app = item.app
@@ -42,12 +41,15 @@ class AppointmentOnClickListener(val context: Context, val usertype: String) : O
         appdb.setCompleteAppointmentFailureListener(this)
         appdb.setUpdatePrescriptionSuccessListener(this)
         appdb.setUpdatePrescriptionFailureListener(this)
+        appdb.setDeleteAppointmentByIdSuccessListener(this)
+        appdb.setDeleteAppointmentByIdSuccessListener(this)
 
         layoutInflater = LayoutInflater.from(context)
         dialog = AlertDialog.Builder(context).create()
         val dialogview = layoutInflater.inflate(R.layout.layout_appointment_details, null)
 
-        val button = dialogview.findViewById<Button>(R.id.view_appointment_layout_button)
+        val button1 = dialogview.findViewById<Button>(R.id.view_appointment_layout_button1)
+        val button2 = dialogview.findViewById<Button>(R.id.view_appointment_layout_button2)
         val drugTextBox = dialogview.findViewById<EditText>(R.id.prescription_appointment_drugs)
         val diagnosisTextBox = dialogview.findViewById<EditText>(R.id.prescription_appointment_diagnosis)
         dialogview.findViewById<TextView>(R.id.doctor_name_appointment_details).text = app.slot.doctor.name
@@ -58,22 +60,29 @@ class AppointmentOnClickListener(val context: Context, val usertype: String) : O
 
         if ( usertype == "doctor" )
         {
-            button.text = "Update Prescription"
-            button.setOnClickListener {
-                if ( drugTextBox.text.isEmpty() || diagnosisTextBox.text.isEmpty() )
-                {
-                    Toast.makeText(context, "Please enter a valid prescription (diagnosis, drugs) before updating it", Toast.LENGTH_SHORT).show()
+            button2.visibility = View.GONE
+            if ( apptype == "notif" )
+            {
+                button1.text = "Update Prescription"
+                button1.setOnClickListener {
+                    if ( drugTextBox.text.isEmpty() || diagnosisTextBox.text.isEmpty() )
+                    {
+                        Toast.makeText(context, "Please enter a valid prescription (diagnosis, drugs) before updating it", Toast.LENGTH_SHORT).show()
+                    }
+                    else
+                    {
+                        val pres = "Diagnosis: " + diagnosisTextBox.text.toString() + " Drugs: " + drugTextBox.text.toString()
+                        appdb.updatePrescription(app.id, pres)
+                    }
                 }
-                else
-                {
-                    val pres = "Diagnosis: " + diagnosisTextBox.text.toString() + " Drugs: " + drugTextBox.text.toString()
-                    appdb.updatePrescription(app.id, pres)
-                }
+            }
+            else if ( apptype == "history" )
+            {
+                button1.visibility = View.GONE
             }
         }
         else if ( usertype == "patient" )
         {
-            button.text = "Complete appointment"
             var drugs: String
             var diagnosis: String
             if ( app.prescription == "NONE" )
@@ -87,11 +96,28 @@ class AppointmentOnClickListener(val context: Context, val usertype: String) : O
                 diagnosis = temp.substring(app.prescription.indexOf("Diagnosis: ").plus(11), app.prescription.indexOf("Drugs: "))
                 temp = app.prescription
                 drugs = temp.substring(app.prescription.indexOf("Drugs: ").plus(7), app.prescription.lastIndex+1)
-                drugTextBox.setText(drugs)
-                diagnosisTextBox.setText(diagnosis)
-                button.setOnClickListener {
+            }
+            drugTextBox.setText(drugs)
+            diagnosisTextBox.setText(diagnosis)
+            drugTextBox.isFocusable = false
+            drugTextBox.isEnabled = false
+            diagnosisTextBox.isFocusable = false
+            diagnosisTextBox.isEnabled = false
+            if ( apptype == "notif" )
+            {
+                button1.text = "Complete appointment"
+                button1.setOnClickListener {
                     appdb.completeAppointment(app.id)
                 }
+                button2.text = "Delete appointment"
+                button2.setOnClickListener {
+                    appdb.deleteAppointmentById(app.id)
+                }
+            }
+            else
+            {
+                button1.visibility = View.GONE
+                button2.visibility = View.GONE
             }
         }
         dialog.setView(dialogview)
@@ -106,6 +132,16 @@ class AppointmentOnClickListener(val context: Context, val usertype: String) : O
 
     override fun completeAppointmentFailure(message: String?) {
         Toast.makeText(context, "Failed to complete appointment. Please try again.", Toast.LENGTH_SHORT).show()
+        dialog.dismiss()
+    }
+
+    override fun deleteAppointmentByIdSuccess() {
+        Toast.makeText(context, "Successfully deleted appointment", Toast.LENGTH_SHORT).show()
+        dialog.dismiss()
+    }
+
+    override fun deleteAppointmentByIdFailure(message: String?) {
+        Toast.makeText(context, "Failed to delete appointment", Toast.LENGTH_SHORT).show()
         dialog.dismiss()
     }
 
