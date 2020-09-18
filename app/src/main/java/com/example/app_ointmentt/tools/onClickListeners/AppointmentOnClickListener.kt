@@ -2,26 +2,28 @@ package com.example.app_ointmentt.tools.onClickListeners
 
 import android.app.AlertDialog
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.databasing.AppointmentDB
+import com.example.app_ointmentt.databasing.RatingDB
 import com.example.app_ointmentt.models.Appointment
 import com.example.app_ointmentt.tools.adaptersNew.HistoryAdapter
 import com.example.app_ointmentt.tools.adaptersNew.NotificationAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.OnItemClickListener
+import kotlin.math.ceil
 
-class AppointmentOnClickListener(val context: Context, val usertype: String, val apptype: String) : OnItemClickListener, AppointmentDB.CompleteAppointmentSuccessListener, AppointmentDB.CompleteAppointmentFailureListener, AppointmentDB.UpdatePrescriptionSuccessListener, AppointmentDB.UpdatePrescriptionFailureListener, AppointmentDB.DeleteAppointmentByIdSuccessListener, AppointmentDB.DeleteAppointmentByIdFailureListener{
+class AppointmentOnClickListener(val context: Context, val usertype: String, val apptype: String) : OnItemClickListener, AppointmentDB.CompleteAppointmentSuccessListener, AppointmentDB.CompleteAppointmentFailureListener, AppointmentDB.UpdatePrescriptionSuccessListener, AppointmentDB.UpdatePrescriptionFailureListener, AppointmentDB.DeleteAppointmentByIdSuccessListener, AppointmentDB.DeleteAppointmentByIdFailureListener, RatingDB.UpdateRatingByIdSuccessListener, RatingDB.UpdateRatingByIdFailureListener{
 
-    lateinit var dialog: AlertDialog
+    lateinit var dialog1: AlertDialog
+    lateinit var dialog2: AlertDialog
     lateinit var layoutInflater: LayoutInflater
     lateinit var appdb: AppointmentDB
     lateinit var app: Appointment
+    lateinit var ratingdb: RatingDB
 
     override fun onItemClick(item: Item<*>, view: View) {
 
@@ -44,8 +46,13 @@ class AppointmentOnClickListener(val context: Context, val usertype: String, val
         appdb.setDeleteAppointmentByIdSuccessListener(this)
         appdb.setDeleteAppointmentByIdSuccessListener(this)
 
+        ratingdb = RatingDB(context)
+        ratingdb.setUpdateRatingByIdSuccessListener(this)
+        ratingdb.setUpdateRatingByIdFailureListener(this)
+
         layoutInflater = LayoutInflater.from(context)
-        dialog = AlertDialog.Builder(context).create()
+        dialog1 = AlertDialog.Builder(context).create()
+        dialog2 = AlertDialog.Builder(context).create()
         val dialogview = layoutInflater.inflate(R.layout.layout_appointment_details, null)
 
         val button1 = dialogview.findViewById<Button>(R.id.view_appointment_layout_button1)
@@ -107,6 +114,7 @@ class AppointmentOnClickListener(val context: Context, val usertype: String, val
             {
                 button1.text = "Complete appointment"
                 button1.setOnClickListener {
+                    Log.d("COMPBUTTONPRESSED", "${app.id}")
                     appdb.completeAppointment(app.id)
                 }
                 button2.text = "Delete appointment"
@@ -120,38 +128,62 @@ class AppointmentOnClickListener(val context: Context, val usertype: String, val
                 button2.visibility = View.GONE
             }
         }
-        dialog.setView(dialogview)
-        dialog.setCancelable(true)
-        dialog.show()
+        dialog1.setView(dialogview)
+        dialog1.setCancelable(true)
+        dialog1.show()
     }
 
     override fun completeAppointmentSuccess() {
         Toast.makeText(context, "Successfully completed appointment", Toast.LENGTH_SHORT).show()
-        dialog.dismiss()
+        dialog1.dismiss()
+        val newDialogView = layoutInflater.inflate(R.layout.cardview_rating_dotor, null)
+        val ratingBar = newDialogView.findViewById<RatingBar>(R.id.rating_bar)
+        val rateButton = newDialogView.findViewById<Button>(R.id.rating_button)
+        rateButton.setOnClickListener {
+            val rating = ceil(ratingBar.rating)
+            val rateMap = mutableMapOf<String, String>()
+            rateMap["doctorId"] = app.slot.doctorId
+            rateMap["rating"] = rating.toString()
+            ratingdb.updateRatingById(rateMap)
+        }
+        dialog2.setView(newDialogView)
+        dialog2.setCancelable(true)
+        dialog2.show()
     }
 
     override fun completeAppointmentFailure(message: String?) {
+        Log.d("APPCOMPFAIL", "$message")
         Toast.makeText(context, "Failed to complete appointment. Please try again.", Toast.LENGTH_SHORT).show()
-        dialog.dismiss()
+        dialog1.dismiss()
     }
 
     override fun deleteAppointmentByIdSuccess() {
         Toast.makeText(context, "Successfully deleted appointment", Toast.LENGTH_SHORT).show()
-        dialog.dismiss()
+        dialog1.dismiss()
     }
 
     override fun deleteAppointmentByIdFailure(message: String?) {
         Toast.makeText(context, "Failed to delete appointment", Toast.LENGTH_SHORT).show()
-        dialog.dismiss()
+        dialog1.dismiss()
     }
 
     override fun updatePrescriptionSuccess() {
         Toast.makeText(context, "Successfully updated prescription", Toast.LENGTH_SHORT).show()
-        dialog.dismiss()
+        dialog1.dismiss()
     }
 
     override fun updatePrescriptionFailure(message: String?) {
         Toast.makeText(context, "Failed to update prescription. Please try again.", Toast.LENGTH_SHORT).show()
-        dialog.dismiss()
+        dialog1.dismiss()
+    }
+
+    override fun updateRatingByIdSuccess() {
+        Toast.makeText(context, "Successfully rated doctor", Toast.LENGTH_SHORT).show()
+        dialog2.dismiss()
+    }
+
+    override fun updateRatingByIdFailure(message: String?) {
+        Toast.makeText(context, "Failed to rate doctor", Toast.LENGTH_SHORT).show()
+        dialog2.dismiss()
     }
 }
