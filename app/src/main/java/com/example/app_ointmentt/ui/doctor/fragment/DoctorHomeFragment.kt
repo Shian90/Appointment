@@ -205,10 +205,7 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener, SlotDB.
         doneDialog = Dialog(mContext)
         doneDialog.setContentView(R.layout.fragment_appointment_confirmation)
         doneDialog.show()
-        val homeBtn = doneDialog.findViewById<View>(R.id.goBackHomeBtn)
-        homeBtn.setOnClickListener {
-            doneDialog.dismiss()
-        }
+
         Log.d("SlotCreationSuccessful", "Successfully Created slots.")
         Toast.makeText(mContext, "You have successfully created slots for appointments.", Toast.LENGTH_SHORT).show()
     }

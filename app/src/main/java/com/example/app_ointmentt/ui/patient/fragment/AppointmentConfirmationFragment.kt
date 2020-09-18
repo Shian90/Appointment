@@ -17,7 +17,7 @@ class AppointmentConfirmationFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_appointment_confirmation,container,false)
-        view.goBackHomeBtn.setOnClickListener{
+       /* view.goBackHomeBtn.setOnClickListener{
             val fragment =
                 PatientHomeFragment()
             val activity = view.context as AppCompatActivity
@@ -25,7 +25,7 @@ class AppointmentConfirmationFragment: Fragment() {
                 fragment,
                 fragment.javaClass.simpleName)
                 .commit()
-        }
+        }*/
         return view
     }
 }

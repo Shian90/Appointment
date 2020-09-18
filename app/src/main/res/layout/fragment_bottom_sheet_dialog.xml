@@ -15,7 +15,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Change to make"
-        android:textSize="20sp" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="25sp"
+        android:layout_marginBottom="20dp"/>
 
     <EditText
         android:id="@+id/updateProfileEditText"
@@ -23,7 +25,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:hint="Enter Changes"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        />
 
     <Spinner
         android:id="@+id/spinner"
@@ -32,10 +35,12 @@
 
     <Button
         android:id="@+id/updateProfileBtn"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@android:color/holo_blue_dark"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center"
+        android:background="@drawable/ic_rounded_button"
         android:text="Update Profile"
         android:textColor="@android:color/white" />
 

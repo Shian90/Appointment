@@ -2,14 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +32,7 @@
                     android:layout_gravity="right"
                     android:layout_margin="5dp"
                     android:background="@color/colorPrimary"
-                    android:src="@drawable/abc_vector_test" />
+                    android:src="@drawable/ic_logout" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -68,6 +70,7 @@
                             android:layout_height="30dp"
                             android:layout_gravity="center"
                             android:src="@drawable/plusicon"
+                            android:background="#FFFAFA"
                             />
                     </LinearLayout>
 
@@ -101,7 +104,8 @@
                         android:layout_height="30dp"
                         android:layout_marginStart="190dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/plusicon" />
+                        android:src="@drawable/plusicon"
+                        android:background="#FFFAFA"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -122,7 +126,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="190dp"
-                        android:background="@color/White"
+                        android:background="#FFFAFA"
                         android:layout_gravity="center"
                         android:src="@drawable/plusicon" />
                 </LinearLayout>
@@ -143,7 +147,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="190dp"
-                        android:src="@drawable/plusicon" />
+                        android:src="@drawable/plusicon"
+                        android:background="#FFFAFA"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -162,7 +167,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="190dp"
-                        android:src="@drawable/plusicon" />
+                        android:src="@drawable/plusicon"
+                        android:background="#FFFAFA"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -181,7 +187,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="190dp"
-                        android:src="@drawable/plusicon" />
+                        android:src="@drawable/plusicon"
+                        android:background="#FFFAFA"/>
                 </LinearLayout>
 
 
@@ -203,7 +210,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="190dp"
-                        android:src="@drawable/plusicon" />
+                        android:src="@drawable/plusicon"
+                        android:background="#FFFAFA"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -224,7 +232,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="190dp"
-                        android:src="@drawable/plusicon" />
+                        android:src="@drawable/plusicon"
+                        android:background="#FFFAFA"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -245,7 +254,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="190dp"
-                        android:src="@drawable/plusicon" />
+                        android:src="@drawable/plusicon"
+                        android:background="#FFFAFA"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

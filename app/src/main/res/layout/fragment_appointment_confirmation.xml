@@ -34,18 +34,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_tick_mark_white" />
 
-    <Button
-        android:id="@+id/goBackHomeBtn"
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_marginTop="68dp"
-        android:background="@drawable/ic_rounded_button"
-        android:text="Home"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
