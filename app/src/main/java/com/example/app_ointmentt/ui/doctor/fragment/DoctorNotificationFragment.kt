@@ -12,13 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.adaptersNew.NotificationAdapter
+import com.example.app_ointmentt.tools.adaptersNew.NotificationAdapter
 import com.example.app_ointmentt.databasing.AppointmentDB
-import com.example.app_ointmentt.dataset.Rawdata
 import com.example.app_ointmentt.models.Appointment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import kotlinx.android.synthetic.main.fragment_doctor_notification.view.*
 
 class DoctorNotificationFragment : Fragment(),
     AppointmentDB.ViewUpcomingAppointmentsDoctorSuccessListener,

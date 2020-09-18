@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.adaptersNew.HistoryAdapter
+import com.example.app_ointmentt.tools.adaptersNew.HistoryAdapter
 import com.example.app_ointmentt.databasing.AppointmentDB
 import com.example.app_ointmentt.models.Appointment
 import com.xwray.groupie.GroupAdapter

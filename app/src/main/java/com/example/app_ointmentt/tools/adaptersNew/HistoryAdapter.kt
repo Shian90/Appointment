@@ -1,4 +1,4 @@
-package com.example.app_ointmentt.adaptersNew
+package com.example.app_ointmentt.tools.adaptersNew
 
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.models.Appointment
