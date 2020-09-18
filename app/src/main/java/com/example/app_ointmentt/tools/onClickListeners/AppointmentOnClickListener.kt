@@ -87,11 +87,11 @@ class AppointmentOnClickListener(val context: Context, val usertype: String) : O
                 diagnosis = temp.substring(app.prescription.indexOf("Diagnosis: ").plus(11), app.prescription.indexOf("Drugs: "))
                 temp = app.prescription
                 drugs = temp.substring(app.prescription.indexOf("Drugs: ").plus(7), app.prescription.lastIndex+1)
-                drugTextBox.setText(drugs)
-                diagnosisTextBox.setText(diagnosis)
-                button.setOnClickListener {
-                    appdb.completeAppointment(app.id)
-                }
+            }
+            drugTextBox.setText(drugs)
+            diagnosisTextBox.setText(diagnosis)
+            button.setOnClickListener {
+                appdb.completeAppointment(app.id)
             }
         }
         dialog.setView(dialogview)
