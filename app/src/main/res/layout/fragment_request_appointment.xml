@@ -28,10 +28,22 @@
         app:layout_constraintStart_toStartOf="@+id/doctorProfileAppointment"
         app:layout_constraintTop_toBottomOf="@+id/doctorProfileAppointment" />
 
+    <TextView
+        android:id="@+id/doctorDetailsRequestAppointment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="All Details about the doctor."
+        app:layout_constraintEnd_toEndOf="@+id/doctorNameRequestAppointment"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="@+id/doctorNameRequestAppointment"
+        app:layout_constraintTop_toBottomOf="@+id/doctorNameRequestAppointment" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/doctor_slot_recycler_view"
         android:layout_width="418dp"
         android:layout_height="480dp"
+        android:layout_marginTop="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.571"
