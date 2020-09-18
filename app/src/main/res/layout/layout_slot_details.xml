@@ -7,73 +7,75 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="Slot Details"
-        android:textSize="40dp"
         android:textColor="@color/colorPrimary"
-        android:fontFamily="sans-serif-medium"
-        app:layout_constraintBottom_toTopOf="@+id/date_slot_details"
+        android:textSize="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.458" />
+        app:layout_constraintVertical_bias="0.123" />
 
     <TextView
         android:id="@+id/date_slot_details"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginBottom="168dp"
         android:gravity="center"
         android:hint="Date"
         android:textColor="@color/colorPrimary"
         android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/generic_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.507" />
 
     <TextView
         android:id="@+id/hyphen"
-        android:layout_width="50dp"
+        android:layout_width="20dp"
         android:layout_height="50dp"
-        android:layout_marginStart="72dp"
         android:gravity="center"
         android:hint="-"
         android:textSize="50dp"
         app:layout_constraintBottom_toTopOf="@+id/generic_button"
         app:layout_constraintEnd_toStartOf="@+id/end_time_slot_details"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/start_time_slot_details"
         app:layout_constraintTop_toBottomOf="@+id/date_slot_details"
-        app:layout_constraintVertical_bias="0.35" />
+        app:layout_constraintVertical_bias="0.352" />
 
     <TextView
         android:id="@+id/start_time_slot_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
         android:hint="Start Time"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/generic_button"
-        app:layout_constraintEnd_toStartOf="@+id/end_time_slot_details"
-        app:layout_constraintHorizontal_bias="0.242"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.298"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_slot_details"
-        app:layout_constraintVertical_bias="0.474" />
+        app:layout_constraintVertical_bias="0.437" />
 
     <TextView
         android:id="@+id/end_time_slot_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="96dp"
         android:hint="End Time"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/generic_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.681"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_slot_details"
-        app:layout_constraintVertical_bias="0.474" />
+        app:layout_constraintVertical_bias="0.437" />
 
     <Button
         android:id="@+id/generic_button"
