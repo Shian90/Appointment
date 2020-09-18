@@ -20,9 +20,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
 
-class SeeAllDoctorsFragment : Fragment(),
-    DoctorDB.GetDoctorsSuccessListener,
-    DoctorDB.GetDoctorsFailureListener {
+class SeeAllDoctorsFragment : Fragment(), DoctorDB.GetDoctorsSuccessListener, DoctorDB.GetDoctorsFailureListener {
 
     private lateinit var iHomepage: IHomepage
     lateinit var doctorsRecyclerView: RecyclerView
@@ -30,6 +28,7 @@ class SeeAllDoctorsFragment : Fragment(),
     lateinit var ddb: DoctorDB
     lateinit var allDoctorsArrayOverall: ArrayList<Doctor>
     lateinit var specialty: String
+
     companion object {
         private const val ARGS_DOCTOR_SPECIALTY = "specialty"
         fun newInstance(specialty: String): SeeAllDoctorsFragment{

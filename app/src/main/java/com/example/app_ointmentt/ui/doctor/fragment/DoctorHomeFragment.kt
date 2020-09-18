@@ -24,8 +24,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener,
-    SlotDB.createSlotFailureListener {
+class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener, SlotDB.createSlotFailureListener {
+
     private lateinit var iHomeFragment: IHomepage
     lateinit var startTime: String
     lateinit var endTime: String
