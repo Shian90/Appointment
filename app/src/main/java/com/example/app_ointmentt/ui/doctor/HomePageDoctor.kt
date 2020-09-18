@@ -67,7 +67,6 @@ class HomePageDoctor : AppCompatActivity(),IHomepage {
 
     override fun setToolbarTitle(fragmentTag: String?) {
         toolbar!!.toolbarTitle.text = fragmentTag
-        toolbar.searchView.visibility = View.GONE
     }
 
 }
