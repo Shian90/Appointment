@@ -40,7 +40,8 @@
                 android:layout_margin="5dp"
                 android:layout_marginStart="15dp"
                 android:text="  Doctor Type"
-                android:textColor="#000000"
+                android:textColor="#333333"
+                android:fontFamily="sans-serif-medium"
                 android:textSize="26sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/expandableLayout"
@@ -85,7 +86,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_margin="10dp"
-                            android:src="@drawable/profile" />
+                            android:src="@drawable/doc1" />
 
                         <TextView
                             android:clickable="false"
@@ -94,6 +95,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:textColor="#333333"
+                            android:fontFamily="sans-serif-medium"
                             android:text="loading..." />
                     </LinearLayout>
 
@@ -114,7 +117,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_margin="10dp"
-                            android:src="@drawable/profile" />
+                            android:src="@drawable/doc2" />
 
                         <TextView
                             android:clickable="false"
@@ -123,6 +126,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:textColor="#333333"
+                            android:fontFamily="sans-serif-medium"
                             android:text="loading..." />
                     </LinearLayout>
 
@@ -143,7 +148,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_margin="10dp"
-                            android:src="@drawable/profile" />
+                            android:src="@drawable/doc3" />
 
                         <TextView
                             android:clickable="false"
@@ -152,6 +157,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:textColor="#333333"
+                            android:fontFamily="sans-serif-medium"
                             android:text="loading..." />
                     </LinearLayout>
 
@@ -172,7 +179,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_margin="10dp"
-                            android:src="@drawable/profile" />
+                            android:src="@drawable/doc4" />
 
                         <TextView
                             android:clickable="false"
@@ -181,6 +188,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:textColor="#333333"
+                            android:fontFamily="sans-serif-medium"
                             android:text="loading..." />
                     </LinearLayout>
 
@@ -201,7 +210,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_margin="10dp"
-                            android:src="@drawable/profile" />
+                            android:src="@drawable/doc5" />
 
                         <TextView
                             android:clickable="false"
@@ -210,6 +219,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:textColor="#333333"
+                            android:fontFamily="sans-serif-medium"
                             android:text="loading..." />
                     </LinearLayout>
 
