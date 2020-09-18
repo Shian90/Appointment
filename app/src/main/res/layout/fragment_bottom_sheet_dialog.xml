@@ -32,10 +32,10 @@
 
     <Button
         android:id="@+id/updateProfileBtn"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@android:color/holo_blue_dark"
+        android:background="@drawable/ic_rounded_button"
         android:text="Update Profile"
         android:textColor="@android:color/white" />
 
