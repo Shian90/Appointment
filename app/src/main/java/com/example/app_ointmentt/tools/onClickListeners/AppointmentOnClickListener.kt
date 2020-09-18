@@ -83,10 +83,6 @@ class AppointmentOnClickListener(val context: Context, val usertype: String, val
             }
             drugTextBox.setText(drugs)
             diagnosisTextBox.setText(diagnosis)
-            drugTextBox.isFocusable = false
-            drugTextBox.isEnabled = false
-            diagnosisTextBox.isFocusable = false
-            diagnosisTextBox.isEnabled = false
             button2.visibility = View.GONE
             if ( apptype == "notif" )
             {
@@ -105,6 +101,10 @@ class AppointmentOnClickListener(val context: Context, val usertype: String, val
             }
             else if ( apptype == "history" )
             {
+                drugTextBox.isFocusable = false
+                drugTextBox.isEnabled = false
+                diagnosisTextBox.isFocusable = false
+                diagnosisTextBox.isEnabled = false
                 button1.visibility = View.GONE
             }
         }
