@@ -36,10 +36,13 @@
             <Button
 
                 android:id="@+id/rating_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="45dp"
                 android:layout_marginEnd="16dp"
-                android:text="Button"
+                android:layout_marginBottom="20px"
+                android:text="Rate"
+                android:textColor="@color/White"
+                android:background="@drawable/ic_rounded_button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.898"
