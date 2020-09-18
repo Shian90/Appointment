@@ -135,7 +135,7 @@
         app:layout_constraintVertical_bias="0.642" />
 
     <Button
-        android:id="@+id/view_appointment_layout_button"
+        android:id="@+id/view_appointment_layout_button1"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_rounded_button"
@@ -143,8 +143,22 @@
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/prescription_appointment_drugs"
-        app:layout_constraintHorizontal_bias="0.637"
+        app:layout_constraintHorizontal_bias="0.292"
         app:layout_constraintStart_toStartOf="@+id/prescription_appointment_drugs"
         app:layout_constraintTop_toTopOf="@+id/prescription_appointment_drugs"
-        app:layout_constraintVertical_bias="0.833" />
+        app:layout_constraintVertical_bias="0.836" />
+
+    <Button
+        android:id="@+id/view_appointment_layout_button2"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_rounded_button"
+        android:text="Ok"
+        android:textColor="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.758"
+        app:layout_constraintStart_toStartOf="@+id/prescription_appointment_drugs"
+        app:layout_constraintTop_toTopOf="@+id/prescription_appointment_drugs"
+        app:layout_constraintVertical_bias="0.836" />
 </androidx.constraintlayout.widget.ConstraintLayout>

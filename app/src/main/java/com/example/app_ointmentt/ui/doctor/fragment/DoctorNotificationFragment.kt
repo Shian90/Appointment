@@ -15,7 +15,7 @@ import com.example.app_ointmentt.R
 import com.example.app_ointmentt.tools.adaptersNew.NotificationAdapter
 import com.example.app_ointmentt.databasing.AppointmentDB
 import com.example.app_ointmentt.models.Appointment
-import com.example.app_ointmentt.tools.onClickListeners.appointmentOnClickListener
+import com.example.app_ointmentt.tools.onClickListeners.AppointmentOnClickListener
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -70,7 +70,7 @@ class DoctorNotificationFragment : Fragment(), AppointmentDB.ViewUpcomingAppoint
             doctorNotificationRecyclerViewAdapter.add(NotificationAdapter(it, "doctor"))
         }
         doctorNotificationRecyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL ,false)
-        val listener = appointmentOnClickListener(mContext, "doctor")
+        val listener = AppointmentOnClickListener(mContext, "doctor", "notif")
         doctorNotificationRecyclerViewAdapter.setOnItemClickListener(listener)
         doctorNotificationRecyclerView.adapter = doctorNotificationRecyclerViewAdapter
 

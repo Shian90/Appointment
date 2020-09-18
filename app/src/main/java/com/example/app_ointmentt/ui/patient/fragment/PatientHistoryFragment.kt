@@ -15,7 +15,7 @@ import com.example.app_ointmentt.R
 import com.example.app_ointmentt.tools.adaptersNew.HistoryAdapter
 import com.example.app_ointmentt.databasing.AppointmentDB
 import com.example.app_ointmentt.models.Appointment
-import com.example.app_ointmentt.tools.onClickListeners.appointmentOnClickListener
+import com.example.app_ointmentt.tools.onClickListeners.AppointmentOnClickListener
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -69,7 +69,7 @@ class PatientHistoryFragment : Fragment(),
             patientHistoryRecyclerViewAdapter.add(HistoryAdapter(it, "patient"))
         }
         patientHistoryRecylerView.layoutManager = LinearLayoutManager(mContext)
-        val listener = appointmentOnClickListener(mContext, "patient")
+        val listener = AppointmentOnClickListener(mContext, "patient", "history")
         patientHistoryRecyclerViewAdapter.setOnItemClickListener(listener)
         patientHistoryRecylerView.adapter = patientHistoryRecyclerViewAdapter
     }

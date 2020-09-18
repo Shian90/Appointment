@@ -14,6 +14,7 @@ import com.example.app_ointmentt.R
 import com.example.app_ointmentt.databasing.SlotDB
 import com.example.app_ointmentt.models.Slot
 import com.example.app_ointmentt.tools.adaptersNew.SlotAdapter
+import com.example.app_ointmentt.tools.onClickListeners.SlotOnClickListener
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_request_appointment.view.*
@@ -96,6 +97,8 @@ class PatientRequestAppointment : Fragment(),SlotDB.viewAllSlotsByDoctorSuccessL
             slotsRecyclerAdapter.add(SlotAdapter(it))
         }
         slotsRecyclerView.layoutManager = LinearLayoutManager(mContext)
+        val listener = SlotOnClickListener(mContext, "patient")
+        slotsRecyclerAdapter.setOnItemClickListener(listener)
         slotsRecyclerView.adapter = slotsRecyclerAdapter
     }
 
