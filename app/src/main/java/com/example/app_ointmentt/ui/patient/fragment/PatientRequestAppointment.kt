@@ -44,10 +44,10 @@ class PatientRequestAppointment : Fragment(),SlotDB.viewAllSlotsByDoctorSuccessL
         val slotDB = SlotDB(activity as AppCompatActivity)
         slotDB.setViewAllSlotsByDoctorFailureListener(this)
         slotDB.setViewAllSlotsByDoctorSuccessListener(this)
-        view.requestAppointmentbtn.setOnClickListener{
-            //Code for requesting Appointment
-            slotDB.viewAllSlotsByDoctor(doctorId)
-        }
+//        view.requestAppointmentbtn.setOnClickListener{
+//            //Code for requesting Appointment
+//            slotDB.viewAllSlotsByDoctor(doctorId)
+//        }
         return view
     }
 

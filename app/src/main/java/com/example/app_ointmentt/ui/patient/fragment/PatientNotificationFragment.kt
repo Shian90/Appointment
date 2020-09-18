@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.adaptersNew.NotificationAdapter
+import com.example.app_ointmentt.tools.adaptersNew.NotificationAdapter
 import com.example.app_ointmentt.databasing.AppointmentDB
 import com.example.app_ointmentt.models.Appointment
+import com.example.app_ointmentt.tools.onClickListeners.appointmentOnClickListener
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -69,6 +70,8 @@ class PatientNotificationFragment : Fragment(),
            patientNotificationRecyclerViewAdapter.add(NotificationAdapter(it, "patient"))
         }
         patientNotificationRecyclerView.layoutManager = LinearLayoutManager(mContext)
+        val listener = appointmentOnClickListener(mContext, "patient")
+        patientNotificationRecyclerViewAdapter.setOnItemClickListener(listener)
         patientNotificationRecyclerView.adapter = patientNotificationRecyclerViewAdapter
 
     }

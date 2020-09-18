@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.adaptersNew.AllDoctorAdapter
+import com.example.app_ointmentt.tools.adaptersNew.AllDoctorAdapter
 import com.example.app_ointmentt.databasing.DoctorDB
 import com.example.app_ointmentt.models.Doctor
 import com.example.app_ointmentt.utils.loadSharedPreference
