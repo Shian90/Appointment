@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="300dp">
 
     <TextView
         android:id="@+id/textView5"
@@ -17,76 +16,78 @@
         android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.123" />
+        app:layout_constraintVertical_bias="0.105" />
 
     <TextView
         android:id="@+id/date_slot_details"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginBottom="168dp"
         android:gravity="center"
         android:hint="Date"
         android:textColor="@color/colorPrimary"
         android:textSize="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/generic_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.507" />
+        app:layout_constraintVertical_bias="0.083" />
 
     <TextView
         android:id="@+id/hyphen"
-        android:layout_width="20dp"
-        android:layout_height="50dp"
+        android:layout_width="135dp"
+        android:layout_height="30dp"
         android:gravity="center"
         android:hint="-"
-        android:textSize="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/generic_button"
-        app:layout_constraintEnd_toStartOf="@+id/end_time_slot_details"
-        app:layout_constraintStart_toEndOf="@+id/start_time_slot_details"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_slot_details"
-        app:layout_constraintVertical_bias="0.352" />
+        app:layout_constraintVertical_bias="0.244" />
 
     <TextView
         android:id="@+id/start_time_slot_details"
-        android:layout_width="wrap_content"
+        android:layout_width="135dp"
         android:layout_height="wrap_content"
         android:hint="Start Time"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/generic_button"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/hyphen"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.298"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_slot_details"
-        app:layout_constraintVertical_bias="0.437" />
+        app:layout_constraintTop_toTopOf="@+id/hyphen"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/end_time_slot_details"
-        android:layout_width="wrap_content"
+        android:layout_width="135dp"
         android:layout_height="wrap_content"
         android:hint="End Time"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/generic_button"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/hyphen"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.681"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_slot_details"
-        app:layout_constraintVertical_bias="0.437" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/hyphen"
+        app:layout_constraintTop_toTopOf="@+id/hyphen"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/generic_button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="196dp"
         android:background="@drawable/ic_rounded_button"
         android:text="Book Appointment"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hyphen"
+        app:layout_constraintVertical_bias="0.627" />
 </androidx.constraintlayout.widget.ConstraintLayout>
