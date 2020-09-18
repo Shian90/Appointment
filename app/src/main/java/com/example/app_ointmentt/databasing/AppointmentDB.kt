@@ -213,7 +213,7 @@ class AppointmentDB(val context: Context) {
         else
         {
             val paramsJSON = JSONObject()
-            paramsJSON.put("appointmentId", appointmentId)
+            paramsJSON.put("appId", appointmentId)
 
             val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
 
@@ -222,7 +222,7 @@ class AppointmentDB(val context: Context) {
 
             call.enqueue(object : Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    mCompleteAppointmentFailureListener.completeAppointmentFailure(t.message)
+                    mCompleteAppointmentFailureListener.completeAppointmentFailure(t.message + "ONFAILURE")
                 }
 
                 override fun onResponse(
@@ -232,7 +232,7 @@ class AppointmentDB(val context: Context) {
                     if (response.isSuccessful) {
                         mCompleteAppointmentSuccessListener.completeAppointmentSuccess()
                     } else {
-                        mCompleteAppointmentFailureListener.completeAppointmentFailure(response.message())
+                        mCompleteAppointmentFailureListener.completeAppointmentFailure(response.message() + "ONUNSUCCESSFULRESPONSE" + response.code())
                     }
                 }
             })
