@@ -48,7 +48,15 @@ class SlotOnClickListener(val context: Context, val usertype: String) : OnItemCl
         {
             button.text = "Delete slot"
             button.setOnClickListener {
-                slotdb.deleteSlotById(slot.id)
+                if ( slot.status == 1 )
+                {
+                    Toast.makeText(context, "This slot is already booked. Please ask the patient to delete the appointment", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                }
+                else
+                {
+                    slotdb.deleteSlotById(slot.id)
+                }
             }
         }
         else if ( usertype == "patient" )
