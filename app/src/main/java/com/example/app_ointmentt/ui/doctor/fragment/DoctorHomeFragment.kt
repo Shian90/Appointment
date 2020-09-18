@@ -9,8 +9,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -18,10 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
-import com.example.app_ointmentt.databasing.AppointmentDB
 import com.example.app_ointmentt.databasing.SlotDB
 import com.example.app_ointmentt.models.Slot
-import kotlinx.android.synthetic.main.cardview_doctor_numslots.*
 import kotlinx.android.synthetic.main.fragment_doctor_homepage.*
 import kotlinx.android.synthetic.main.fragment_doctor_homepage.view.*
 import java.text.SimpleDateFormat
@@ -185,7 +181,6 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener,
         Log.d("SlotCreationFailed", "Failed. $message")
         Toast.makeText(mContext, "Slots creation has been failed", Toast.LENGTH_SHORT)
     }
-
 
 }
 
