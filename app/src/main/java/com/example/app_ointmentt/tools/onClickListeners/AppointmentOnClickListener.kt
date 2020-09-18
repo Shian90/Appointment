@@ -59,9 +59,9 @@ class AppointmentOnClickListener(val context: Context, val usertype: String, val
         val button2 = dialogview.findViewById<Button>(R.id.view_appointment_layout_button2)
         val drugTextBox = dialogview.findViewById<EditText>(R.id.prescription_appointment_drugs)
         val diagnosisTextBox = dialogview.findViewById<EditText>(R.id.prescription_appointment_diagnosis)
-        dialogview.findViewById<TextView>(R.id.doctor_name_appointment_details).text = app.slot.doctor.name
-        dialogview.findViewById<TextView>(R.id.patient_name_appointment_details).text = app.patient.name
-        dialogview.findViewById<TextView>(R.id.date_appointment_details).text = app.slot.dateOfSlot
+        dialogview.findViewById<TextView>(R.id.doctor_name_appointment_details2).text = app.slot.doctor.name
+        dialogview.findViewById<TextView>(R.id.patient_name_appointment_details2).text = app.patient.name
+        dialogview.findViewById<TextView>(R.id.date_appointment_details2).text = app.slot.dateOfSlot
         dialogview.findViewById<TextView>(R.id.start_time_appointment_details).text = app.slot.startTime
         dialogview.findViewById<TextView>(R.id.end_time_appointment_details).text = app.slot.endTime
 
