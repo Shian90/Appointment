@@ -67,6 +67,26 @@ class AppointmentOnClickListener(val context: Context, val usertype: String, val
 
         if ( usertype == "doctor" )
         {
+            var drugs: String
+            var diagnosis: String
+            if ( app.prescription == "NONE" )
+            {
+                drugs = "N/A"
+                diagnosis = "N/A"
+            }
+            else
+            {
+                var temp = app.prescription
+                diagnosis = temp.substring(app.prescription.indexOf("Diagnosis: ").plus(11), app.prescription.indexOf("Drugs: "))
+                temp = app.prescription
+                drugs = temp.substring(app.prescription.indexOf("Drugs: ").plus(7), app.prescription.lastIndex+1)
+            }
+            drugTextBox.setText(drugs)
+            diagnosisTextBox.setText(diagnosis)
+            drugTextBox.isFocusable = false
+            drugTextBox.isEnabled = false
+            diagnosisTextBox.isFocusable = false
+            diagnosisTextBox.isEnabled = false
             button2.visibility = View.GONE
             if ( apptype == "notif" )
             {
