@@ -12,10 +12,7 @@ import com.example.app_ointmentt.databasing.AuthDB
 import com.example.app_ointmentt.models.Patient
 import kotlinx.android.synthetic.main.activity_register_patient.*
 
-class RegisterPatient : AppCompatActivity(), AuthDB.RegisterPatientBasicSuccessListener,
-    AuthDB.RegisterPatientBasicFailureListener,
-    AuthDB.LoginPatientSuccessListener,
-    AuthDB.LoginPatientFailureListener {
+class RegisterPatient : AppCompatActivity(), AuthDB.RegisterPatientBasicSuccessListener, AuthDB.RegisterPatientBasicFailureListener, AuthDB.LoginPatientSuccessListener, AuthDB.LoginPatientFailureListener {
 
 
     lateinit var password: String

@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,18 +15,23 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.app_ointmentt.IHomepage
 import com.example.app_ointmentt.R
 import com.example.app_ointmentt.databasing.SlotDB
 import com.example.app_ointmentt.models.Slot
+import com.example.app_ointmentt.tools.adaptersNew.SlotAdapter
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_doctor_homepage.*
 import kotlinx.android.synthetic.main.fragment_doctor_homepage.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener,
-    SlotDB.createSlotFailureListener {
+class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener, SlotDB.createSlotFailureListener, SlotDB.viewAllSlotsByDoctorSuccessListener, SlotDB.viewAllSlotsByDoctorFailureListener {
+
     private lateinit var iHomeFragment: IHomepage
     lateinit var startTime: String
     lateinit var endTime: String
@@ -33,6 +39,13 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener,
     lateinit var slotDialog: Dialog
     lateinit var slotdb: SlotDB
     lateinit var mContext: Context
+    lateinit var slotsRecyclerView: RecyclerView
+    lateinit var slotsOverall: ArrayList<Slot>
+    lateinit var doctorId: String
+
+    //sharedPreference File Name
+    private val sharedPrefFile = "appointmentSharedPref"
+
     var year: Int? = null
     var month: Int? = null
     var day: Int? = null
@@ -50,9 +63,18 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener,
 
         mContext = this.context!!
 
+        val sharedPreferences: SharedPreferences = mContext.getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
+        doctorId = sharedPreferences.getString("uid","")!!
+
+        slotsOverall = arrayListOf()
+
         slotdb = SlotDB(mContext)
         slotdb.setCreateSlotSuccessListener(this)
         slotdb.setCreateSlotFailureListener(this)
+        slotdb.setViewAllSlotsByDoctorSuccessListener(this)
+        slotdb.setViewAllSlotsByDoctorFailureListener(this)
+
+        slotsRecyclerView = view.findViewById(R.id.doctor_slot_recycler_view)
 
         view.noOfSlotsBtn.setOnClickListener {
             showDialog()
@@ -88,6 +110,11 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener,
             }
         }
         return view
+    }
+
+    override fun onStart() {
+        slotdb.viewAllSlotsByDoctor(doctorId)
+        super.onStart()
     }
 
     override fun onAttach(context: Context) {
@@ -180,6 +207,26 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener,
     override fun createSlotFailure(message: String?) {
         Log.d("SlotCreationFailed", "Failed. $message")
         Toast.makeText(mContext, "Slots creation has been failed", Toast.LENGTH_SHORT)
+    }
+
+    override fun viewAllSlotsByDoctorSuccessListener(slotsArray: ArrayList<Slot>) {
+        slotsArray.forEach {
+            slotsOverall.add(it)
+        }
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        val slotsRecyclerAdapter = GroupAdapter<GroupieViewHolder>()
+        slotsOverall.forEach {
+            slotsRecyclerAdapter.add(SlotAdapter(it))
+        }
+        slotsRecyclerView.layoutManager = LinearLayoutManager(mContext)
+        slotsRecyclerView.adapter = slotsRecyclerAdapter
+    }
+
+    override fun viewAllSlotsByDoctorFailureListener(message: String?) {
+        Log.d("Slot View", "No Slot Found")
     }
 
 }

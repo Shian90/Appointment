@@ -19,9 +19,8 @@ import com.example.app_ointmentt.tools.onClickListeners.appointmentOnClickListen
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
-class DoctorHistoryFragment : Fragment(), AppointmentDB.ViewPastAppointmentsDoctorSuccessListener,
-    AppointmentDB.ViewPastAppointmentsDoctorFailureListener {
-    private lateinit var historyAdapter: HistoryAdapter
+class DoctorHistoryFragment : Fragment(), AppointmentDB.ViewPastAppointmentsDoctorSuccessListener, AppointmentDB.ViewPastAppointmentsDoctorFailureListener {
+
     private lateinit var iHomeFragment: IHomepage
     lateinit var doctorHistoryRecylerView: RecyclerView
     lateinit var mContext: Context

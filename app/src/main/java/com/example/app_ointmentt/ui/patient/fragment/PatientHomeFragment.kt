@@ -14,12 +14,15 @@ import com.example.app_ointmentt.dataset.doctorTypeData
 import kotlinx.android.synthetic.main.fragment_patient_homepage.view.*
 
 class PatientHomeFragment : Fragment() {
+
     private lateinit var doctorTypeAdapter: DoctorTypeAdapter
     private lateinit var iHomepage: IHomepage
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         iHomepage.setToolbarTitle("Appointment")
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
