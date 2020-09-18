@@ -120,6 +120,47 @@ class SlotDB(val context: Context) {
 
     }
 
+    fun viewAllUnbookedSlotsByDoctor(doctorId: String)
+    {
+        val slotsArray = arrayListOf<Slot>()
+        val paramsJSON = JSONObject()
+        paramsJSON.put("doctorId", doctorId)
+
+        val params = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), paramsJSON.toString())
+        val call = APIObject.api.viewAllUnbookedSlotsByDoctor(params)
+
+        call.enqueue(object: Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                mViewAllSlotsByDoctorFailureListener.viewAllSlotsByDoctorFailureListener(t.message)
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if ( response.isSuccessful )
+                {
+                    val jsonRes = JSONObject(response.body()!!.string())
+                    val slots = jsonRes.getJSONArray("slots")
+
+                    if(slots.length() != 0){
+                        for(i in 0 until slots.length()){
+                            val slotObj = slots.getJSONObject(i)
+                            val slot = Slot().fromJSON(slotObj)
+                            slotsArray.add(slot)
+                        }
+                        mViewAllSlotsByDoctorSuccessListener.viewAllSlotsByDoctorSuccessListener(slotsArray)
+                    }
+                    else{
+                        mViewAllSlotsByDoctorFailureListener.viewAllSlotsByDoctorFailureListener(response.message())
+                    }
+
+                }
+                else
+                {
+                    mViewAllSlotsByDoctorFailureListener.viewAllSlotsByDoctorFailureListener(response.message())
+                }
+            }
+        })
+    }
+
     fun viewAllSlotsByDoctor(doctorId: String)
     {
         val slotsArray = arrayListOf<Slot>()

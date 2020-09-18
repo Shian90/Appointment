@@ -51,6 +51,9 @@ interface APICalls {
     @POST("slot/viewAllSlotsByDoctorId")
     fun viewAllSlotsByDoctor(@Body params: RequestBody): Call<ResponseBody>
 
+    @POST("slot/viewAllUnbookedSlotsByDoctorId")
+    fun viewAllUnbookedSlotsByDoctor(@Body params: RequestBody): Call<ResponseBody>
+
     @POST("slot/deleteSlotByDoctorId")
     fun deleteSlotByDoctorId(@Header("Authorization") jwt: String, @Body params: RequestBody): Call<ResponseBody>
 
@@ -65,7 +68,6 @@ interface APICalls {
 
     @POST("appointment/viewAppointment")
     fun  viewAppointmentById(@Body params: RequestBody): Call<ResponseBody>
-
 
     @POST("appointment/viewPastAppointmentsPatient")
     fun viewPastAppointmentsPatient(@Header("Authorization") jwt: String, @Body params: RequestBody): Call<ResponseBody>
