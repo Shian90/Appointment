@@ -37,29 +37,34 @@
 
     <TextView
         android:id="@+id/hyphen"
-        android:layout_width="135dp"
-        android:layout_height="30dp"
+        android:layout_width="70dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
         android:gravity="center"
         android:hint="-"
+        android:text="-"
+        android:textAlignment="center"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_slot_details"
-        app:layout_constraintVertical_bias="0.244" />
+        app:layout_constraintVertical_bias="0.24" />
 
     <TextView
-        android:layout_marginLeft="5dp"
         android:id="@+id/start_time_slot_details"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:gravity="center_vertical"
         android:hint="Start Time"
+        android:textAlignment="center"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/hyphen"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.062"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/hyphen"
         app:layout_constraintVertical_bias="1.0" />
@@ -68,15 +73,16 @@
         android:id="@+id/end_time_slot_details"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
         android:gravity="center_vertical"
         android:hint="End Time"
+        android:textAlignment="center"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/hyphen"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/hyphen"
         app:layout_constraintTop_toTopOf="@+id/hyphen"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:layout_marginTop="15dp"
