@@ -69,7 +69,7 @@ class AppointmentOnClickListener(val context: Context, val usertype: String, val
 
         if ( usertype == "doctor" )
         {
-            docButton.visibility = View.GONE
+            docButton.visibility = View.INVISIBLE
             var drugs: String
             var diagnosis: String
             if ( app.prescription == "NONE" )
