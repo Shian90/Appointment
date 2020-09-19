@@ -14,6 +14,6 @@ class DoctorOnClickListener(val context: Context) : OnItemClickListener
     override fun onItemClick(item: Item<*>, view: View) {
         item as AllDoctorAdapter
         val temp = item.allDocs
-        changeFragmentFromFragment(PatientRequestAppointment.newInstance(temp.name, temp.id, temp.specialty, temp.address), context, R.id.mainPatient, true)
+        changeFragmentFromFragment(PatientRequestAppointment.newInstance(temp.name, temp.id, temp.specialty, temp.address,temp.gender,temp.blood,temp.phone), context, R.id.mainPatient, true)
     }
 }
