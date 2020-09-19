@@ -1,11 +1,13 @@
 package com.example.app_ointmentt.ui.patient.fragment
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +31,7 @@ class PatientRequestAppointment : Fragment(),SlotDB.viewAllSlotsByDoctorSuccessL
     lateinit var mContext: Context
     lateinit var slotsOverall: ArrayList<Slot>
     lateinit var slotsRecyclerView: RecyclerView
+    lateinit var dialog: AlertDialog
 
     companion object {
         private const val ARGS_DOCTOR_NAME = "doctorName"
@@ -65,7 +68,19 @@ class PatientRequestAppointment : Fragment(),SlotDB.viewAllSlotsByDoctorSuccessL
             doctorAddress = arguments!!.getString(ARGS_DOCTOR_ADDRESS).toString()
         }
         view.doctorNameRequestAppointment.text = doctorName
-
+        view.doctorNameRequestAppointment.setOnClickListener {
+            dialog = AlertDialog.Builder(context).create()
+            val tempDialogView = layoutInflater.inflate(R.layout.profile_sneak_peek, null)
+            tempDialogView.findViewById<TextView>(R.id.ProfileUsername).text = doctorName
+            tempDialogView.findViewById<TextView>(R.id.ProfileAddress).text = doctorAddress
+            tempDialogView.findViewById<TextView>(R.id.ProfileGender).text = "KICCHU EKTA DAOWA LAGBE"
+            tempDialogView.findViewById<TextView>(R.id.ProfileBlood).text = "KICCHU EKTA DAOWA LAGBE"
+            tempDialogView.findViewById<TextView>(R.id.ProfilePhone).text = "KICCHU EKTA DAOWA LAGBE"
+            tempDialogView.findViewById<TextView>(R.id.ProfileSpecial).text = doctorSpecialty
+            dialog.setView(tempDialogView)
+            dialog.setCancelable(true)
+            dialog.show()
+        }
         val doctorDetails = "$doctorSpecialty - $doctorAddress"
         view.doctorDetailsRequestAppointment.text = doctorDetails
         slotsRecyclerView = view.findViewById(R.id.doctor_slot_recycler_view)

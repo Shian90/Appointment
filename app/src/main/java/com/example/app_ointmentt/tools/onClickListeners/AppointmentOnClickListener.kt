@@ -20,6 +20,7 @@ class AppointmentOnClickListener(val context: Context, val usertype: String, val
 
     lateinit var dialog1: AlertDialog
     lateinit var dialog2: AlertDialog
+    lateinit var dialog3: AlertDialog
     lateinit var layoutInflater: LayoutInflater
     lateinit var appdb: AppointmentDB
     lateinit var app: Appointment
@@ -70,6 +71,19 @@ class AppointmentOnClickListener(val context: Context, val usertype: String, val
         if ( usertype == "doctor" )
         {
             docButton.visibility = View.INVISIBLE
+            patButton.setOnClickListener {
+                dialog3 = AlertDialog.Builder(context).create()
+                val tempDialogView = layoutInflater.inflate(R.layout.profile_sneak_peek, null)
+                tempDialogView.findViewById<TextView>(R.id.ProfileUsername).text = app.patient.name
+                tempDialogView.findViewById<TextView>(R.id.ProfileAddress).text = app.patient.address
+                tempDialogView.findViewById<TextView>(R.id.ProfileGender).text = app.patient.gender
+                tempDialogView.findViewById<TextView>(R.id.ProfileBlood).text = app.patient.blood
+                tempDialogView.findViewById<TextView>(R.id.ProfilePhone).text = app.patient.phone
+                tempDialogView.findViewById<TextView>(R.id.ProfileSpecial).text = app.patient.past
+                dialog3.setView(tempDialogView)
+                dialog3.setCancelable(true)
+                dialog3.show()
+            }
             var drugs: String
             var diagnosis: String
             if ( app.prescription == "NONE" )
@@ -114,6 +128,19 @@ class AppointmentOnClickListener(val context: Context, val usertype: String, val
         else if ( usertype == "patient" )
         {
             patButton.visibility = View.GONE
+            docButton.setOnClickListener {
+                dialog3 = AlertDialog.Builder(context).create()
+                val tempDialogView = layoutInflater.inflate(R.layout.profile_sneak_peek, null)
+                tempDialogView.findViewById<TextView>(R.id.ProfileUsername).text = app.slot.doctor.name
+                tempDialogView.findViewById<TextView>(R.id.ProfileAddress).text = app.slot.doctor.address
+                tempDialogView.findViewById<TextView>(R.id.ProfileGender).text = app.slot.doctor.gender
+                tempDialogView.findViewById<TextView>(R.id.ProfileBlood).text = app.slot.doctor.blood
+                tempDialogView.findViewById<TextView>(R.id.ProfilePhone).text = app.slot.doctor.phone
+                tempDialogView.findViewById<TextView>(R.id.ProfileSpecial).text = app.slot.doctor.specialty
+                dialog3.setView(tempDialogView)
+                dialog3.setCancelable(true)
+                dialog3.show()
+            }
             var drugs: String
             var diagnosis: String
             if ( app.prescription == "NONE" )
