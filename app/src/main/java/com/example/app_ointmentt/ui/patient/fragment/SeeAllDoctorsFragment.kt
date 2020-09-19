@@ -15,9 +15,13 @@ import com.example.app_ointmentt.R
 import com.example.app_ointmentt.tools.adaptersNew.AllDoctorAdapter
 import com.example.app_ointmentt.databasing.DoctorDB
 import com.example.app_ointmentt.models.Doctor
+import com.example.app_ointmentt.tools.onClickListeners.DoctorOnClickListener
+import com.example.app_ointmentt.utils.changeFragmentFromFragment
 import com.example.app_ointmentt.utils.loadSharedPreference
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.Item
+import com.xwray.groupie.OnItemClickListener
 
 
 class SeeAllDoctorsFragment : Fragment(), DoctorDB.GetDoctorsSuccessListener, DoctorDB.GetDoctorsFailureListener {
@@ -104,6 +108,8 @@ class SeeAllDoctorsFragment : Fragment(), DoctorDB.GetDoctorsSuccessListener, Do
             doctorsRecyclerViewAdapter.add(AllDoctorAdapter(it))
         }
         doctorsRecyclerView.layoutManager = LinearLayoutManager(mContext)
+        val listener = DoctorOnClickListener(mContext)
+        doctorsRecyclerViewAdapter.setOnItemClickListener(listener)
         doctorsRecyclerView.adapter = doctorsRecyclerViewAdapter
     }
 

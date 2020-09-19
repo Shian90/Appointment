@@ -55,6 +55,8 @@ class AppointmentOnClickListener(val context: Context, val usertype: String, val
         dialog2 = AlertDialog.Builder(context).create()
         val dialogview = layoutInflater.inflate(R.layout.layout_appointment_details, null)
 
+        val patButton = dialogview.findViewById<Button>(R.id.patient_name_button)
+        val docButton = dialogview.findViewById<Button>(R.id.doctor_name_button)
         val button1 = dialogview.findViewById<Button>(R.id.view_appointment_layout_button1)
         val button2 = dialogview.findViewById<Button>(R.id.view_appointment_layout_button2)
         val drugTextBox = dialogview.findViewById<EditText>(R.id.prescription_appointment_drugs)
@@ -67,6 +69,7 @@ class AppointmentOnClickListener(val context: Context, val usertype: String, val
 
         if ( usertype == "doctor" )
         {
+            docButton.visibility = View.GONE
             var drugs: String
             var diagnosis: String
             if ( app.prescription == "NONE" )
@@ -110,6 +113,7 @@ class AppointmentOnClickListener(val context: Context, val usertype: String, val
         }
         else if ( usertype == "patient" )
         {
+            patButton.visibility = View.GONE
             var drugs: String
             var diagnosis: String
             if ( app.prescription == "NONE" )
