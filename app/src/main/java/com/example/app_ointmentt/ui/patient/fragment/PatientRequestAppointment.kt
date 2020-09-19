@@ -27,6 +27,9 @@ class PatientRequestAppointment : Fragment(),SlotDB.viewAllSlotsByDoctorSuccessL
     private lateinit var doctorId:String
     private lateinit var doctorSpecialty: String
     private lateinit var doctorAddress: String
+    private lateinit var doctorGender: String
+    private lateinit var doctorBlood: String
+    private lateinit var doctorPhone: String
     lateinit var slotDB: SlotDB
     lateinit var mContext: Context
     lateinit var slotsOverall: ArrayList<Slot>
@@ -38,7 +41,10 @@ class PatientRequestAppointment : Fragment(),SlotDB.viewAllSlotsByDoctorSuccessL
         private const val ARGS_DOCTOR_ID = "doctorId"
         private const val ARGS_DOCTOR_SPECIALTY = "doctorSpecialty"
         private const val ARGS_DOCTOR_ADDRESS = "doctorAddress"
-        fun newInstance(doctorName: String,doctorId: String,doctorSpecialty: String,doctorAddress: String): PatientRequestAppointment {
+        private const val ARGS_DOCTOR_GENDER = "doctorGender"
+        private const val ARGS_DOCTOR_BLOOD = "doctorBlood"
+        private const val ARGS_DOCTOR_PHONE = "doctorPhone"
+        fun newInstance(doctorName: String,doctorId: String,doctorSpecialty: String,doctorAddress: String,doctorBlood: String,doctorGender: String,doctorPhone: String): PatientRequestAppointment {
             val fragment =
                 PatientRequestAppointment()
             val args  = Bundle()
@@ -46,6 +52,9 @@ class PatientRequestAppointment : Fragment(),SlotDB.viewAllSlotsByDoctorSuccessL
             args.putString(ARGS_DOCTOR_ID,doctorId)
             args.putString(ARGS_DOCTOR_SPECIALTY,doctorSpecialty)
             args.putString(ARGS_DOCTOR_ADDRESS,doctorAddress)
+            args.putString(ARGS_DOCTOR_BLOOD,doctorBlood)
+            args.putString(ARGS_DOCTOR_PHONE,doctorPhone)
+            args.putString(ARGS_DOCTOR_GENDER,doctorGender)
             fragment.arguments = args
             return fragment
         }
@@ -66,6 +75,9 @@ class PatientRequestAppointment : Fragment(),SlotDB.viewAllSlotsByDoctorSuccessL
             doctorId = arguments!!.getString(ARGS_DOCTOR_ID).toString()
             doctorSpecialty = arguments!!.getString(ARGS_DOCTOR_SPECIALTY).toString()
             doctorAddress = arguments!!.getString(ARGS_DOCTOR_ADDRESS).toString()
+            doctorBlood = arguments!!.getString(ARGS_DOCTOR_BLOOD).toString()
+            doctorGender = arguments!!.getString(ARGS_DOCTOR_GENDER).toString()
+            doctorPhone = arguments!!.getString(ARGS_DOCTOR_PHONE).toString()
         }
         view.doctorNameRequestAppointment.text = doctorName
         view.doctorNameRequestAppointment.setOnClickListener {
@@ -73,9 +85,9 @@ class PatientRequestAppointment : Fragment(),SlotDB.viewAllSlotsByDoctorSuccessL
             val tempDialogView = layoutInflater.inflate(R.layout.profile_sneak_peek, null)
             tempDialogView.findViewById<TextView>(R.id.ProfileUsername).text = doctorName
             tempDialogView.findViewById<TextView>(R.id.ProfileAddress).text = doctorAddress
-            tempDialogView.findViewById<TextView>(R.id.ProfileGender).text = "KICCHU EKTA DAOWA LAGBE"
-            tempDialogView.findViewById<TextView>(R.id.ProfileBlood).text = "KICCHU EKTA DAOWA LAGBE"
-            tempDialogView.findViewById<TextView>(R.id.ProfilePhone).text = "KICCHU EKTA DAOWA LAGBE"
+            tempDialogView.findViewById<TextView>(R.id.ProfileGender).text = doctorGender
+            tempDialogView.findViewById<TextView>(R.id.ProfileBlood).text = doctorBlood
+            tempDialogView.findViewById<TextView>(R.id.ProfilePhone).text = doctorPhone
             tempDialogView.findViewById<TextView>(R.id.ProfileSpecial).text = doctorSpecialty
             dialog.setView(tempDialogView)
             dialog.setCancelable(true)

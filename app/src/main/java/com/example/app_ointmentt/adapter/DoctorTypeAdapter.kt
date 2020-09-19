@@ -118,7 +118,10 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                             fragment = PatientRequestAppointment.newInstance(doctorName = doctors[index].doctor.name,
                                 doctorId = doctors[index].doctor.id,
                                 doctorSpecialty = doctors[index].doctor.specialty,
-                                doctorAddress = doctors[index].doctor.address),
+                                doctorAddress = doctors[index].doctor.address,
+                                doctorBlood = doctors[index].doctor.blood,
+                                doctorGender = doctors[index].doctor.gender,
+                                doctorPhone = doctors[index].doctor.phone),
                             context = it.context,
                             root = R.id.mainPatient,
                             addToBackStack = true)
