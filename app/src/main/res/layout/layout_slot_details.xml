@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp">
+    android:layout_height="330dp">
 
     <TextView
         android:id="@+id/textView5"
@@ -50,12 +50,13 @@
         app:layout_constraintVertical_bias="0.244" />
 
     <TextView
+        android:layout_marginLeft="5dp"
         android:id="@+id/start_time_slot_details"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:hint="Start Time"
         android:textSize="20dp"
-        android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/hyphen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -67,9 +68,9 @@
         android:id="@+id/end_time_slot_details"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:hint="End Time"
         android:textSize="20dp"
-        android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/hyphen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -78,6 +79,8 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:id="@+id/generic_button"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
