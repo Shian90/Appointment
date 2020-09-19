@@ -11,7 +11,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,6 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:hint="Loading..."
+                        android:textAlignment="center"
                         android:textColor="@color/colorPrimary"
                         android:textSize="30sp"
                         android:textStyle="bold" />
@@ -70,7 +72,8 @@
                     android:id="@+id/ProfileAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Email Address"
+                    android:text="Placeholder"
+                    android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -84,7 +87,8 @@
                     android:id="@+id/ProfileGender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Email Address"
+                    android:text="Placeholder"
+                    android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -98,7 +102,8 @@
                     android:id="@+id/ProfileBlood"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Email Address"
+                    android:text="Placeholder"
+                    android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -112,7 +117,8 @@
                     android:id="@+id/ProfilePhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Email Address"
+                    android:text="Placeholder"
+                    android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -126,7 +132,8 @@
                     android:id="@+id/ProfileSpecial"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Email Address"
+                    android:text="Placeholder"
+                    android:textAlignment="center"
                     android:textSize="18sp" />
             </LinearLayout>
 
