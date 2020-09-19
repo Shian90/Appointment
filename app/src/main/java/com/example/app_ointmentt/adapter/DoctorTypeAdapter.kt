@@ -79,6 +79,11 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var doctorName3 = itemView.doctorListName3
         var doctorName4 = itemView.doctorListName4
         var doctorName5 = itemView.doctorListName5
+        var doctorRating1 = itemView.doctorrating1
+        var doctorRating2 = itemView.doctorrating2
+        var doctorRating3 = itemView.doctorrating3
+        var doctorRating4 = itemView.doctorrating4
+        var doctorRating5 = itemView.doctorrating5
         var seeAllBtn = itemView.seeAllDoctors
         lateinit var doctors: ArrayList<RatedDoctor>
         fun bind(doctorType: DoctorType){
@@ -106,6 +111,7 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val numberOfDoctors = doctors.size
             val doctorsArray = arrayOf(doctor1,doctor2,doctor3,doctor4,doctor5)
             val doctorNames  = arrayOf(doctorName1,doctorName2,doctorName3,doctorName4,doctorName5)
+            val doctorRatings = arrayOf(doctorRating1,doctorRating2,doctorRating3,doctorRating4,doctorRating5)
             for(index:Int in doctorsArray.indices){
                 if(index > numberOfDoctors -1 ){
                     doctorsArray[index].visibility = View.GONE
@@ -113,6 +119,7 @@ class DoctorTypeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 else{
                     doctorsArray[index].visibility = View.VISIBLE
                     doctorNames[index].text = doctors[index].doctor.name
+                    doctorRatings[index].rating = doctors[index].rating.average.toFloat()
                     doctorsArray[index].setOnClickListener{
                         changeFragmentFromFragment(
                             fragment = PatientRequestAppointment.newInstance(doctorName = doctors[index].doctor.name,
