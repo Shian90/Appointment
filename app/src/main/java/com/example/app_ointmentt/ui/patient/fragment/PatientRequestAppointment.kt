@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +23,8 @@ class PatientRequestAppointment : Fragment(),SlotDB.viewAllSlotsByDoctorSuccessL
 
     private lateinit var doctorName: String
     private lateinit var doctorId:String
+    private lateinit var doctorSpecialty: String
+    private lateinit var doctorAddress: String
     lateinit var slotDB: SlotDB
     lateinit var mContext: Context
     lateinit var slotsOverall: ArrayList<Slot>
@@ -32,12 +33,16 @@ class PatientRequestAppointment : Fragment(),SlotDB.viewAllSlotsByDoctorSuccessL
     companion object {
         private const val ARGS_DOCTOR_NAME = "doctorName"
         private const val ARGS_DOCTOR_ID = "doctorId"
-        fun newInstance(doctorName: String,doctorId: String): PatientRequestAppointment {
+        private const val ARGS_DOCTOR_SPECIALTY = "doctorSpecialty"
+        private const val ARGS_DOCTOR_ADDRESS = "doctorAddress"
+        fun newInstance(doctorName: String,doctorId: String,doctorSpecialty: String,doctorAddress: String): PatientRequestAppointment {
             val fragment =
                 PatientRequestAppointment()
             val args  = Bundle()
             args.putString(ARGS_DOCTOR_NAME,doctorName)
             args.putString(ARGS_DOCTOR_ID,doctorId)
+            args.putString(ARGS_DOCTOR_SPECIALTY,doctorSpecialty)
+            args.putString(ARGS_DOCTOR_ADDRESS,doctorAddress)
             fragment.arguments = args
             return fragment
         }
@@ -56,9 +61,13 @@ class PatientRequestAppointment : Fragment(),SlotDB.viewAllSlotsByDoctorSuccessL
         if(arguments != null){
             doctorName = arguments!!.getString(ARGS_DOCTOR_NAME).toString()
             doctorId = arguments!!.getString(ARGS_DOCTOR_ID).toString()
+            doctorSpecialty = arguments!!.getString(ARGS_DOCTOR_SPECIALTY).toString()
+            doctorAddress = arguments!!.getString(ARGS_DOCTOR_ADDRESS).toString()
         }
         view.doctorNameRequestAppointment.text = doctorName
 
+        val doctorDetails = "$doctorSpecialty - $doctorAddress"
+        view.doctorDetailsRequestAppointment.text = doctorDetails
         slotsRecyclerView = view.findViewById(R.id.doctor_slot_recycler_view)
 
         slotDB = SlotDB(mContext)
