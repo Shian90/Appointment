@@ -56,6 +56,10 @@ class DoctorHistoryFragment : Fragment(), AppointmentDB.ViewPastAppointmentsDoct
         super.onStart()
     }
 
+    override fun onResume() {
+        doctorHistories = arrayListOf()
+        super.onResume()
+    }
     override fun onAttach(context: Context) {
         super.onAttach(context)
         iHomeFragment = activity as IHomepage

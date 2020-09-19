@@ -237,5 +237,10 @@ class DoctorHomeFragment : Fragment(), SlotDB.createSlotSuccessListener, SlotDB.
         Log.d("Slot View", "No Slot Found")
     }
 
+    override fun onResume() {
+        slotsOverall = arrayListOf()
+        super.onResume()
+    }
+
 }
 

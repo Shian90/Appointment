@@ -113,8 +113,10 @@ class SeeAllDoctorsFragment : Fragment(), DoctorDB.GetDoctorsSuccessListener, Do
         doctorsRecyclerView.adapter = doctorsRecyclerViewAdapter
     }
 
-
-
+    override fun onResume() {
+        allDoctorsArrayOverall = arrayListOf()
+        super.onResume()
+    }
 
     override fun getDoctorsSuccess(allDoctorsArray: ArrayList<Doctor>) {
         allDoctorsArray.forEach {

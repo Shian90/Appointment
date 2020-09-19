@@ -58,6 +58,11 @@ class PatientHistoryFragment : Fragment(),
         super.onStart()
     }
 
+    override fun onResume() {
+        patientHistories = arrayListOf()
+        super.onResume()
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         iHomepage = activity as IHomepage
