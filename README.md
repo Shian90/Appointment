@@ -12,4 +12,4 @@ To compile the project yourself
 
 If you wish to contribute, and we welcome contributions with open arms, just drop a pull request :)
 
-For a better explanation of the app
+For a better explanation of the app, go through [this](https://docs.google.com/document/d/1J8R6ytla1cmTxWxvwleRP0GKfbi9EG8wTHkbm13XSME/edit?usp=sharing) document. 
