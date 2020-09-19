@@ -83,16 +83,7 @@ class PatientRequestAppointment : Fragment(),SlotDB.viewAllSlotsByDoctorSuccessL
         super.onStart()
     }
 
-    //    override fun viewAllSlotsByDoctorSuccessListener(slotsArray: ArrayList<Slot>) {
-//        Log.d("Slot View", slotsArray[0].startTime + " " + slotsArray[0].endTime)
-//        val fragment =
-//            AppointmentConfirmationFragment()
-//        val activity = view!!.context as AppCompatActivity
-//        activity.supportFragmentManager.beginTransaction().replace(R.id.mainPatient,
-//            fragment,
-//            fragment.javaClass.simpleName)
-//            .commit()
-//    }
+
     override fun viewAllSlotsByDoctorSuccessListener(slotsArray: ArrayList<Slot>) {
         slotsArray.forEach {
             slotsOverall.add(it)
