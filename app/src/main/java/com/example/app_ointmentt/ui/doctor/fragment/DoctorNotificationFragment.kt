@@ -62,7 +62,10 @@ class DoctorNotificationFragment : Fragment(), AppointmentDB.ViewUpcomingAppoint
         iHomeFragment = activity as IHomepage
     }
 
-
+    override fun onResume() {
+        doctorNotifications = arrayListOf()
+        super.onResume()
+    }
 
     private fun initRecyclerView(){
         val doctorNotificationRecyclerViewAdapter = GroupAdapter<GroupieViewHolder>()

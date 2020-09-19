@@ -63,8 +63,13 @@ class PatientNotificationFragment : Fragment(),
         iHomepage = activity as IHomepage
     }
 
+    override fun onResume() {
+        patientNotifications = arrayListOf()
+        super.onResume()
+    }
 
     private fun initRecyclerView(){
+        Log.d("NOTIFDEBUG", "CALLED initRecyclerView")
         val patientNotificationRecyclerViewAdapter = GroupAdapter<GroupieViewHolder>()
         patientNotifications.forEach{
            patientNotificationRecyclerViewAdapter.add(NotificationAdapter(it, "patient"))
